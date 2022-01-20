@@ -21,6 +21,10 @@
             "Pantheon\\EI\\": "/inc/namespace.php"
         }
     },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml ."
+
+    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
