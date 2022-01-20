@@ -1,0 +1,29 @@
+{
+    "name": "pantheon-systems/pantheon-wordpress-edge-integrations",
+    "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
+    "type": "wordpress-plugin",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/*",
+            "symlink": true
+        }
+    ],
+    "require": {
+        "pantheon-systems/pantheon-edge-integrations": "dev-master"
+    },
+    "require-dev": {
+        "humanmade/coding-standards": "^1.1"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Pantheon\\EI\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}
