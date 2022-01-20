@@ -2,6 +2,7 @@
     "name": "pantheon-systems/pantheon-wordpress-edge-integrations",
     "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
     "type": "wordpress-plugin",
+    "license": "MIT",
     "repositories": [
         {
             "type": "path",
@@ -15,7 +16,6 @@
     "require-dev": {
         "humanmade/coding-standards": "^1.1"
     },
-    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Pantheon\\EI\\": "/inc/namespace.php"
