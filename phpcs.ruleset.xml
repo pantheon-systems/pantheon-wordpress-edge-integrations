@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset>
+	<!-- Files or directories to check -->
+	<file>.</file>
+
+	<!-- Use HM Coding Standards -->
+	<rule ref="vendor/humanmade/coding-standards">
+		<!-- Exclude rules here using the following syntax: -->
+		<!-- <exclude name="HM.Debug.ForceShortArray" /> -->
+	</rule>
+</ruleset>

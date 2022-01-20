@@ -1,0 +1,5 @@
+# Exclude the vendor directory
+vendor/
+
+# Exclude the packages directory (that stuff should get linted separately)
+packages/
