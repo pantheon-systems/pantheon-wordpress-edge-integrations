@@ -20,18 +20,18 @@ WordPress plugin to support Pantheon Edge Integrations and personalization featu
 
 This plugin comes with the following linting tools:
 
-* ESlint - For JavaScript linting
-* PHPCS - For PHP linting & coding standards
-* Stylelint - For CSS/SaSS linting
+* [ESlint](https://eslint.org/) - For JavaScript linting
+* [PHPCS](https://github.com/squizlabs/PHP_CodeSniffer) - For PHP linting & coding standards
+* [Stylelint](https://stylelint.io/) - For CSS/SaSS linting
 
-In addition, some intelligent defaults are added via `@humanmade/coding-standards` (Composer) and `@humanmade/eslint-config` (NPM) that can be tweaked through configuration files.
+In addition, some intelligent defaults are added via [`@humanmade/coding-standards`](https://github.com/humanmade/coding-standards#readme) (Composer) and [`@humanmade/eslint-config`](https://github.com/humanmade/coding-standards/blob/master/packages/eslint-config-humanmade/readme.md) (NPM) that can be tweaked through configuration files.
 
 ## Testing
 
 The following testing tools are bundled, as well, for different forms of user interaction and integration tests.
 
-* TestCafe - For front-end, user-interaction-based testing
-* PHPUnit - For PHP-based integration tests
-* Robo - For any testing that requires a live environment
+* [TestCafe](https://testcafe.io/) - For front-end, user-interaction-based testing
+* [PHPUnit](https://phpunit.de/index.html) - For PHP-based integration tests
+* [Robo](https://robo.li/) - For any testing that requires a live environment
 
 Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning up a site and running TestCafe or PHPUnit tests that require database access against it.
