@@ -1,3 +1,7 @@
+# Third-party packages
 packages/
 vendor/
 node_modules/
+
+# Other files
+.phpunit.result.cache
