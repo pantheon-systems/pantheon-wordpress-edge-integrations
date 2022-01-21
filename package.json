@@ -1,0 +1,33 @@
+{
+  "name": "pantheon-wordpress-edge-integrations",
+  "version": "0.1.0",
+  "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations.git"
+  },
+  "keywords": [
+    "wordpress",
+    "wordpress plugin",
+    "edge integration",
+    "cdn",
+    "agcdn",
+    "personalization",
+    "pantheon"
+  ],
+  "author": "Pantheon Systems",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/issues"
+  },
+  "homepage": "https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations#readme",
+  "dependencies": {
+    "@humanmade/eslint-config": "^1.1.3",
+    "eslint": "^8.7.0",
+    "testcafe": "^1.18.2"
+  }
+}
