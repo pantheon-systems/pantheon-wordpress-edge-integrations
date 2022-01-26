@@ -33,7 +33,7 @@
         }
     },
     "scripts": {
-        "phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
+        "lint": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
         "test": "composer test:unit"
     },
