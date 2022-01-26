@@ -17,7 +17,7 @@ jobs:
       - checkout
       - run:
           name: "Composer install"
-          command: "composer install --dev"
+          command: "composer install"
 
       - run:
           name: "Run tests"
