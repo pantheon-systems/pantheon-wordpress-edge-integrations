@@ -4,38 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce783c317c57639753b52087d80973c3",
+    "content-hash": "17ffe70197bd1e88672ec2c15f9d3633",
     "packages": [
         {
             "name": "pantheon-systems/pantheon-edge-integrations",
             "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "packages/pantheon-edge-integrations",
-                "reference": "195d579fda4773e039feb1ef42ebd5f9fdba0545"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pantheon-systems/pantheon-edge-integrations.git",
+                "reference": "402f73950ceffc30950800a0313c616725173c53"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pantheon-systems/pantheon-edge-integrations/zipball/402f73950ceffc30950800a0313c616725173c53",
+                "reference": "402f73950ceffc30950800a0313c616725173c53",
+                "shasum": ""
+            },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "classmap": [
                     "src/"
                 ],
                 "psr-4": {
-                    "Kalamuna\\SmartCDN\\": "src"
+                    "Pantheon\\EI\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Kelly Jacobs",
-                    "email": "kelly@kalamuna.com"
-                }
-            ],
             "description": "Helper class for content personalization.",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/pantheon-systems/pantheon-edge-integrations/issues",
+                "source": "https://github.com/pantheon-systems/pantheon-edge-integrations/tree/master"
+            },
+            "time": "2022-01-24T17:24:53+00:00"
         }
     ],
     "packages-dev": [
