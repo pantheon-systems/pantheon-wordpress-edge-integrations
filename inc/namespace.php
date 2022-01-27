@@ -7,7 +7,7 @@
  * @package Pantheon/EdgeIntegrations
  */
 
-namespace Pantheon\EI;
+namespace Pantheon\EI\WP;
 
 /**
  * Kick it off!

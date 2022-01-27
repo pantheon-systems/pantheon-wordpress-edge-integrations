@@ -17,6 +17,6 @@ class testsBase extends TestCase {
 	 * Make sure unit tests are running.
 	 */
 	public function testPHPUnitIsWorking() {
-		$this->assertTrue( function_exists( '\\Pantheon\\EI\\bootstrap' ) );
+		$this->assertTrue( function_exists( '\\Pantheon\\EI\\WP\\bootstrap' ) );
 	}
 }
