@@ -9,9 +9,6 @@
  * @package Pantheon/EdgeIntegrations
  */
 
-/**
- * Include the namespace
- */
-require_once __DIR__ . '/inc/namespace.php';
+namespace Pantheon\EI;
 
 add_action( 'plugins_loaded', 'Pantheon\EI\\bootstrap', 0 );
