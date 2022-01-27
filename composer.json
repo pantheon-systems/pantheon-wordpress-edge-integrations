@@ -5,6 +5,10 @@
     "license": "MIT",
     "repositories": [
         {
+            "type": "composer",
+            "url": "https://packagist.org"
+        },
+        {
             "type": "path",
             "url": "packages/*",
             "symlink": true
@@ -29,8 +33,9 @@
         }
     },
     "scripts": {
-        "phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml ."
-
+        "lint": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
+        "test:unit": "vendor/bin/phpunit -c phpunit.xml",
+        "test": "composer test:unit"
     },
     "config": {
         "allow-plugins": {

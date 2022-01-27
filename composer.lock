@@ -4,38 +4,42 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9b1640649aca7fe691a085f06348c195",
+    "content-hash": "17ffe70197bd1e88672ec2c15f9d3633",
     "packages": [
         {
             "name": "pantheon-systems/pantheon-edge-integrations",
             "version": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": "packages/pantheon-edge-integrations",
-                "reference": "195d579fda4773e039feb1ef42ebd5f9fdba0545"
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pantheon-systems/pantheon-edge-integrations.git",
+                "reference": "402f73950ceffc30950800a0313c616725173c53"
             },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pantheon-systems/pantheon-edge-integrations/zipball/402f73950ceffc30950800a0313c616725173c53",
+                "reference": "402f73950ceffc30950800a0313c616725173c53",
+                "shasum": ""
+            },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "classmap": [
                     "src/"
                 ],
                 "psr-4": {
-                    "Kalamuna\\SmartCDN\\": "src"
+                    "Pantheon\\EI\\": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
-            "authors": [
-                {
-                    "name": "Kelly Jacobs",
-                    "email": "kelly@kalamuna.com"
-                }
-            ],
             "description": "Helper class for content personalization.",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/pantheon-systems/pantheon-edge-integrations/issues",
+                "source": "https://github.com/pantheon-systems/pantheon-edge-integrations/tree/master"
+            },
+            "time": "2022-01-24T17:24:53+00:00"
         }
     ],
     "packages-dev": [
@@ -1913,16 +1917,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.12",
+            "version": "9.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256"
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/93d4bf4c37aec6384bb9e5d390d9049a463a7256",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/597cb647654ede35e43b137926dfdfef0fb11743",
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743",
                 "shasum": ""
             },
             "require": {
@@ -2000,7 +2004,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.12"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.13"
             },
             "funding": [
                 {
@@ -2012,7 +2016,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-01-21T05:54:47+00:00"
+            "time": "2022-01-24T07:33:35+00:00"
         },
         {
             "name": "psr/container",
