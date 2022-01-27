@@ -9,6 +9,6 @@
  * @package Pantheon/EdgeIntegrations
  */
 
-namespace Pantheon\EI;
+namespace Pantheon\EI\WP;
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap', 0 );
