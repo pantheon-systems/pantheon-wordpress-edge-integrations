@@ -11,4 +11,4 @@
 
 namespace Pantheon\EI;
 
-add_action( 'plugins_loaded', 'Pantheon\EI\\bootstrap', 0 );
+add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap', 0 );
