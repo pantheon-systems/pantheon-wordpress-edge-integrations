@@ -3,5 +3,9 @@ packages/
 vendor/
 node_modules/
 
+# Ignore for now
+dist/
+
 # Other files
 .phpunit.result.cache
+.DS_Store
