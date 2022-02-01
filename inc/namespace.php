@@ -26,13 +26,13 @@ function bootstrap() {
  * Enqueue scripts.
  */
 function peiwp_enqueue_scripts() {
-	wp_enqueue_script( 'pantheon-wp-edge', plugins_url( '/dist/js/assets.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), array(), PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+	wp_enqueue_script( 'pantheon-wp-edge', plugins_url( '/dist/js/assets.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
 }
 
 /**
  * Get categories for the current post and pass to JavaScript.
  *
- * @param WP_Post $post The current post.
+ * @param WP_Post $post_object The current post.
  */
 function peiwp_localize_interests( $post_object ) {
 	if ( ! is_singular() ) {
