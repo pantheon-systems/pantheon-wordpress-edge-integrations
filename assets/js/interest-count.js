@@ -70,7 +70,7 @@ function getInterests() {
 		// How many times should a tag be visited before adding to interest header.
 		const popularityCount = pants_ei.interest_threshold ? pants_ei.interest_threshold : 3;
 		const interestCategory = pants_ei.interest_category;
-		const postTags = pants_ei.post_tags;
+		const postTags = pants_ei.post_terms;
 
 		if ( postTags ) {
 			// Create LocalStorage instance.
