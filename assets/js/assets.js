@@ -1,2 +1,2 @@
-// import './interest-count';
+import './interest-count';
 import './logging';

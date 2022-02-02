@@ -1,3 +1,4 @@
+/*global pants_ei*/
 /**
  * @file
  * Count interests and set cookie for interest header.
@@ -8,14 +9,15 @@ import cookies from 'js-cookie';
 let runOnce;
 
 /**
- * Update tagsCount with current node tags.
+ * Update tagsCount with current post tags.
  *
- * @param nodeTags
+ * @param postTags
+ * @param postags
  * @param tagsCount
  */
-function updateTagsCount( nodeTags, tagsCount ) {
-	// Loop through current node tags.
-	nodeTags.forEach( tag => {
+function updateTagsCount( postTags, tagsCount ) {
+	// Loop through current post tags.
+	postTags.forEach( tag => {
 		// If tag already exists in tagsCount, increment.
 		if ( tag in tagsCount ) {
 			tagsCount[tag]++;
@@ -62,6 +64,37 @@ function getInterestTags( tagsCount, popularityCount ) {
  *
  */
 function getInterests() {
+	/**
+	 * Class to handle localStorage.
+	 */
+	class LocalStorage {
+		/**
+		 * Implements constructor().
+		 */
+		constructor() {
+			// localStorage key.
+			this.key = 'pants_ei.interest';
+		}
+
+		/**
+		 * Get value in localStorage.
+		 */
+		getStorage() {
+			let item = localStorage.getItem( this.key );
+
+			return item ? JSON.parse( item ) : {};
+		}
+
+		/**
+		 * Set value in localStorage.
+		 *
+		 * @param value
+		 */
+		setStorage( value ) {
+			localStorage.setItem( this.key, JSON.stringify( value ) );
+		}
+	}
+
 	if ( ! runOnce ) {
 		runOnce = true;
 
@@ -79,7 +112,7 @@ function getInterests() {
 			// Get tagsCount from localStorage if it exists.
 			let tagsCount = storage.getStorage();
 
-			// Update tagsCount with current node tags.
+			// Update tagsCount with current post tags.
 			tagsCount = updateTagsCount( postTags, tagsCount );
 
 			// Save updated counts to localStorage.
@@ -94,37 +127,6 @@ function getInterests() {
 			if ( interestTags.length > 0 ) {
 				// Set interest cookie with popular tags, separated by |.
 				cookies.set( 'interest', interestTags.join( '|' ) );
-			}
-		}
-
-		/**
-		 * Class to handle localStorage.
-		 */
-		class LocalStorage {
-			/**
-			 * Implements constructor().
-			 */
-			constructor() {
-				// localStorage key.
-				this.key = 'pants_ei.interest';
-			}
-
-			/**
-			 * Get value in localStorage.
-			 */
-			getStorage() {
-				let item = localStorage.getItem( this.key );
-
-				return item ? JSON.parse( item ) : {};
-			}
-
-			/**
-			 * Set value in localStorage.
-			 *
-			 * @param value
-			 */
-			setStorage( value ) {
-				localStorage.setItem( this.key, JSON.stringify( value ) );
 			}
 		}
 	}

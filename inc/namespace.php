@@ -35,12 +35,18 @@ function peiwp_enqueue_scripts() {
  * @param WP_Post $post_object The current post.
  */
 function peiwp_localize_interests( $post_object ) {
+	/**
+	 * Allow engineers to modify post type support.
+	 *
+	 * @hook peiwp_post_types
+	 * @param {array} Post types to target for interests.
+	 */
 	if ( ! is_singular( apply_filters( 'peiwp_post_types', [ 'post' ] ), ) ) {
 		return;
 	}
 
 	/**
-	 * Allow engineers to modify the taxonomy list.
+	 * Allow engineers to modify the targeted taxonomy.
 	 *
 	 * @hook peiwp_taxonomy
 	 * @param {array} Taxonomies to use for determining interests.
