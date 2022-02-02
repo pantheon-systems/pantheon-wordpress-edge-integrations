@@ -11,4 +11,9 @@
 
 namespace Pantheon\EI\WP;
 
+// Check if the bootstrap function exists. If it doesn't, it means we're not using the Composer autoloader.
+if ( ! function_exists( __NAMESPACE__ . '\\bootstrap' ) ) {
+	require_once __DIR__ . '/vendor/autoload.php';
+}
+
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap', 0 );
