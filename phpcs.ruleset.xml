@@ -10,5 +10,7 @@
 	<rule ref="vendor/humanmade/coding-standards">
 		<!-- Exclude rules here using the following syntax: -->
 		<!-- <exclude name="HM.Debug.ForceShortArray" /> -->
+		<exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
+		<exclude name="HM.Files.NamespaceDirectoryName.NoIncDirectory" />
 	</rule>
 </ruleset>
