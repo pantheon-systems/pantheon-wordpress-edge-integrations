@@ -35,7 +35,7 @@ function peiwp_enqueue_scripts() {
  * @param WP_Post $post_object The current post.
  */
 function peiwp_localize_interests( $post_object ) {
-	if ( ! is_singular() ) {
+	if ( ! is_singular( apply_filters( 'peiwp_post_types', [ 'post' ] ), ) ) {
 		return;
 	}
 
