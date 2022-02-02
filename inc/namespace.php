@@ -18,14 +18,14 @@ function bootstrap() {
 	};
 
 	// Action hooks and filters go here.
-	add_action( 'wp_enqueue_scripts', $n( 'peiwp_enqueue_scripts' ) );
-	add_action( 'the_post', $n( 'peiwp_localize_interests' ) );
+	add_action( 'wp_enqueue_scripts', $n( 'pantheon_ei_enqueue_scripts' ) );
+	add_action( 'the_post', $n( 'pantheon_ei_localize_interests' ) );
 }
 
 /**
  * Enqueue scripts.
  */
-function peiwp_enqueue_scripts() {
+function pantheon_ei_enqueue_scripts() {
 	wp_enqueue_script( 'pantheon-wp-edge', plugins_url( '/dist/js/assets.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
 }
 
@@ -34,14 +34,14 @@ function peiwp_enqueue_scripts() {
  *
  * @param WP_Post $post_object The current post.
  */
-function peiwp_localize_interests( $post_object ) {
+function pantheon_ei_localize_interests( $post_object ) {
 	/**
 	 * Allow engineers to modify post type support.
 	 *
 	 * @hook peiwp_post_types
 	 * @param {array} Post types to target for interests.
 	 */
-	if ( ! is_singular( apply_filters( 'peiwp_post_types', [ 'post' ] ), ) ) {
+	if ( ! is_singular( apply_filters( 'pantheon.ei.post_types', [ 'post' ] ), ) ) {
 		return;
 	}
 
@@ -51,7 +51,7 @@ function peiwp_localize_interests( $post_object ) {
 	 * @hook peiwp_taxonomy
 	 * @param {array} Taxonomies to use for determining interests.
 	 */
-	$taxonomy = apply_filters( 'peiwp_taxonomy', [ 'category' ] );
+	$taxonomy = apply_filters( 'pantheon.ei.taxonomy', [ 'category' ] );
 
 	$post_terms = wp_get_post_terms( $post_object->ID, $taxonomy, [ 'fields' => 'slugs' ] );
 	if ( ! $post_terms ) {
@@ -68,14 +68,14 @@ function peiwp_localize_interests( $post_object ) {
 			 * @hook peiwp_localized_terms
 			 * @param {array} Terms to localize.
 			 */
-			'post_terms' => apply_filters( 'peiwp_localized_terms', $post_terms ),
+			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
 			/**
 			 * Allow engineers to modify the interest threshold.
 			 *
 			 * @hook peiwp_interest_threshold
 			 * @param {int} Number of times a term should be visited before adding to interest header.
 			 */
-			'interest_threshold' => apply_filters( 'peiwp_interest_threshold', 3 ),
+			'interest_threshold' => apply_filters( 'pantheon.ei.interest_threshold', 3 ),
 			'interest_category' => $taxonomy,
 		]
 	);
