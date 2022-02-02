@@ -11,9 +11,10 @@ let runOnce;
 /**
  * Update tagsCount with current post tags.
  *
- * @param postTags
- * @param postags
- * @param tagsCount
+ * @param {Array} postTags Array of post tags.
+ * @param {object} tagsCount Object of tags and counts.
+ *
+ * @returns {object} Object of tags and counts.
  */
 function updateTagsCount( postTags, tagsCount ) {
 	// Loop through current post tags.
@@ -32,8 +33,10 @@ function updateTagsCount( postTags, tagsCount ) {
 /**
  * Filter out the most popular tags.
  *
- * @param tagsCount
- * @param popularityCount
+ * @param {object} tagsCount Object of tags and counts.
+ * @param {number} popularityCount How many times should a tag be visited before adding to interest header.
+ *
+ * @returns {object} Object of tags and counts.
  */
 function getInterestTags( tagsCount, popularityCount ) {
 	// Find the highest count among the tags.
@@ -78,6 +81,8 @@ function getInterests() {
 
 		/**
 		 * Get value in localStorage.
+		 *
+		 * @returns {string} Value in localStorage.
 		 */
 		getStorage() {
 			let item = localStorage.getItem( this.key );
@@ -88,7 +93,7 @@ function getInterests() {
 		/**
 		 * Set value in localStorage.
 		 *
-		 * @param value
+		 * @param {string} value Value to set.
 		 */
 		setStorage( value ) {
 			localStorage.setItem( this.key, JSON.stringify( value ) );
@@ -101,9 +106,8 @@ function getInterests() {
 		const localizedObj = pantheon_ei;
 
 		// How many times should a tag be visited before adding to interest header.
-		const popularityCount = pantheon_ei.interest_threshold ? pantheon_ei.interest_threshold : 3;
-		const interestCategory = pantheon_ei.interest_category;
-		const postTags = pantheon_ei.post_terms;
+		const popularityCount = localizedObj.interest_threshold ? localizedObj.interest_threshold : 3;
+		const postTags = localizedObj.post_terms;
 
 		if ( postTags ) {
 			// Create LocalStorage instance.

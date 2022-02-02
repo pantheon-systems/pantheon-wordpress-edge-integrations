@@ -76,7 +76,6 @@ function pantheon_ei_localize_interests( $post_object ) {
 			 * @param {int} Number of times a term should be visited before adding to interest header.
 			 */
 			'interest_threshold' => apply_filters( 'pantheon.ei.interest_threshold', 3 ),
-			'interest_category' => $taxonomy,
 		]
 	);
 }
