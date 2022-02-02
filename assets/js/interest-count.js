@@ -1,4 +1,4 @@
-/*global pants_ei*/
+/*global pantheon_ei*/
 /**
  * @file
  * Count interests and set cookie for interest header.
@@ -73,7 +73,7 @@ function getInterests() {
 		 */
 		constructor() {
 			// localStorage key.
-			this.key = 'pants_ei.interest';
+			this.key = 'pantheon_ei.interest';
 		}
 
 		/**
@@ -98,12 +98,12 @@ function getInterests() {
 	if ( ! runOnce ) {
 		runOnce = true;
 
-		const localizedObj = pants_ei;
+		const localizedObj = pantheon_ei;
 
 		// How many times should a tag be visited before adding to interest header.
-		const popularityCount = pants_ei.interest_threshold ? pants_ei.interest_threshold : 3;
-		const interestCategory = pants_ei.interest_category;
-		const postTags = pants_ei.post_terms;
+		const popularityCount = pantheon_ei.interest_threshold ? pantheon_ei.interest_threshold : 3;
+		const interestCategory = pantheon_ei.interest_category;
+		const postTags = pantheon_ei.post_terms;
 
 		if ( postTags ) {
 			// Create LocalStorage instance.
@@ -132,4 +132,6 @@ function getInterests() {
 	}
 }
 
-getInterests();
+if ( document.body.classList.contains( 'single' ) ) {
+	getInterests();
+}

@@ -1,4 +1,4 @@
-/*global pants_ei*/
+/*global pantheon_ei*/
 if ( document.body.classList.contains( 'single' ) ) {
-	console.log( pants_ei );
+	console.log( pantheon_ei );
 }

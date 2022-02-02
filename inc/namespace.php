@@ -60,7 +60,7 @@ function pantheon_ei_localize_interests( $post_object ) {
 
 	wp_localize_script(
 		'pantheon-wp-edge',
-		'pants_ei',
+		'pantheon_ei',
 		[
 			/**
 			 * Allow engineers to modify terms before they are localized.
