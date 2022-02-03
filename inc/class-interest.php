@@ -41,7 +41,7 @@ final class Interest extends Service {
 		 * Allow engineers to modify post type support.
 		 *
 		 * @hook pantheon.ei.post_types
-		 * @param {array} Post types to target for interests.
+		 * @param array Post types to target for interests.
 		 */
 		if ( ! is_singular( apply_filters( 'pantheon.ei.post_types', [ 'post' ] ) ) ) {
 			return;
@@ -51,7 +51,7 @@ final class Interest extends Service {
 		 * Allow engineers to modify the targeted taxonomy.
 		 *
 		 * @hook pantheon.ei.taxonomy
-		 * @param {array} Taxonomies to use for determining interests.
+		 * @param array Taxonomies to use for determining interests.
 		 */
 		$taxonomy = apply_filters( 'pantheon.ei.taxonomy', [ 'category' ] );
 
@@ -68,14 +68,14 @@ final class Interest extends Service {
 				 * Allow engineers to modify terms before they are localized.
 				 *
 				 * @hook pantheon.ei.localized_terms
-				 * @param {array} Terms to localize.
+				 * @param array Terms to localize.
 				 */
 				'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
 				/**
 				 * Allow engineers to modify the interest threshold.
 				 *
 				 * @hook pantheon.ei.interest_threshold
-				 * @param {int} Number of times a term should be visited before adding to interest header.
+				 * @param int Number of times a term should be visited before adding to interest header.
 				 */
 				'interest_threshold' => apply_filters( 'pantheon.ei.interest_threshold', 3 ),
 			]
