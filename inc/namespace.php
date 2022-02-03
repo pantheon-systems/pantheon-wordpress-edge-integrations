@@ -37,7 +37,7 @@ function pantheon_ei() : Plugin {
 	static $pantheon_ei;
 
 	if ( is_null( $pantheon_ei ) ) {
-		$pantheon_ei = new Plugin( __FILE__, '1.0' );
+		$pantheon_ei = new Plugin( __FILE__, PANTHEON_EDGE_INTEGRATIONS_VERSION );
 		$pantheon_ei->register();
 	}
 
