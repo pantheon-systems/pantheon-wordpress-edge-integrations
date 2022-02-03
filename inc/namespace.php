@@ -9,37 +9,19 @@
 
 namespace Pantheon\EI\WP;
 
-use Pantheon\EI\WP\Infrastructure\Plugin;
+use Pantheon\EI\WP\Interest;
 
 /**
  * Kick it off!
  */
 function bootstrap() {
-	add_action( 'pantheon.ei.init', __NAMESPACE__ . '\\pantheon_ei', 20 );
-	add_action(
-		'plugins_loaded',
-		function() {
-			/**
-			 * Fires before the Pantheon Edge Integration plugin loads.
-			 */
-			do_action( 'pantheon.ei.init' );
-		},
-		20
-	);
-}
+	define( 'PANTHEON_EDGE_INTEGRATIONS_DIR', dirname( __DIR__, 1 ) );
+	define( 'PANTHEON_EDGE_INTEGRATIONS_FILE', PANTHEON_EDGE_INTEGRATIONS_DIR . '/' . basename( dirname( __DIR__, 1 ) ) . '.php' );
 
-/**
- * Retrieves the plugin instance.
- *
- * @return Plugin
- */
-function pantheon_ei() : Plugin {
-	static $pantheon_ei;
+	$plugin_data = get_file_data( PANTHEON_EDGE_INTEGRATIONS_FILE, [ 'Version' => 'Version' ] );
+	$plugin_version = $plugin_data['Version'];
+	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
-	if ( is_null( $pantheon_ei ) ) {
-		$pantheon_ei = new Plugin( __FILE__, PANTHEON_EDGE_INTEGRATIONS_VERSION );
-		$pantheon_ei->register();
-	}
-
-	return $pantheon_ei;
+	// Setup Interests.
+	Interest\bootstrap();
 }

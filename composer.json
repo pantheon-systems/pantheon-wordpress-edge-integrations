@@ -24,9 +24,7 @@
     },
     "autoload": {
         "files": [
-            "inc/infrastructure/class-plugin.php",
-            "inc/infrastructure/class-service.php",
-            "inc/class-interest.php",
+            "inc/interest.php",
             "inc/namespace.php"
         ]
     },
