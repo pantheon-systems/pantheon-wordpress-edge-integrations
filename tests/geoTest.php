@@ -16,7 +16,7 @@ class geoTests extends TestCase {
 	/**
 	 * Make sure unit tests are running.
 	 */
-	public function testBootstrapSloaded() {
+	public function testBootstrapIsLoaded() {
 		$this->assertTrue( function_exists( '\\Pantheon\\EI\\WP\\Geo\\bootstrap' ) );
 	}
 }
