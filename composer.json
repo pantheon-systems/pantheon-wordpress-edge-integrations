@@ -31,8 +31,8 @@
     "scripts": {
         "lint:php": "find ./pantheon-wordpress-edge-integrations.php ./inc ./tests  -name '*.php' -exec php -l {} \\;",
         "lint:phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
+        "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",
         "lint": "composer lint:php && composer lint:phpcs",
-        "lint:fix": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
         "test": "composer test:unit"
     },
