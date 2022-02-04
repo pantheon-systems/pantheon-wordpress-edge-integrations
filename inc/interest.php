@@ -11,8 +11,9 @@ namespace Pantheon\EI\WP\Interest;
  * Bootstrap Interest functionality.
  */
 function bootstrap() {
-	$n = function( $function ) {
-		return __NAMESPACE__ . "\\$function";
+	// Helper variable function that simplifies callbacks.
+	$n = function( $callback ) {
+		return __NAMESPACE__ . "\\$callback";
 	};
 
 	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
