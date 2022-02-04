@@ -7,6 +7,9 @@
 
 namespace Pantheon\EI\WP\Geo;
 
+/**
+ * Kick off our namespace.
+ */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
 	$n = function( $callback ) {
