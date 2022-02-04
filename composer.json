@@ -12,18 +12,24 @@
             "type": "path",
             "url": "packages/*",
             "symlink": true
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/wordpress/wordpress-develop.git"
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-main"
+        "pantheon-systems/pantheon-edge-integrations": "dev-cp-97--singleton"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
         "humanmade/coding-standards": "^1.1",
-        "phpunit/phpunit": "^9.5"
+        "phpunit/phpunit": "^9.5",
+        "wordpress/wordpress": "dev-master"
     },
     "autoload": {
         "files": [
+            "inc/geo.php",
             "inc/interest.php",
             "inc/namespace.php"
         ]
