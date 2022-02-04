@@ -13,5 +13,10 @@ namespace Pantheon\EI\WP;
  * Kick it off!
  */
 function bootstrap() {
-	// Action hooks and filters go here.
+	define( 'PANTHEON_EDGE_INTEGRATIONS_DIR', dirname( __DIR__, 1 ) );
+	define( 'PANTHEON_EDGE_INTEGRATIONS_FILE', PANTHEON_EDGE_INTEGRATIONS_DIR . '/' . basename( dirname( __DIR__, 1 ) ) . '.php' );
+
+	$plugin_data = get_file_data( PANTHEON_EDGE_INTEGRATIONS_FILE, [ 'Version' => 'Version' ] );
+	$plugin_version = $plugin_data['Version'];
+	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 }
