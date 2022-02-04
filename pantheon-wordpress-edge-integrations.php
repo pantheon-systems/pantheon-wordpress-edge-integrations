@@ -17,6 +17,3 @@ if ( ! function_exists( __NAMESPACE__ . '\\bootstrap' ) ) {
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\\bootstrap', 0 );
-
-// Setup Interests.
-Interest\bootstrap();

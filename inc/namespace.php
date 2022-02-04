@@ -19,4 +19,8 @@ function bootstrap() {
 	$plugin_data = get_file_data( PANTHEON_EDGE_INTEGRATIONS_FILE, [ 'Version' => 'Version' ] );
 	$plugin_version = $plugin_data['Version'];
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
+
+	// Load the Interest and Geo namespaces.
+	Geo\bootstrap();
+	Interest\bootstrap();
 }
