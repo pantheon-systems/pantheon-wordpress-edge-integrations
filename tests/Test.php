@@ -19,4 +19,13 @@ class testsBase extends TestCase {
 	public function testPHPUnitIsWorking() {
 		$this->assertTrue( function_exists( '\\Pantheon\\EI\\WP\\bootstrap' ) );
 	}
+
+	/**
+	 * Ensure the Globals are defined.
+	 */
+	public function testGlobalsAreDefined() {
+		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_VERSION' ) );
+		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_FILE' ) );
+		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_DIR' ) );
+	}
 }
