@@ -4,6 +4,8 @@
  *
  * @package Pantheon/EdgeIntegrations
  */
+// phpcs:ignoreFile
+// Ignoring this file temporarily.
 
 namespace Pantheon\EI\WP\Geo;
 
