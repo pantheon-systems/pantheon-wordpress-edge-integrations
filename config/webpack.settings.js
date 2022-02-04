@@ -5,7 +5,7 @@ module.exports = {
 		assets: './assets/js/assets.js',
 	},
 	filename: {
-		js: process.env.NODE_ENV === 'development' ? '[name].js' : '[name].min.js',
+		js: process.env.NODE_ENV === 'development' ? 'js/[name].js' : 'js/[name].min.js',
 	},
 	paths: {
 		src: {
