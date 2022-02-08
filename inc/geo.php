@@ -69,5 +69,15 @@ function get_geo( string $data_type = '', $data = null ) : string {
 		$parsed_geo['latlon'] = $parsed_geo['lat'] . ',' . $parsed_geo['lon'];
 	}
 
-	return $parsed_geo[ $data_type ];
+	/**
+	 * Fires after the geo data is retrieved but before it is returned.
+	 *
+	 * Allows developers to hook into the geo data retrieval process and access the geo value and the type of data requested and the full passed data, if it exists.
+	 *
+	 * @hook pantheon.ei.get_geo
+	 * @param string The geo data value.
+	 * @param string The type of geo data requested.
+	 * @param mixed Data passed to the HeaderData class. By default, this is pulled from $_SERVER data.
+	 */
+	do_action( 'pantheon.ei.get_geo', $parsed_geo[ $data_type ], $data_type, $data );
 }
