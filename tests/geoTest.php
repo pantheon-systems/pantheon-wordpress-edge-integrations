@@ -289,5 +289,20 @@ class geoTests extends TestCase {
 		Geo\get_geo();
 		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.before_get_geo' ) );
 	}
+
+	/**
+	 * Test the pantheon.ei.get_geo filter.
+	 */
+	public function testGetGeoFilter() {
+		// Filter the geo data.
+		add_filter( 'pantheon.ei.get_geo', function( $value ) {
+			return 'Antarctica';
+		}, 10, 1 );
+
+		$this->assertEquals(
+			Geo\get_geo( 'country' ),
+			'Antarctica',
+			'Filtered geo data does not match'
+		);
 	}
 }
