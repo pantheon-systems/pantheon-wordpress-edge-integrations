@@ -25,7 +25,7 @@ class geoTests extends TestCase {
 	}
 
 	/**
-	 * Make get_geo exists.
+	 * Make sure get_geo exists.
 	 * @group wp-geo
 	 */
 	public function testGetGeoExists() {
