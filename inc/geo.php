@@ -46,7 +46,15 @@ function get_geo( string $data_type = '', $data = null ) : string {
 		return '';
 	}
 
-	$parsed_geo = EI\HeaderData::parse( 'Audience', $data );
+	/**
+	 * Get the geo data from the HeaderData class and allow it to be filtered.
+	 *
+	 * For filtering purposes, the data passed is an array of key/value pairs of geo data. Because this filter fires after the data types are checked, it's possible (but not recommended) to provide data that would otherwise be filtered out.
+	 *
+	 * @hook pantheon.ei.geo_data
+	 * @param array The full, parsed Audience geo data as an array.
+	 */
+	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( 'Audience', $data ) );
 
 	// If no geo data type was passed, return all Audience data.
 	if ( empty( $data_type ) ) {
