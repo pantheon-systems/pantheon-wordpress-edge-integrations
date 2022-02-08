@@ -9,6 +9,8 @@ use Pantheon\EI;
 use Pantheon\EI\WP\Geo;
 use PHPUnit\Framework\TestCase;
 
+use function Pantheon\EI\WP\Geo\get_geo_allowed_values;
+
 /**
  * Main test class for WordPress Edge Integrations plugin.
  */
@@ -211,5 +213,38 @@ class geoTests extends TestCase {
 				'geo:UK' => [ 'HTTP_AUDIENCE' => 'geo:UK|city:London|postal-code:WC2N 5EJ|region:England|lat:51.5074|lon:-0.1278' ]
 			],
 		];
+	}
+
+	/**
+	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 */
+	public function testGeoAllowedValues() {
+		$allowed_values = get_geo_allowed_values();
+		$this->assertIsArray( $allowed_values );
+		$this->assertNotEmpty( $allowed_values );
+		$this->assertEquals(
+			$allowed_values,
+			[
+				'',
+				'geo',
+				'country',
+				'region',
+				'city',
+				'postal-code',
+				'lat',
+				'lon',
+				'latlon',
+			],
+			'Allowed values do not match'
+		);
+
+		// Add a new value to the allowed values.
+		add_filter( 'pantheon.ei.geo_allowed_values', function( $values ) {
+			$values[] = 'some-other-value';
+			return $values;
+		}, 10, 1 );
+
+		// Validate that the new value is in the allowed values.
+		$this->assertContains( 'some-other-value', get_geo_allowed_values() );
 	}
 }
