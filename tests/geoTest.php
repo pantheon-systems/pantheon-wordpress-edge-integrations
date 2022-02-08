@@ -6,6 +6,7 @@
  */
 
 use Pantheon\EI;
+use Pantheon\EI\WP\Geo;
 use PHPUnit\Framework\TestCase;
 
 /**
