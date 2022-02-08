@@ -33,7 +33,13 @@ function bootstrap() {
  * @return string The requested geo data.
  */
 function get_geo( string $data_type = '', $data = null ) : string {
-	$allowed_values = [ '', 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ];
+	/**
+	 * Allow developers to modify the allowed geo data types.
+	 *
+	 * @hook pantheon.ei.geo_data_types
+	 * @param array The allowed geo data types.
+	 */
+	$allowed_values = apply_filters( 'pantheon.ei.geo_allowed_values', [ '', 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ] );
 
 	// If the passed data type is not allowed, return an empty string.
 	if ( ! in_array( $data_type, $allowed_values, true ) ) {
