@@ -175,7 +175,11 @@ class geoTests extends TestCase {
 		);
 	}
 
-
+	/**
+	 * Data provider for testGetGeo.
+	 *
+	 * @return array Mock audience data.
+	 */
 	private function mockAudienceData() : array {
 		return [
 			[
