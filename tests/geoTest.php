@@ -34,6 +34,20 @@ class geoTests extends TestCase {
 		);
 	}
 
+	/**
+	 * Test the get_geo function.
+	 *
+	 * @dataProvider mockAudienceData
+	 */
+	public function testGetGeo( array $audience_data ) {
+		$country = Geo\get_geo( 'country', $audience_data );
+		$this->assertIsString( $country );
+		$this->assertNotEmpty(
+			$country,
+			'Country data is empty'
+		);
+	}
+
 
 	private function mockAudienceData() : array {
 		return [
