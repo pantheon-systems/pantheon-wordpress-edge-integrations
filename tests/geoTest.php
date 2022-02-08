@@ -40,6 +40,8 @@ class geoTests extends TestCase {
 	 * @dataProvider mockAudienceData
 	 */
 	public function testGetGeo( array $audience_data ) {
+		// Get the actual data in a format that's easier to read.
+		$parsed_data = EI\HeaderData::parse( 'Audience', $audience_data );
 		$country = Geo\get_geo( 'country', $audience_data );
 		$this->assertIsString( $country );
 		$this->assertNotEmpty(
