@@ -175,25 +175,16 @@ class geoTests extends TestCase {
 			Geo\get_geo( 'some-other-string', $audience_data ),
 			'Disallowed strings should return empty'
 		);
-	}
 
-	/**
-	 * Test the get_geo function with no data type passed.
-	 *
-	 * @dataProvider mockAudienceData
-	 * @group wp-geo
-	 */
-	public function testGetGeoNoDataType( array $audience_data ) {
-		$parsed_data = EI\HeaderData::parse( 'Audience', $audience_data );
-		$geo = Geo\get_geo( '', $audience_data );
-		var_dump( $geo );
+		// Test the get_geo function with no data type passed.
+		$empty_geo = Geo\get_geo( '', $audience_data );
 		$this->assertNotEmpty(
-			$geo,
+			$empty_geo,
 			'Empty data type should not return empty'
 		);
 
 		// Decode the JSON we got back.
-		$json_decoded_geo = (array) json_decode( $geo );
+		$json_decoded_geo = (array) json_decode( $empty_geo );
 
 		// Test that the decoded geo data matches the parsed data.
 		$this->assertEquals(
