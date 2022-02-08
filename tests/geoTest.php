@@ -88,6 +88,22 @@ class geoTests extends TestCase {
 			'Region data does not match'
 		);
 
+		// Get the geo city.
+		$city = Geo\get_geo( 'city', $audience_data );
+		$parsed_city = $parsed_data['city'];
+
+		// Test the city.
+		$this->assertIsString( $city );
+		$this->assertNotEmpty(
+			$city,
+			'City data is empty'
+		);
+		$this->assertEquals(
+			$city,
+			$parsed_city,
+			'City data does not match'
+		);
+
 	}
 
 
