@@ -33,16 +33,8 @@ function bootstrap() {
  * @return string The requested geo data.
  */
 function get_geo( string $data_type = '', $data = null ) : string {
-	/**
-	 * Allow developers to modify the allowed geo data types.
-	 *
-	 * @hook pantheon.ei.geo_data_types
-	 * @param array The allowed geo data types.
-	 */
-	$allowed_values = apply_filters( 'pantheon.ei.geo_allowed_values', [ '', 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ] );
-
 	// If the passed data type is not allowed, return an empty string.
-	if ( ! in_array( $data_type, $allowed_values, true ) ) {
+	if ( ! in_array( $data_type, get_geo_allowed_values(), true ) ) {
 		return '';
 	}
 
@@ -88,4 +80,19 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	 * @param string The requested geo data.
 	 */
 	return apply_filters( 'pantheon.ei.get_geo', $parsed_geo[ $data_type ] );
+}
+
+/**
+ * Returns the array of allowed geo data types.
+ *
+ * @return array
+ */
+function get_geo_allowed_values() : array {
+	/**
+	 * Allow developers to modify the allowed geo data types.
+	 *
+	 * @hook pantheon.ei.geo_data_types
+	 * @param array The allowed geo data types.
+	 */
+	return apply_filters( 'pantheon.ei.geo_allowed_values', [ '', 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ] );
 }
