@@ -42,11 +42,21 @@ class geoTests extends TestCase {
 	public function testGetGeo( array $audience_data ) {
 		// Get the actual data in a format that's easier to read.
 		$parsed_data = EI\HeaderData::parse( 'Audience', $audience_data );
+
+		// Get the geo country.
 		$country = Geo\get_geo( 'country', $audience_data );
+		$parsed_country = $parsed_data['geo'];
+
+		// Test the country.
 		$this->assertIsString( $country );
 		$this->assertNotEmpty(
 			$country,
 			'Country data is empty'
+		);
+		$this->assertEquals(
+			$country,
+			$parsed_country,
+			'Country data does not match'
 		);
 	}
 
