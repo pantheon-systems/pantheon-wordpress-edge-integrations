@@ -71,6 +71,23 @@ class geoTests extends TestCase {
 			$parsed_country,
 			'Geo data does not match'
 		);
+
+		// Get the geo region.
+		$region = Geo\get_geo( 'region', $audience_data );
+		$parsed_region = $parsed_data['region'];
+
+		// Test the region.
+		$this->assertIsString( $region );
+		$this->assertNotEmpty(
+			$region,
+			'Region data is empty'
+		);
+		$this->assertEquals(
+			$region,
+			$parsed_region,
+			'Region data does not match'
+		);
+
 	}
 
 
