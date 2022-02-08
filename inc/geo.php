@@ -45,4 +45,6 @@ function get_geo( string $data_type = 'country', $data = null ) : string {
 		$geo = $parsed_geo['lat'] . ',' . $parsed_geo['lon'];
 		return $geo;
 	}
+
+	return $parsed_geo[ $data_type ];
 }
