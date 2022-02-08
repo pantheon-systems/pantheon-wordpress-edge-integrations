@@ -58,6 +58,19 @@ class geoTests extends TestCase {
 			$parsed_country,
 			'Country data does not match'
 		);
+
+		// Test that `geo` can be passed and also returns the country.
+		$geo = Geo\get_geo( 'geo', $audience_data );
+		$this->assertIsString( $geo );
+		$this->assertNotEmpty(
+			$geo,
+			'Geo data is empty'
+		);
+		$this->assertEquals(
+			$geo,
+			$parsed_country,
+			'Geo data does not match'
+		);
 	}
 
 
