@@ -104,6 +104,22 @@ class geoTests extends TestCase {
 			'City data does not match'
 		);
 
+		// Get the geo postal code.
+		$postal_code = Geo\get_geo( 'postal-code', $audience_data );
+		$parsed_postal_code = $parsed_data['postal-code'];
+
+		// Test the postal code.
+		$this->assertIsString( $postal_code );
+		$this->assertNotEmpty(
+			$postal_code,
+			'Postal code data is empty'
+		);
+		$this->assertEquals(
+			$postal_code,
+			$parsed_postal_code,
+			'Postal code data does not match'
+		);
+
 	}
 
 
