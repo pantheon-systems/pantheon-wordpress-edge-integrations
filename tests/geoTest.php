@@ -167,6 +167,12 @@ class geoTests extends TestCase {
 			$parsed_lat_long,
 			'Latitude/longitude data does not match'
 		);
+
+		// Test that some other string returns empty.
+		$this->assertEmpty(
+			Geo\get_geo( 'some-other-string', $audience_data ),
+			'Disallowed strings should return empty'
+		);
 	}
 
 
