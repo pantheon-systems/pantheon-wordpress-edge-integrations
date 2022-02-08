@@ -42,8 +42,7 @@ function get_geo( string $data_type = 'country', $data = null ) : string {
 
 	// If 'latlon' was requested, return the latitude and longitude.
 	if ( $data_type === 'latlon' ) {
-		$geo = $parsed_geo['lat'] . ',' . $parsed_geo['lon'];
-		return $geo;
+		return $parsed_geo['lat'] . ',' . $parsed_geo['lon'];
 	}
 
 	return $parsed_geo[ $data_type ];
