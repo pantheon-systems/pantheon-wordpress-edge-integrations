@@ -29,7 +29,7 @@ function bootstrap() {
  * @return string The requested geo data.
  */
 function get_geo( string $data_type = 'country', $data = null ) : string {
-	$allowed_values = [ 'country', 'region', 'city', 'postal-code', 'latlon' ];
+	$allowed_values = [ 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ];
 
 	if ( ! in_array( $data_type, $allowed_values, true ) ) {
 		return '';
