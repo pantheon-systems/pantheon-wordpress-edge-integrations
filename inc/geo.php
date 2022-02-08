@@ -35,10 +35,10 @@ function get_geo( string $data_type = 'country', $data = null ) : string {
 		return '';
 	}
 
+	$parsed_geo = EI\HeaderData::parse( 'Audience', $data );
+
 	// The default 'geo' parameter returns the country code. Let 'country' pull the 'geo' data.
 	$data_type = $data_type === 'country' ? 'geo' : $data_type;
-	$parsed_geo = EI\HeaderData::parse( 'Audience', $data );
-	$geo = $parsed_geo[ $data_type ];
 
 	return $geo;
 }
