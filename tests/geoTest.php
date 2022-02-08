@@ -276,4 +276,12 @@ class geoTests extends TestCase {
 			'Parsed data does not match'
 		);
 	}
+
+	/**
+	 * Test that the pantheon.ei.get_geo action hook fires.
+	 */
+	public function testGetGeoAction() {
+		Geo\get_geo();
+		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.get_geo' ) );
+	}
 }
