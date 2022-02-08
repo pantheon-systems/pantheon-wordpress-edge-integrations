@@ -26,6 +26,7 @@ class geoTests extends TestCase {
 
 	/**
 	 * Make get_geo exists.
+	 * @group wp-geo
 	 */
 	public function testGetGeoExists() {
 		$this->assertTrue(
@@ -38,6 +39,7 @@ class geoTests extends TestCase {
 	 * Test the get_geo function.
 	 *
 	 * @dataProvider mockAudienceData
+	 * @group wp-geo
 	 */
 	public function testGetGeo( array $audience_data ) {
 		// Get the actual data in a format that's easier to read.
