@@ -287,6 +287,7 @@ class geoTests extends TestCase {
 	 */
 	public function testGetGeoAction() {
 		Geo\get_geo();
-		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.get_geo' ) );
+		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.before_get_geo' ) );
+	}
 	}
 }
