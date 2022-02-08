@@ -22,7 +22,7 @@ function bootstrap() {
 /**
  * Return geolocation data for the current user.
  *
- * @param string $data_type The type of geo data to return. Allowed values: 'country', 'region', 'city', 'postal-code', 'latlon'. All other values will return an empty string. Defaults to 'country'.
+ * @param string $data_type The type of geo data to return. Allowed values: 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon'. All other values will return an empty string. Defaults to 'country'. 'geo' is allowed as an alias for 'country', but the latter is recommended.
  *
  * @param mixed $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.
  *
