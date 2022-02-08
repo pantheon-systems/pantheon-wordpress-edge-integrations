@@ -247,4 +247,33 @@ class geoTests extends TestCase {
 		// Validate that the new value is in the allowed values.
 		$this->assertContains( 'some-other-value', get_geo_allowed_values() );
 	}
+
+	/**
+	 * Test the pantheon.ei.parsed_geo_data filter.
+	 */
+	public function testParsedGeoData() {
+		// Filter the parsed geo data.
+		add_filter( 'pantheon.ei.parsed_geo_data', function( $geo_data ) {
+			return [
+				'name' => 'Chris Reynolds',
+				'role' => 'Software Engineer',
+				'team' => 'CMS Ecosystems',
+				'email' => 'me@someemaildomainthatdoesnotexist.io',
+			];
+		}, 10, 1 );
+
+		// Get geo with no parameters. Should return all geo data in JSON. Since we're filtering it, it should return the arbitrary data we passed.
+		$data = Geo\get_geo();
+		$this->assertJson( $data );
+		$this->assertEquals(
+			$data,
+			json_encode( [
+				'name' => 'Chris Reynolds',
+				'role' => 'Software Engineer',
+				'team' => 'CMS Ecosystems',
+				'email' => 'me@someemaildomainthatdoesnotexist.io',
+			] ),
+			'Parsed data does not match'
+		);
+	}
 }
