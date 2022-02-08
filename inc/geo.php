@@ -80,4 +80,12 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	 * @param mixed Data passed to the HeaderData class. By default, this is pulled from $_SERVER data.
 	 */
 	do_action( 'pantheon.ei.get_geo', $parsed_geo[ $data_type ], $data_type, $data );
+
+	/**
+	 * Allow developers to modify the requested geo data. This filter fires after the data is parsed and before it is returned making this the last stop before data is output.
+	 *
+	 * @hook pantheon.ei.geo_data
+	 * @param string The requested geo data.
+	 */
+	return apply_filters( 'pantheon.ei.get_geo', $parsed_geo[ $data_type ] );
 }
