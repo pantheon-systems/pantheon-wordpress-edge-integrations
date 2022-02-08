@@ -11,6 +11,8 @@ use Pantheon\EI;
 
 /**
  * Kick off our namespace.
+ *
+ * @TODO: Validate that we still actually need a bootstrap (we might not).
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
