@@ -35,6 +35,7 @@ function bootstrap() {
 function get_geo( string $data_type = '', $data = null ) : string {
 	$allowed_values = [ '', 'geo', 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' ];
 
+	// If the passed data type is not allowed, return an empty string.
 	if ( ! in_array( $data_type, $allowed_values, true ) ) {
 		return '';
 	}
