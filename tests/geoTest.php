@@ -23,4 +23,15 @@ class geoTests extends TestCase {
 			'bootstrap function does not exist'
 		);
 	}
+
+	/**
+	 * Make get_geo exists.
+	 */
+	public function testGetGeoExists() {
+		$this->assertTrue(
+			function_exists( '\\Pantheon\\EI\\WP\\Geo\\get_geo' ),
+			'get_geo function does not exist'
+		);
+	}
+
 }
