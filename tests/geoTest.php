@@ -120,6 +120,53 @@ class geoTests extends TestCase {
 			'Postal code data does not match'
 		);
 
+		// Get the geo latitude.
+		$latitude = Geo\get_geo( 'lat', $audience_data );
+		$parsed_latitude = $parsed_data['lat'];
+
+		// Test the latitude.
+		$this->assertIsString( $latitude );
+		$this->assertNotEmpty(
+			$latitude,
+			'Latitude data is empty'
+		);
+		$this->assertEquals(
+			$latitude,
+			$parsed_latitude,
+			'Latitude data does not match'
+		);
+
+		// Get the geo longitude.
+		$longitude = Geo\get_geo( 'lon', $audience_data );
+		$parsed_longitude = $parsed_data['lon'];
+
+		// Test the longitude.
+		$this->assertIsString( $longitude );
+		$this->assertNotEmpty(
+			$longitude,
+			'Longitude data is empty'
+		);
+		$this->assertEquals(
+			$longitude,
+			$parsed_longitude,
+			'Longitude data does not match'
+		);
+
+		// Get the geo latitude/longitude.
+		$lat_long = Geo\get_geo( 'latlon', $audience_data );
+		$parsed_lat_long = $parsed_data['lat'] . ',' . $parsed_data['lon'];
+
+		// Test the latitude/longitude.
+		$this->assertIsString( $lat_long );
+		$this->assertNotEmpty(
+			$lat_long,
+			'Latitude/longitude data is empty'
+		);
+		$this->assertEquals(
+			$lat_long,
+			$parsed_lat_long,
+			'Latitude/longitude data does not match'
+		);
 	}
 
 
