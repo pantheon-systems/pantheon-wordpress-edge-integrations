@@ -7,6 +7,8 @@
 
 namespace Pantheon\EI\WP\Geo;
 
+use Pantheon\EI;
+
 /**
  * Kick off our namespace.
  */
