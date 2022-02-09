@@ -9,6 +9,8 @@ use Pantheon\EI;
 use Pantheon\EI\WP\Geo;
 use PHPUnit\Framework\TestCase;
 
+use function Pantheon\EI\WP\Geo\get_geo_allowed_values;
+
 /**
  * Main test class for WordPress Edge Integrations plugin.
  */
@@ -211,5 +213,96 @@ class geoTests extends TestCase {
 				'geo:UK' => [ 'HTTP_AUDIENCE' => 'geo:UK|city:London|postal-code:WC2N 5EJ|region:England|lat:51.5074|lon:-0.1278' ]
 			],
 		];
+	}
+
+	/**
+	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 */
+	public function testGeoAllowedValues() {
+		$allowed_values = get_geo_allowed_values();
+		$this->assertIsArray( $allowed_values );
+		$this->assertNotEmpty( $allowed_values );
+		$this->assertEquals(
+			$allowed_values,
+			[
+				'',
+				'geo',
+				'country',
+				'region',
+				'city',
+				'postal-code',
+				'lat',
+				'lon',
+				'latlon',
+			],
+			'Allowed values do not match'
+		);
+
+		// Add a new value to the allowed values.
+		add_filter( 'pantheon.ei.geo_allowed_values', function( $values ) {
+			$values[] = 'some-other-value';
+			return $values;
+		}, 10, 1 );
+
+		// Validate that the new value is in the allowed values.
+		$this->assertContains( 'some-other-value', get_geo_allowed_values() );
+	}
+
+	/**
+	 * Test the pantheon.ei.parsed_geo_data filter.
+	 */
+	public function testParsedGeoData() {
+		// Filter the parsed geo data.
+		add_filter( 'pantheon.ei.parsed_geo_data', function( $geo_data ) {
+			return [
+				'name' => 'Chris Reynolds',
+				'role' => 'Software Engineer',
+				'team' => 'CMS Ecosystems',
+				'email' => 'me@someemaildomainthatdoesnotexist.io',
+			];
+		}, 10, 1 );
+
+		// Get geo with no parameters. Should return all geo data in JSON. Since we're filtering it, it should return the arbitrary data we passed.
+		$data = Geo\get_geo();
+		$this->assertJson( $data );
+		$this->assertEquals(
+			$data,
+			json_encode( [
+				'name' => 'Chris Reynolds',
+				'role' => 'Software Engineer',
+				'team' => 'CMS Ecosystems',
+				'email' => 'me@someemaildomainthatdoesnotexist.io',
+			] ),
+			'Parsed data does not match'
+		);
+
+		// Reset the geo data to something resembling real data. This is a hack because data is retained across tests.
+		add_filter( 'pantheon.ei.parsed_geo_data', function() {
+			return EI\HeaderData::parse( 'Audience', $this->mockAudienceData()[0]['geo:US'] );
+		}, 10 );
+	}
+
+	/**
+	 * Test that the pantheon.ei.get_geo action hook fires.
+	 */
+	public function testGetGeoAction() {
+		Geo\get_geo();
+		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.before_get_geo' ) );
+	}
+
+	/**
+	 * Test the pantheon.ei.get_geo filter.
+	 */
+	public function testGetGeoFilter() {
+		// Filter the geo data.
+		add_filter( 'pantheon.ei.get_geo', function( $value ) {
+			return 'Antarctica';
+		}, 10, 1 );
+
+		$this->assertEquals(
+			Geo\get_geo( 'country' ),
+			'Antarctica',
+			'Filtered geo data does not match'
+		);
 	}
 }
