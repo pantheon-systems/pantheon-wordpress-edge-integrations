@@ -94,6 +94,26 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test the pantheon.ei.parsed_interest_data filter.
+	 *
+	 * @group wp-interest
+	 */
+	public function testParsedInterestData() {
+		$input = [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+		// Filter the parsed interest data.
+		add_filter( 'pantheon.ei.parsed_interest_data', function( $interest_data ) {
+			return [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+		}, 10, 1 );
+
+		$data = Interest\get_interest( $input );
+		$this->assertEquals(
+			$data,
+			$input,
+			'Parsed data does not match'
+		);
+	}
+
+	/**
 	 * Data provider for testGetInterests.
 	 *
 	 * @return array Mock interest data.
