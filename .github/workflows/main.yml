@@ -1,9 +1,9 @@
 name: Pantheon WordPress Edge Integrations
 on: push
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
-    name: Install dependencies and run tests
+    name: Install composer dependencies and run tests
     steps:
     - uses: actions/checkout@v2
 

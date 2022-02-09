@@ -1,11 +1,12 @@
 // Webpack settings exports.
 module.exports = {
 	entries: {
-		// JS files.
-		assets: './assets/js/assets.js',
+		// JS files
+		'assets': './assets/js/assets.js',
+		'assets.min': './assets/js/assets.js',
 	},
 	filename: {
-		js: process.env.NODE_ENV === 'development' ? 'js/[name].js' : 'js/[name].min.js',
+		js: 'js/[name].js',
 	},
 	paths: {
 		src: {

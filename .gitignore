@@ -3,7 +3,7 @@ packages/
 vendor/
 node_modules/
 
-# Ignore for now
+# These files are built via Github Actions
 dist/
 
 # Other files
