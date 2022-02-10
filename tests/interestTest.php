@@ -121,7 +121,7 @@ class interestsTests extends TestCase {
 	private function mockGetInterestData() : array {
 		return [
 			[
-				'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
+				'mockInterestData' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
 			]
 		];
 	}
