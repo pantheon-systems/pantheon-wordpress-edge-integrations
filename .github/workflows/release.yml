@@ -30,7 +30,7 @@ jobs:
       with:
         name: pantheon-wordpress-edge-integrations
         path: pantheon-wordpress-edge-integrations
-    # Sanity checks.
+    # Validate files.
     - name: List Files
       run: |
         ls pantheon-wordpress-edge-integrations
@@ -38,11 +38,11 @@ jobs:
     - name: Compress built plugin
       uses: montudor/action-zip@v1
       with:
-        args: zip -qq -r pantheon-wordpress-edge-integrations.zip pantheon-wordpress-edge-integrations
+        args: zip -qq -r main.zip pantheon-wordpress-edge-integrations
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          pantheon-wordpress-edge-integrations.zip
+          main.zip
