@@ -1,31 +1,43 @@
-name: Pantheon WordPress Edge Integrations Release
+name: Pantheon WP EI Release
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 jobs:
-  build_and_tag:
+  build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: '0'
-    
+    - name: Checkout
+      uses: actions/checkout@v2
     - name: Compile assets
       run: |
         npm install
         npm run build
-
-    - name: Commit files
+    - name: Remove node_modules
+      run: rm -rf node_modules
+    - name: Save plugin as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: pantheon-wordpress-edge-integrations
+        path: ${{ github.workspace }}
+        if-no-files-found: error
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download plugin as artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: pantheon-wordpress-edge-integrations
+        path: pantheon-wordpress-edge-integrations
+    # Sanity check.
+    - name: List Files
       run: |
-        git config --local user.email "bot@getpantheon.com"
-        git config --local user.name "Pantheon Automation"
-        git add -f dist/
-        git commit -m "Built assets"
-
-    - name: Bump version and push tag
-      uses: anothrNick/github-tag-action@1.36.0
+        ls pantheon-wordpress-edge-integrations
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          pantheon-wordpress-edge-integrations/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        DEFAULT_BUMP: minor
-        WITH_V: false
