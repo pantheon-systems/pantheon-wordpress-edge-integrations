@@ -34,8 +34,14 @@ jobs:
     - name: List Files
       run: |
         ls pantheon-wordpress-edge-integrations
-        ls pantheon-wordpress-edge-integrations/dist/js
+        ls pantheon-wordpress-edge-integrations/dist
+    - name: Compress built plugin
+    - run: |
+        zip pantheon-wordpress-edge-integrations.zip pantheon-wordpress-edge-integrations/
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          pantheon-wordpress-edge-integrations.zip
