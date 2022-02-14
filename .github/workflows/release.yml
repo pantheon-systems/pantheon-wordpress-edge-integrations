@@ -36,8 +36,9 @@ jobs:
         ls pantheon-wordpress-edge-integrations
         ls pantheon-wordpress-edge-integrations/dist
     - name: Compress built plugin
-      run: |
-        zip pantheon-wordpress-edge-integrations.zip pantheon-wordpress-edge-integrations/
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r pantheon-wordpress-edge-integrations.zip pantheon-wordpress-edge-integrations
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
