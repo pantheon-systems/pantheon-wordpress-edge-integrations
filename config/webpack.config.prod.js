@@ -8,6 +8,7 @@ module.exports = merge(common, {
 	optimization: {
 		minimizer: [
 			new TerserPlugin({
+				include: '^((?!min).)*$',
 				parallel: true,
 				terserOptions: {
 					parse: {

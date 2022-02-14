@@ -1,0 +1,31 @@
+name: Pantheon WordPress Edge Integrations Release
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build_and_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: '0'
+    
+    - name: Compile assets
+      run: |
+        npm install
+        npm run build
+
+    - name: Commit files
+      run: |
+        git config --local user.email "bot@getpantheon.com"
+        git config --local user.name "Pantheon Automation"
+        git add -f dist/
+        git commit -m "Built assets"
+
+    - name: Bump version and push tag
+      uses: anothrNick/github-tag-action@1.36.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BUMP: minor
+        WITH_V: false
