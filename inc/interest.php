@@ -18,6 +18,7 @@ function bootstrap() {
 		return __NAMESPACE__ . "\\$callback";
 	};
 
+	add_action( 'init', $n( 'set_interest_header' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
 	add_action( 'the_post', $n( 'localize_interests' ) );
 }
@@ -32,6 +33,25 @@ function register_script() {
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 	wp_enqueue_script( 'pantheon-ei-interest', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+}
+
+/**
+ * Sets the Interest to header if cookie is defined and set.
+ *
+ * @return void
+ */
+function set_interest_header() {
+	$cookie_key = 'interest';
+	if ( ! array_key_exists( $cookie_key, $_COOKIE ) ) {
+		return;
+	}
+
+	$interest = sanitize_text_field( wp_unslash( $_COOKIE[ $cookie_key ] ) );
+	if ( empty( $interest ) ) {
+		return;
+	}
+
+	get_interest( [ 'HTTP_INTEREST' => $interest ] );
 }
 
 /**
