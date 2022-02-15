@@ -51,44 +51,60 @@ function set_interest_header() {
 		return;
 	}
 
-	get_interest( [ 'HTTP_INTEREST' => $interest ] );
+	set_interest( [ 'HTTP_INTEREST' => $interest ] );
 }
 
 /**
- * Set interest data.
+ * Set a vary header.
  *
  * @param array $key Key for the header, or array of keys.
  * @param array $data Data to pass to the HeaderData class.
  *
- * @return array The requested interest data.
+ * @return array The requested vary header data.
  */
-function set_interest( array $key = null, array $data = null ) : array {
+function set_vary_header( array $key = null, array $data = null ) : array {
 	/**
-	 * Get the interest data from the HeaderData class and allow it to be filtered.
+	 * Get the data from the HeaderData class and allow it to be filtered.
 	 *
-	 * @hook pantheon.ei.set_interest_data
+	 * @hook pantheon.ei.set_vary_header_data
 	 * @param array The full, parsed Interest data as an array.
 	 */
-	$vary_header = apply_filters( 'pantheon.ei.set_interest_data', EI\HeaderData::varyHeader( $key, $data ) );
+	$vary_header = apply_filters( 'pantheon.ei.set_vary_header_data', EI\HeaderData::varyHeader( $key, $data ) );
 
 	return $vary_header;
 }
 
 /**
- * Return interest data.
+ * Set the interest data in global header.
  *
  * @param array $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.
  *
+ * @return array The new interest data.
+ */
+function set_interest( array $data = null ) : array {
+	/**
+	 * Get the interest data from the HeaderData class and allow it to be filtered.
+	 *
+	 * @hook pantheon.ei.applied_interest_data
+	 * @param array The full, parsed Interest data as an array.
+	 */
+	$applied_interest = apply_filters( 'pantheon.ei.applied_interest_data', EI\HeaderData::parse( 'Interest', $data ) );
+
+	return $applied_interest;
+}
+
+/**
+ * Return interest data.
+ *
  * @return array The requested interest data.
  */
-function get_interest( array $data = null ) : array {
+function get_interest() : array {
 	/**
 	 * Get the interest data from the HeaderData class and allow it to be filtered.
 	 *
 	 * @hook pantheon.ei.parsed_interest_data
-	 * @param array The full, parsed Interest data as an array.
 	 */
-	$parsed_interest = apply_filters( 'pantheon.ei.parsed_interest_data', EI\HeaderData::parse( 'Interest', $data ) );
+	$parsed_interest = apply_filters( 'pantheon.ei.parsed_interest_data', EI\HeaderData::parse( 'Interest' ) );
 
 	return $parsed_interest;
 }
