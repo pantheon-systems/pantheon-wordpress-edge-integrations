@@ -81,26 +81,6 @@ function set_interest_header() {
 }
 
 /**
- * Set a vary header.
- *
- * @param array $key Key for the header, or array of keys.
- * @param array $data Data to pass to the HeaderData class.
- *
- * @return array The requested vary header data.
- */
-function set_vary_header( array $key = null, array $data = null ) : array {
-	/**
-	 * Get the data from the HeaderData class and allow it to be filtered.
-	 *
-	 * @hook pantheon.ei.set_vary_header_data
-	 * @param array The full, parsed Interest data as an array.
-	 */
-	$vary_header = apply_filters( 'pantheon.ei.set_vary_header_data', EI\HeaderData::varyHeader( $key, $data ) );
-
-	return $vary_header;
-}
-
-/**
  * Set the interest data in global header.
  *
  * @param array $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.

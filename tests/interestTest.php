@@ -125,17 +125,6 @@ class interestsTests extends TestCase {
 	}
 
 	/**
-	 * Make sure set_vary_header exists.
-	 * @group wp-interest
-	 */
-	public function testSetVaryHeaderExists() {
-		$this->assertTrue(
-			function_exists( '\\Pantheon\\EI\\WP\\Interest\\set_vary_header' ),
-			'set_vary_header function does not exist'
-		);
-	}
-
-	/**
 	 * Test the set_interest function.
 	 *
 	 * @dataProvider mockGetInterestData
@@ -154,33 +143,6 @@ class interestsTests extends TestCase {
 		$this->assertEquals(
 			$interest,
 			$parsed_data,
-			'Data does not match'
-		);
-	}
-
-	/**
-	 * Test the set_vary_header function.
-	 * 
-	 * @group wp-interest
-	 */
-	public function testSetVaryHeader() {
-		$input = [
-			'HTTP_IGNORED' => 'HTTP Ignored Entry',
-			'IGNORED_ENTRY' => 'Completely ignored entry',
-			'HTTP_SHOULD_BE_FOUND' => 'Should be found',
-			'HTTP_VARY' => 'Something, Wicked, This, Way',
-		];
-		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
-
-		$interest = Interest\set_vary_header( [ 'Comes' ], $input );
-		$this->assertIsArray( $interest );
-		$this->assertNotEmpty(
-			$interest,
-			'Data is empty'
-		);
-		$this->assertEquals(
-			$interest,
-			$vary_header,
 			'Data does not match'
 		);
 	}
