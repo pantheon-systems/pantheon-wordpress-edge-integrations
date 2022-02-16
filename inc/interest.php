@@ -20,7 +20,6 @@ function bootstrap() {
 
 	add_action( 'init', $n( 'set_interest_header' ) );
 	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
-	add_action( 'the_post', $n( 'localize_interests' ) );
 }
 
 /**
@@ -29,10 +28,37 @@ function bootstrap() {
  * @return void
  */
 function register_script() {
+	if ( ! is_singular( get_interest_allowed_post_types() ) ) {
+		return;
+	}
+
+	global $post;
+	$post_id = $post->ID;
+
 	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-
 	wp_enqueue_script( 'pantheon-ei-interest', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+
+	$taxonomy = get_interest_taxonomy();
+	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] );
+	if ( ! $post_terms ) {
+		return;
+	}
+
+	wp_localize_script(
+		'pantheon-ei-interest',
+		'pantheon_ei',
+		[
+			/**
+			 * Allow engineers to modify terms before they are localized.
+			 *
+			 * @hook pantheon.ei.localized_terms
+			 * @param array Terms to localize.
+			 */
+			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
+			'interest_threshold' => get_interest_threshold(),
+		]
+	);
 }
 
 /**
@@ -91,39 +117,6 @@ function get_interest( array $data = null ) : array {
 	$parsed_interest = apply_filters( 'pantheon.ei.parsed_interest_data', EI\HeaderData::parse( 'Interest', $data ) );
 
 	return $parsed_interest;
-}
-
-/**
- * Localizes the script.
- *
- * @param WP_Post $post_object The current post.
- */
-function localize_interests( $post_object ) {
-	if ( ! is_singular( get_interest_allowed_post_types() ) ) {
-		return;
-	}
-
-	$taxonomy = get_interest_taxonomy();
-
-	$post_terms = wp_get_post_terms( $post_object->ID, $taxonomy, [ 'fields' => 'slugs' ] );
-	if ( ! $post_terms ) {
-		return;
-	}
-
-	wp_localize_script(
-		'pantheon-ei-interest',
-		'pantheon_ei',
-		[
-			/**
-			 * Allow engineers to modify terms before they are localized.
-			 *
-			 * @hook pantheon.ei.localized_terms
-			 * @param array Terms to localize.
-			 */
-			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
-			'interest_threshold' => get_interest_threshold(),
-		]
-	);
 }
 
 /**
