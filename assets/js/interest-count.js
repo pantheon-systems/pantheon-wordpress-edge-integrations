@@ -136,6 +136,4 @@ function getInterests() {
 	}
 }
 
-if ( document.body.classList.contains( 'single' ) ) {
-	getInterests();
-}
+getInterests();
