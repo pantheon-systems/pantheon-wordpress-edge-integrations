@@ -1,0 +1,20 @@
+name: Pantheon WP EI Build
+on:
+  push:
+    branches:
+      - build
+jobs:
+  build_and_tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Compile assets
+      run: |
+        npm install
+        npm run build
+    - name: Commit and push build files
+      run: |
+        git config --local user.email "bot@getpantheon.com"
+        git config --local user.name "Pantheon Automation"
+        git add -f dist/
+        git commit -m "Built assets"

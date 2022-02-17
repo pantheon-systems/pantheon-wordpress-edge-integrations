@@ -1,4 +1,4 @@
-name: Pantheon WordPress Edge Integrations
+name: Pantheon WP EI Lint and Test
 on: push
 jobs:
   test:
