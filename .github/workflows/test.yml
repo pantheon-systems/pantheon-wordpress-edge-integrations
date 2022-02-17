@@ -10,7 +10,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: Install composer dependencies and run tests
+    name: Lint and Test
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
