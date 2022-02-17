@@ -4,7 +4,19 @@ on:
     branches:
       - build
 jobs:
-  build_and_tag:
+  test:
+    runs-on: ubuntu-latest
+    name: Install composer dependencies and run tests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: composer install
+    - name: Run lint
+      run: composer lint
+    - name: Run unit tests
+      run: composer test
+  build:
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
