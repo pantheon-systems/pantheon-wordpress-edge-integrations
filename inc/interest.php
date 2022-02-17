@@ -57,6 +57,7 @@ function register_script() {
 			 */
 			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
 			'interest_threshold' => get_interest_threshold(),
+			'cookie_expiration' => get_cookie_expiration(),
 		]
 	);
 }
@@ -162,5 +163,20 @@ function get_interest_threshold() : int {
 	 * @param int Number of times a term should be visited before adding to interest header.
 	 */
 	return apply_filters( 'pantheon.ei.interest_threshold', 3 );
+}
+
+/**
+ * Returns the cookie expiration for interests.
+ *
+ * @return int
+ */
+function get_cookie_expiration() : int {
+	/**
+	 * Allow engineers to modify the cookie expiration.
+	 *
+	 * @hook pantheon.ei.cookie_expiration
+	 * @param int How many days the interest cookie persists.
+	 */
+	return apply_filters( 'pantheon.ei.cookie_expiration', 14 );
 }
 
