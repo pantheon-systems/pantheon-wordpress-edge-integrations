@@ -12,7 +12,7 @@ use Pantheon\EI;
 /**
  * Return geolocation data for the current user.
  *
- * @param string $data_type The type of geo data to return. Allowed values: 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' or an empty string. All other values will return an empty string. Defaults to ''. 'geo' is allowed as an alias for 'country', but the latter is recommended.
+ * @param string $data_type The type of geo data to return. Allowed values: 'country', 'region', 'city', 'continent', 'conn-speed', 'conn-type' or an empty string. All other values will return an empty string. Defaults to ''.
  *
  * If an empty string is passed, get_geo() will return all Audience data encoded in JSON format.
  *
