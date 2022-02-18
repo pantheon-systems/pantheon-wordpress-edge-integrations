@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-cp-97--singleton"
+        "pantheon-systems/pantheon-edge-integrations": "dev-main"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
