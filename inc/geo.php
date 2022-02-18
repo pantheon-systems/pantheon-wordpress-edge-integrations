@@ -18,9 +18,11 @@ use Pantheon\EI;
  *
  * @param mixed $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.
  *
+ * @param string $header The header to use for geolocation data. Defaults to 'Audience-Set'.
+ *
  * @return string The requested geo data.
  */
-function get_geo( string $data_type = '', $data = null ) : string {
+function get_geo( string $data_type = '', $data = null, string $header = 'Audience-Set'  ) : string {
 	// If the passed data type is not allowed, return an empty string.
 	if ( ! in_array( $data_type, get_geo_allowed_values(), true ) ) {
 		return '';
