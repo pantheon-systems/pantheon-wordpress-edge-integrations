@@ -10,18 +10,6 @@ namespace Pantheon\EI\WP\Geo;
 use Pantheon\EI;
 
 /**
- * Kick off our namespace.
- *
- * @TODO: Validate that we still actually need a bootstrap (we might not).
- */
-function bootstrap() {
-	// Helper variable function that simplifies callbacks.
-	$n = function( $callback ) {
-		return __NAMESPACE__ . "\\$callback";
-	};
-}
-
-/**
  * Return geolocation data for the current user.
  *
  * @param string $data_type The type of geo data to return. Allowed values: 'country', 'region', 'city', 'postal-code', 'lat', 'lon', 'latlon' or an empty string. All other values will return an empty string. Defaults to ''. 'geo' is allowed as an alias for 'country', but the latter is recommended.
