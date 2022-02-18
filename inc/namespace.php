@@ -22,4 +22,27 @@ function bootstrap() {
 
 	// Load the Interest namespace.
 	Interest\bootstrap();
+
+/**
+ * Get an array of vary headers supported by the plugin.
+ *
+ * @return array
+ */
+function get_supported_vary_headers() : array {
+	$defaults = [
+		'Audience-Set' => true,
+		'Audience' => false,
+		'Interest' => true,
+	];
+
+	/**
+	 * Allow developers to modify the vary headers supported by the plugin.
+	 *
+	 * Array keys are vary headers, and values are whether or not they are supported.
+	 *
+	 * @param array $defaults Array of vary headers supported by the plugin.
+	 */
+	return apply_filters( 'pantheon.ei.supported_vary_headers', $defaults );
+}
+
 }
