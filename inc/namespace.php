@@ -23,6 +23,9 @@ function bootstrap() {
 	// Load the Interest namespace.
 	Interest\bootstrap();
 
+	add_action( 'init', __NAMESPACE__ . '\\set_interest_header' );
+}
+
 /**
  * Get an array of vary headers supported by the plugin.
  *
