@@ -5,6 +5,8 @@
  * @package Pantheon\EdgeIntegrations
  */
 
+namespace Pantheon\EI\WP;
+
 use Pantheon\EI;
 use PHPUnit\Framework\TestCase;
 
@@ -27,5 +29,19 @@ class testsBase extends TestCase {
 		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_VERSION' ) );
 		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_FILE' ) );
 		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_DIR' ) );
+	}
+
+	/**
+	 * Test the supported vary headers.
+	 */
+	public function testSupportedVaryHeaders() {
+		$this->assertEquals( [
+			'Audience-Set' => true,
+			'Audience'     => false,
+			'Interest'     => true,
+		],
+		get_supported_vary_headers(),
+		'The vary headers supported do not match.'
+		);
 	}
 }
