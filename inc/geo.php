@@ -48,7 +48,7 @@ function get_geo( string $data_type = '', $data = null, string $header = 'Audien
 	 * @hook pantheon.ei.geo_data
 	 * @param array The full, parsed Audience geo data as an array.
 	 */
-	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( 'Audience', $data ) );
+	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( $header, $data ) );
 
 	// If no geo data type was passed, return all Audience data.
 	if ( empty( $data_type ) ) {
