@@ -45,4 +45,19 @@ function get_supported_vary_headers() : array {
 	return apply_filters( 'pantheon.ei.supported_vary_headers', $defaults );
 }
 
+/**
+ * Set the vary headers based on what's currently-supported.
+ *
+ * @return void
+ */
+function set_vary_headers() {
+	$supported_vary_headers = get_supported_vary_headers();
+
+	foreach ( $supported_vary_headers as $header => $enabled ) {
+		if ( ! $enabled ) {
+			continue;
+		}
+
+		header( "Vary: $header", false );
+	}
 }
