@@ -55,9 +55,6 @@ function get_geo( string $data_type = '', $data = null, string $header = 'Audien
 		return json_encode( $parsed_geo );
 	}
 
-	// The default 'geo' parameter returns the country code. Let 'country' pull the 'geo' data.
-	$data_type = $data_type === 'country' ? 'geo' : $data_type;
-
 	// If 'latlon' was requested, return the latitude and longitude.
 	if ( $data_type === 'latlon' ) {
 		$parsed_geo['latlon'] = $parsed_geo['lat'] . ',' . $parsed_geo['lon'];
