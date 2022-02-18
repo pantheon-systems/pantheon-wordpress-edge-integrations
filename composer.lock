@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a55dd6fc81a8b9d16e7e16925f27b50c",
+    "content-hash": "fa27cebe45bfce593a6b44c991bdb32c",
     "packages": [
         {
             "name": "pantheon-systems/pantheon-edge-integrations",
@@ -4595,12 +4595,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
-        "pantheon-systems/pantheon-edge-integrations": 20,
         "wordpress/wordpress": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],

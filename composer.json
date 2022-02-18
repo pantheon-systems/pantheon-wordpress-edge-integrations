@@ -3,6 +3,8 @@
     "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
     "type": "wordpress-plugin",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": [
         {
             "type": "composer",
@@ -19,7 +21,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-main"
+        "pantheon-systems/pantheon-edge-integrations": "*"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
