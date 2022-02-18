@@ -29,6 +29,18 @@ function get_geo( string $data_type = '', $data = null, string $header = 'Audien
 	}
 
 	/**
+	 * Filter the header to use for geolocation.
+	 *
+	 * @param array $allowed_geo_headers Array of allowed geo headers. Defaults to ['Audience-Set', 'Audience'].
+	 */
+	$allowed_geo_headers = apply_filters( 'pantheon.ei.allowed_geo_headers', [ 'Audience-Set', 'Audience' ] );
+
+	// Make sure the header we're pulling from is an allowed geo header.
+	if ( ! in_array( $header, $allowed_geo_headers, true ) ) {
+		return '';
+	}
+
+	/**
 	 * Get the geo data from the HeaderData class and allow it to be filtered.
 	 *
 	 * For filtering purposes, the data passed is an array of key/value pairs of geo data. Because this filter fires after the data types are checked, it's possible (but not recommended) to provide data that would otherwise be filtered out.
