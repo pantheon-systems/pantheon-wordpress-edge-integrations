@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-main"
+        "pantheon-systems/pantheon-edge-integrations": "*"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
