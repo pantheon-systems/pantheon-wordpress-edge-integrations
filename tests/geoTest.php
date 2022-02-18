@@ -15,17 +15,6 @@ use function Pantheon\EI\WP\Geo\get_geo_allowed_values;
  * Main test class for WordPress Edge Integrations plugin.
  */
 class geoTests extends TestCase {
-
-	/**
-	 * Make sure unit tests are running.
-	 */
-	public function testBootstrapIsLoaded() {
-		$this->assertTrue(
-			function_exists( '\\Pantheon\\EI\\WP\\Geo\\bootstrap' ),
-			'bootstrap function does not exist'
-		);
-	}
-
 	/**
 	 * Make sure get_geo exists.
 	 * @group wp-geo
