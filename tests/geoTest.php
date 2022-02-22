@@ -15,17 +15,6 @@ use function Pantheon\EI\WP\Geo\get_geo_allowed_values;
  * Main test class for WordPress Edge Integrations plugin.
  */
 class geoTests extends TestCase {
-
-	/**
-	 * Make sure unit tests are running.
-	 */
-	public function testBootstrapIsLoaded() {
-		$this->assertTrue(
-			function_exists( '\\Pantheon\\EI\\WP\\Geo\\bootstrap' ),
-			'bootstrap function does not exist'
-		);
-	}
-
 	/**
 	 * Make sure get_geo exists.
 	 * @group wp-geo
@@ -45,11 +34,10 @@ class geoTests extends TestCase {
 	 */
 	public function testGetGeo( array $audience_data ) {
 		// Get the actual data in a format that's easier to read.
-		$parsed_data = EI\HeaderData::parse( 'Audience', $audience_data );
-
+		$parsed_data = EI\HeaderData::parse( 'Audience-Set', $audience_data );
 		// Get the geo country.
 		$country = Geo\get_geo( 'country', $audience_data );
-		$parsed_country = $parsed_data['geo'];
+		$parsed_country = $parsed_data['country'];
 
 		// Test the country.
 		$this->assertIsString( $country );
@@ -61,19 +49,6 @@ class geoTests extends TestCase {
 			$country,
 			$parsed_country,
 			'Country data does not match'
-		);
-
-		// Test that `geo` can be passed and also returns the country.
-		$geo = Geo\get_geo( 'geo', $audience_data );
-		$this->assertIsString( $geo );
-		$this->assertNotEmpty(
-			$geo,
-			'Geo data is empty'
-		);
-		$this->assertEquals(
-			$geo,
-			$parsed_country,
-			'Geo data does not match'
 		);
 
 		// Get the geo region.
@@ -108,68 +83,52 @@ class geoTests extends TestCase {
 			'City data does not match'
 		);
 
-		// Get the geo postal code.
-		$postal_code = Geo\get_geo( 'postal-code', $audience_data );
-		$parsed_postal_code = $parsed_data['postal-code'];
+		// Get the geo continent.
+		$continent = Geo\get_geo( 'continent', $audience_data );
+		$parsed_continent = $parsed_data['continent'];
 
-		// Test the postal code.
-		$this->assertIsString( $postal_code );
+		// Test the continent.
+		$this->assertIsString( $continent );
 		$this->assertNotEmpty(
-			$postal_code,
-			'Postal code data is empty'
+			$continent,
+			'Continent data is empty'
 		);
 		$this->assertEquals(
-			$postal_code,
-			$parsed_postal_code,
-			'Postal code data does not match'
+			$continent,
+			$parsed_continent,
+			'Continent data does not match'
 		);
 
-		// Get the geo latitude.
-		$latitude = Geo\get_geo( 'lat', $audience_data );
-		$parsed_latitude = $parsed_data['lat'];
+		// Get the connection type.
+		$conn_type = Geo\get_geo( 'conn-type', $audience_data );
+		$parsed_conn_type = $parsed_data['conn-type'];
 
-		// Test the latitude.
-		$this->assertIsString( $latitude );
+		// Test the connection type.
+		$this->assertIsString( $conn_type );
 		$this->assertNotEmpty(
-			$latitude,
-			'Latitude data is empty'
+			$conn_type,
+			'Connection type data is empty'
 		);
 		$this->assertEquals(
-			$latitude,
-			$parsed_latitude,
-			'Latitude data does not match'
+			$conn_type,
+			$parsed_conn_type,
+			'Connection type data does not match'
 		);
 
-		// Get the geo longitude.
-		$longitude = Geo\get_geo( 'lon', $audience_data );
-		$parsed_longitude = $parsed_data['lon'];
+		// Get the connection speed.
+		$conn_speed = Geo\get_geo( 'conn-speed', $audience_data );
+		$parsed_conn_speed = $parsed_data['conn-speed'];
 
-		// Test the longitude.
-		$this->assertIsString( $longitude );
+		// Test the connection speed.
+		$this->assertIsString( $conn_speed );
 		$this->assertNotEmpty(
-			$longitude,
-			'Longitude data is empty'
+			$conn_speed,
+			'Connection speed data is empty'
 		);
 		$this->assertEquals(
-			$longitude,
-			$parsed_longitude,
-			'Longitude data does not match'
-		);
-
-		// Get the geo latitude/longitude.
-		$lat_long = Geo\get_geo( 'latlon', $audience_data );
-		$parsed_lat_long = $parsed_data['lat'] . ',' . $parsed_data['lon'];
-
-		// Test the latitude/longitude.
-		$this->assertIsString( $lat_long );
-		$this->assertNotEmpty(
-			$lat_long,
-			'Latitude/longitude data is empty'
-		);
-		$this->assertEquals(
-			$lat_long,
-			$parsed_lat_long,
-			'Latitude/longitude data does not match'
+			$conn_speed,
+			$parsed_conn_speed,
+			'Connection speed data does not match'
 		);
 
 		// Test that some other string returns empty.
@@ -201,16 +160,16 @@ class geoTests extends TestCase {
 	 *
 	 * @return array Mock audience data.
 	 */
-	private function mockAudienceData() : array {
+	public function mockAudienceData() : array {
 		return [
 			[
-				'geo:US' => [ 'HTTP_AUDIENCE' => 'geo:US|city:Salt Lake City|postal-code:84103|region:Utah|lat:40.775740|lon:-111.879040' ]
+				'US' => [ 'HTTP_AUDIENCE_SET' => 'country:US|city:Salt Lake City|region:UT|continent:NA|conn-speed:broadband|conn-type:wired' ]
 			],
 			[
-				'geo:CA' => [ 'HTTP_AUDIENCE' => 'geo:CA|city:Vancouver|postal-code:V6Z 2E7|region:British Columbia|lat:49.2827|lon:-123.1207' ]
+				'CA' => [ 'HTTP_AUDIENCE_SET' => 'country:CA|city:Vancouver|region:BC|continent:NA|conn-speed:cable|conn-type:wifi' ]
 			],
 			[
-				'geo:UK' => [ 'HTTP_AUDIENCE' => 'geo:UK|city:London|postal-code:WC2N 5EJ|region:England|lat:51.5074|lon:-0.1278' ]
+				'UK' => [ 'HTTP_AUDIENCE_SET' => 'country:UK|city:London|region:LND|continent:EU|conn-speed:xdsl|conn-type:?' ]
 			],
 		];
 	}
@@ -226,11 +185,12 @@ class geoTests extends TestCase {
 			$allowed_values,
 			[
 				'',
-				'geo',
 				'country',
 				'region',
 				'city',
-				'postal-code',
+				'continent',
+				'conn-speed',
+				'conn-type',
 				'lat',
 				'lon',
 				'latlon',
@@ -278,7 +238,7 @@ class geoTests extends TestCase {
 
 		// Reset the geo data to something resembling real data. This is a hack because data is retained across tests.
 		add_filter( 'pantheon.ei.parsed_geo_data', function() {
-			return EI\HeaderData::parse( 'Audience', $this->mockAudienceData()[0]['geo:US'] );
+			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
 		}, 10 );
 	}
 

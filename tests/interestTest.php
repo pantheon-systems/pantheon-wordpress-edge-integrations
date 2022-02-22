@@ -28,7 +28,7 @@ class interestsTests extends TestCase {
 	 * Test Interest post types.
 	 */
 	public function testRegisterScript() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_allowed_post_types' ),
 			'get_interest_allowed_post_types function does not exist'
 		);
@@ -38,7 +38,7 @@ class interestsTests extends TestCase {
 	 * Test Interest taxonomy.
 	 */
 	public function testInterestTaxomony() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_taxonomy' ),
 			'get_interest_taxonomy function does not exist'
 		);
@@ -48,7 +48,7 @@ class interestsTests extends TestCase {
 	 * Test Interest threshold.
 	 */
 	public function testInterestThreshold() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_threshold' ),
 			'get_interest_threshold function does not exist'
 		);
@@ -175,7 +175,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the set_interest function.
-	 * 
+	 *
 	 * @group wp-interest
 	 */
 	public function testSetInterest() {
@@ -225,7 +225,7 @@ class interestsTests extends TestCase {
 	 *
 	 * @return array Mock interest data.
 	 */
-	private function mockGetInterestData() : array {
+	public function mockGetInterestData() : array {
 		return [
 			[
 				'mockInterestData' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
