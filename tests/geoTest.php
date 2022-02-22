@@ -35,7 +35,6 @@ class geoTests extends TestCase {
 	public function testGetGeo( array $audience_data ) {
 		// Get the actual data in a format that's easier to read.
 		$parsed_data = EI\HeaderData::parse( 'Audience-Set', $audience_data );
-// var_dump($audience_data);
 		// Get the geo country.
 		$country = Geo\get_geo( 'country', $audience_data );
 		$parsed_country = $parsed_data['country'];
