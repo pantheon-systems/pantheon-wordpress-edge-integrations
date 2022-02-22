@@ -108,6 +108,7 @@ function getInterests() {
 		// How many times should a tag be visited before adding to interest header.
 		const popularityCount = localizedObj.interest_threshold ? localizedObj.interest_threshold : 3;
 		const postTags = localizedObj.post_terms;
+		const cookieExpiration = localizedObj.cookie_expiration ? localizedObj.cookie_expiration : 14;
 
 		if ( postTags ) {
 			// Create LocalStorage instance.
@@ -129,8 +130,9 @@ function getInterests() {
 			let interestTags = Object.keys( interestTagsCount );
 
 			if ( interestTags.length > 0 ) {
-				// Set interest cookie with popular tags, separated by |.
-				cookies.set( 'interest', interestTags.join( '|' ) );
+				const CookieAttributes = { expires: parseInt( localizedObj.cookie_expiration ) };
+				// Set interest cookie with popular tags, separated by |, and any attributes.
+				cookies.set( 'interest', interestTags.join( '|' ), CookieAttributes );
 			}
 		}
 	}

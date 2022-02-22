@@ -55,6 +55,16 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test Cookie expiration.
+	 */
+	public function testCookieExpiration() {
+		$this->assertTrue( 
+			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_cookie_expiration' ),
+			'get_cookie_expiration function does not exist'
+		);
+	}
+
+	/**
 	 * Test the pantheon.ei.post_types filter.
 	 */
 	public function testInterestPostTypesFilter() {
@@ -99,6 +109,22 @@ class interestsTests extends TestCase {
 			Interest\get_interest_threshold(),
 			5,
 			'Filtered threshold does not match'
+		);
+	}
+
+	/**
+	 * Test the pantheon.ei.cookie_expiration filter.
+	 */
+	public function testCookieExpirationFilter() {
+		// Filter the interest threshold.
+		add_filter( 'pantheon.ei.cookie_expiration', function( $value ) {
+			return 7;
+		}, 10, 1 );
+
+		$this->assertEquals(
+			Interest\get_cookie_expiration(),
+			7,
+			'Filtered cookie expiration does not match'
 		);
 	}
 
