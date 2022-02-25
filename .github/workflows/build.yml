@@ -27,13 +27,9 @@ jobs:
         npm install
         npm run build
     - name: Commit build files
-      # Add our compiled files and depencies for release
-      # Remove files not needed for release
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
-        rm -rf assets/ config/ tests/
-        git add -f dist/ vendor/ assets/ config/ tests/
         git commit -m "Built assets"
     - name: Push changes
       uses: ad-m/github-push-action@master
