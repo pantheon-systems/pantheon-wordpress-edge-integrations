@@ -4,45 +4,10 @@ on:
     tags:
       - '*'
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Compile assets
-      run: |
-        npm install
-        npm run build
-    - name: Remove node_modules
-      run: rm -rf node_modules
-    - name: Save plugin as artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: pantheon-wordpress-edge-integrations
-        path: ${{ github.workspace }}
-        if-no-files-found: error
   release:
-    needs: build
     runs-on: ubuntu-latest
     steps:
-    - name: Download plugin as artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: pantheon-wordpress-edge-integrations
-        path: pantheon-wordpress-edge-integrations
-    # Validate files.
-    - name: List Files
-      run: |
-        ls pantheon-wordpress-edge-integrations
-        ls pantheon-wordpress-edge-integrations/dist
-    - name: Compress built plugin
-      uses: montudor/action-zip@v1
-      with:
-        args: zip -qq -r main.zip pantheon-wordpress-edge-integrations
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        files: |
-          main.zip

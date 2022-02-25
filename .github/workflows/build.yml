@@ -1,0 +1,33 @@
+name: Pantheon WP EI Build
+on:
+  pull_request:
+    branches:
+      - build
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Lint and Test
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: composer install
+    - name: Run lint
+      run: composer lint
+    - name: Run unit tests
+      run: composer test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Compile assets
+      run: |
+        composer install --no-dev -o
+        npm install
+        npm run build
+    - name: Commit and push build files
+      run: |
+        git config --local user.email "bot@getpantheon.com"
+        git config --local user.name "Pantheon Automation"
+        git add -f dist/ vendor/
+        git commit -m "Built assets"
