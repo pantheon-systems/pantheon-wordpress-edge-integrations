@@ -30,10 +30,12 @@ Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning 
 
 ## Release Process
 
-1. Bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7)
-2. Create a pull request with production-ready code from `main` against `build`.
-3. After all tests pass, and automation makes the commit containing the build files, merge the PR into `build`.
-4. Locally checkout the `build` branch and pull the latest.
-5. Create a new tag: `git tag major.minor.patch`. Iterate on the previous [tag](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/tags) as needed.
-6. Push the tag to the repo: `git push origin tag major.minor.patch`. This step triggers `release.yml` which will create a new release containing the compiled source files.
-7. Bump the version number in the `main` branch to major.minor.patch-dev via Pull Request once the release is published.
+1. Merge all production-ready code into `main`.
+2. On your local machine, checkout `main` and pull the latest.
+3. Checkout a new release branch: `git checkout -b release-major.minor.patch` and bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7)
+4. Push up the release branch, and create a PR against the `build` branch.
+5. After all tests pass, and automation makes the commit containing the build files, merge the PR into `build`.
+6. Locally checkout the `build` branch and pull the latest.
+7. Create a new tag: `git tag major.minor.patch`. Iterate on the previous [tag](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/tags) as needed.
+7. Push the tag to the repo: `git push origin tag major.minor.patch`. This step triggers `release.yml` which will create a new release containing the compiled source files.
+9. Bump the version number in the `main` branch to major.minor.patch-dev via Pull Request once the release is published.
