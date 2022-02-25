@@ -179,4 +179,3 @@ function get_cookie_expiration() : int {
 	 */
 	return apply_filters( 'pantheon.ei.cookie_expiration', 14 );
 }
-
