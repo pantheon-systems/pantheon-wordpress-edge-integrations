@@ -2,8 +2,8 @@
     "packages": [
         {
             "name": "pantheon-systems/pantheon-edge-integrations",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pantheon-systems/pantheon-edge-integrations.git",
@@ -20,7 +20,6 @@
                 "squizlabs/php_codesniffer": "^3.6"
             },
             "time": "2022-02-24T17:14:59+00:00",
-            "default-branch": true,
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -38,7 +37,7 @@
             "description": "Helper class for content personalization.",
             "support": {
                 "issues": "https://github.com/pantheon-systems/pantheon-edge-integrations/issues",
-                "source": "https://github.com/pantheon-systems/pantheon-edge-integrations/tree/main"
+                "source": "https://github.com/pantheon-systems/pantheon-edge-integrations/tree/1.0.1"
             },
             "install-path": "../pantheon-systems/pantheon-edge-integrations"
         }
