@@ -22,8 +22,6 @@ function bootstrap() {
 
 	// Load the Interest namespace.
 	Interest\bootstrap();
-
-	add_action( 'init', __NAMESPACE__ . '\\set_interest_header' );
 }
 
 /**
