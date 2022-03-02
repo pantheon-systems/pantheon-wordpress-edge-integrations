@@ -265,4 +265,21 @@ class geoTests extends TestCase {
 			'Filtered geo data does not match'
 		);
 	}
+
+	/**
+	 * Test that we dn't get an undefined array key error when calling a geo value that doesn't exist.
+	 */
+	public function testUndefinedArrayKey() {
+		// Reset the geo data to nothing.
+		add_filter( 'pantheon.ei.parsed_geo_data', function() {
+			return [];
+		}, 10 );
+
+		$this->assertEmpty( Geo\get_geo( 'country' ) );
+
+		// Reset the geo back to something resembling real data.
+		add_filter( 'pantheon.ei.parsed_geo_data', function() {
+			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
+		}, 10 );
+	}
 }
