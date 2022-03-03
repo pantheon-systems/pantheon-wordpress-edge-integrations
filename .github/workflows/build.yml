@@ -21,16 +21,23 @@ jobs:
     name: Build
     steps:
     - uses: actions/checkout@v2
-    - name: Compile assets
+    - name: Compile production assets
       run: |
         composer install --no-dev -o
         npm install
         npm run build
-    - name: Commit build files
+    - name: Add build files
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
         git add -f dist/ vendor/
+    # In case an engineer has SCRIPT_DEBUG defined, add unminified file.
+    - name: Compile dev assets
+      run: npm run dev
+    - name: Commit assets files
+      run: |
+        git add -f dist/js/assets.js
+        git status
         git commit -m "Built assets"
     - name: Push changes
       uses: ad-m/github-push-action@master
