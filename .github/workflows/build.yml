@@ -31,10 +31,7 @@ jobs:
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
         git add -f dist/ vendor/
-    # In case an engineer has SCRIPT_DEBUG defined, add unminified file.
-    - name: Compile dev assets
       run: npm run dev
-    - name: Commit assets files
       run: |
         git add -f dist/js/assets.js
         git status
