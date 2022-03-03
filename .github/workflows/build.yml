@@ -31,8 +31,6 @@ jobs:
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
         git add -f dist/ vendor/
-        npm run dev
-        git add -f dist/js/assets.js
         git commit -m "Built assets"
     - name: Push changes
       uses: ad-m/github-push-action@master
