@@ -30,7 +30,8 @@ jobs:
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
-        git add -f dist/ vendor/
+        rm -rf assets/ config/
+        git add -f dist/ vendor/ assets/ config/
         git commit -m "Built assets"
     - name: Push changes
       uses: ad-m/github-push-action@master
