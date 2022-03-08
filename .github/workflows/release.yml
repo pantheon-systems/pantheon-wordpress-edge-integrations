@@ -12,13 +12,13 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install Dependencies
-      run: npm install
+    # - name: Install Dependencies
+    #   run: npm install
 
-    - name: Populate Changelog
-      run: node .github/workflows/changelog.js README.md
-      env:
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Populate Changelog
+    #   run: node .github/workflows/changelog.js README.md
+    #   env:
+    #     TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     # - name: WordPress Plugin Deploy
     #   uses: 10up/action-wordpress-plugin-deploy@1.4.1
