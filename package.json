@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@humanmade/eslint-config": "^1.1.3",
+    "@actions/github": "^2",
     "ansi-regex": ">=5.0.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
@@ -52,11 +53,19 @@
     "glob-parent": ">=5.1.2",
     "js-cookie": "^3.0.1",
     "react-app": "^1.1.2",
+    "replace-in-file": "^5",
+    "semver": "^7",
     "terser": "^4.4.3",
+    "version-bump-prompt": "^6.1.0",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
     "webpack-fix-style-only-entries": "^0.4.0",
     "webpack-merge": "^4.2.2",
     "webpackbar": "^4.0.0"
+  },
+  "scripts": {
+    "bump:patch": "bump patch --commit 'Version %s.' pantheon-wordpress-edge-integrations.php README.md",
+    "bump:minor": "bump minor --commit 'Version %s.' pantheon-wordpress-edge-integrations.php README.md",
+    "bump:major": "bump major --commit 'Version %s.' pantheon-wordpress-edge-integrations.php README.md"
   }
 }

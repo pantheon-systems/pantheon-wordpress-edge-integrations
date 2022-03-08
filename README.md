@@ -17,3 +17,7 @@ WordPress plugin and developer toolkit to support Pantheon Edge Integrations and
 This plugin provides tools for integrating with Pantheon's Edge features provided by our Advanced Global CDN. Integrate natively with geolocation and interest tracking features to build personalization-enhanced features for your site.
 
 If you would like to contribute to this plugin, please see the [CONTRIBUTING.md](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/CONTRIBUTING.md) file for more information.
+
+## Frequently Asked Questions
+
+<!-- changelog -->
