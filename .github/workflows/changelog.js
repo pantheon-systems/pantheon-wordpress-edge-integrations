@@ -2,7 +2,7 @@ const github = require('@actions/github');
 const semver = require('semver');
 const replace = require('replace-in-file');
 
-const filename = process.argv[2] || 'readme.md';
+const filename = process.argv[2] || 'README.md';
 const myToken = process.env.TOKEN;
 
 async function run() {
