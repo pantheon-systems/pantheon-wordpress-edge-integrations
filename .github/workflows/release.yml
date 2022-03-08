@@ -12,6 +12,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+    # Populate changelog. Could be done on release instead.
+    # Source: https://github.com/johnbillion/user-switching/blob/develop/.github/workflows/deploy-tag.yml
     # - name: Install Dependencies
     #   run: npm install
 
