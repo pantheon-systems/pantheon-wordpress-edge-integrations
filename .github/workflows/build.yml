@@ -35,7 +35,7 @@ jobs:
         npm run dev
         rm -rf assets/ config/
         git add -f dist/ vendor/ assets/ config/
-        git add -f dist/js/assets.js
+        git add -f dist/js/assets.js dist/js/assets.min.js
         git status
         git commit -m "Built assets"
     - name: Push changes
