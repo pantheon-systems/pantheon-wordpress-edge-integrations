@@ -35,7 +35,7 @@ Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning 
 
 1. Merge all production-ready code into `main`.
 2. On your local machine, checkout `main` and pull the latest.
-3. Checkout a new release branch: `git checkout -b release-major.minor.patch` and bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7)
+3. Checkout a new release branch: `git checkout -b release-major.minor.patch` and bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7), and [package.json](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/package.json#L3)
 4. Push up the release branch, and create a PR against the `build` branch.
 5. After all tests pass, and automation makes the commit containing the build files, merge the PR into `build`.
 6. Locally checkout the `build` branch and pull the latest.
