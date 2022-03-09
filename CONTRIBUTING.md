@@ -40,5 +40,5 @@ Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning 
 5. After all tests pass, and automation makes the commit containing the build files, merge the PR into `build`.
 6. Locally checkout the `build` branch and pull the latest.
 7. Create a new tag: `git tag major.minor.patch`. Iterate on the previous [tag](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/tags) as needed.
-7. Push the tag to the repo: `git push origin tag major.minor.patch`. This step triggers `release.yml` which will create a new release containing the compiled source files.
+8. Push the tag to the repo: `git push origin tag major.minor.patch`. This step triggers `release.yml` which will create a new release containing the compiled source files.
 9. Bump the version number in the `main` branch to major.minor.patch-dev via Pull Request once the release is published.
