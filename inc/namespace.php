@@ -39,6 +39,12 @@ function get_supported_vary_headers() : array {
 		'Interest' => true,
 	];
 
+	// Omit headers that are not supported.
+	$key = array_search( false, $defaults );
+	if ( false !== $defaults ) {
+		unset( $defaults[ $key ] );
+	}
+
 	/**
 	 * Allow developers to modify the vary headers supported by the plugin.
 	 *
