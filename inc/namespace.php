@@ -30,7 +30,7 @@ function bootstrap() {
 /**
  * Get an array of vary headers supported by the plugin.
  *
- * @return array
+ * @return array Array of supported vary header keys.
  */
 function get_supported_vary_headers() : array {
 	/**
