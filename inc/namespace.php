@@ -64,5 +64,6 @@ function get_supported_vary_headers() : array {
 function set_vary_headers() {
 	$supported_vary_headers = get_supported_vary_headers();
 
-	header( 'Vary: ' . implode( ', ', array_keys( $supported_vary_headers ) ), false );
+	// Set the Vary headers.
+	header( 'Vary: ' . implode( ', ', $supported_vary_headers ), false );
 }
