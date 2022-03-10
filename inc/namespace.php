@@ -22,20 +22,17 @@ function bootstrap() {
 
 	// Load the Interest namespace.
 	Interest\bootstrap();
+
+	// Set the Vary headers.
+	add_action( 'init', __NAMESPACE__ . '\\set_vary_headers' );
 }
 
 /**
  * Get an array of vary headers supported by the plugin.
  *
- * @return array
+ * @return array Array of supported vary header keys.
  */
 function get_supported_vary_headers() : array {
-	$defaults = [
-		'Audience-Set' => true,
-		'Audience' => false,
-		'Interest' => true,
-	];
-
 	/**
 	 * Allow developers to modify the vary headers supported by the plugin.
 	 *
@@ -43,7 +40,20 @@ function get_supported_vary_headers() : array {
 	 *
 	 * @param array $defaults Array of vary headers supported by the plugin.
 	 */
-	return apply_filters( 'pantheon.ei.supported_vary_headers', $defaults );
+	$defaults = apply_filters( 'pantheon.ei.supported_vary_headers', [
+		'Audience-Set' => true,
+		'Audience' => false,
+		'Interest' => true,
+	] );
+
+	// Omit headers that are not supported.
+	$key = array_search( false, $defaults, true );
+	if ( false !== $defaults ) {
+		unset( $defaults[ $key ] );
+	}
+
+	// Return the modified array of supported vary header keys.
+	return array_keys( $defaults );
 }
 
 /**
@@ -54,11 +64,6 @@ function get_supported_vary_headers() : array {
 function set_vary_headers() {
 	$supported_vary_headers = get_supported_vary_headers();
 
-	foreach ( $supported_vary_headers as $header => $enabled ) {
-		if ( ! $enabled ) {
-			continue;
-		}
-
-		header( "Vary: $header", false );
-	}
+	// Set the Vary headers.
+	header( 'Vary: ' . implode( ', ', $supported_vary_headers ), false );
 }
