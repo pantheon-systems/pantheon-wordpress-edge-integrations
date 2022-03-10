@@ -33,11 +33,18 @@ function bootstrap() {
  * @return array
  */
 function get_supported_vary_headers() : array {
-	$defaults = [
+	/**
+	 * Allow developers to modify the vary headers supported by the plugin.
+	 *
+	 * Array keys are vary headers, and values are whether or not they are supported.
+	 *
+	 * @param array $defaults Array of vary headers supported by the plugin.
+	 */
+	$defaults = apply_filters( 'pantheon.ei.supported_vary_headers', [
 		'Audience-Set' => true,
 		'Audience' => false,
 		'Interest' => true,
-	];
+	] );
 
 	// Omit headers that are not supported.
 	$key = array_search( false, $defaults );
