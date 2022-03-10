@@ -130,7 +130,7 @@ function getInterests() {
 			let interestTags = Object.keys( interestTagsCount );
 
 			if ( interestTags.length > 0 ) {
-				const CookieAttributes = { expires: parseInt( localizedObj.cookie_expiration ) };
+				const CookieAttributes = { expires: parseInt( cookieExpiration ) };
 				// Set interest cookie with popular tags, separated by |, and any attributes.
 				cookies.set( 'interest', interestTags.join( '|' ), CookieAttributes );
 			}
