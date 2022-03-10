@@ -47,7 +47,7 @@ function get_supported_vary_headers() : array {
 	] );
 
 	// Omit headers that are not supported.
-	$key = array_search( false, $defaults );
+	$key = array_search( false, $defaults, true );
 	if ( false !== $defaults ) {
 		unset( $defaults[ $key ] );
 	}
