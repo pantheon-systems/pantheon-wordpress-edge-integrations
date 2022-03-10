@@ -32,7 +32,6 @@ jobs:
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
-        npm run dev
         rm -rf assets/ config/
         git add -f dist/ vendor/ assets/ config/
         git add -f dist/js/assets.js dist/js/assets.min.js
