@@ -22,6 +22,9 @@ function bootstrap() {
 
 	// Load the Interest namespace.
 	Interest\bootstrap();
+
+	// Set the Vary headers.
+	add_action( 'init' , __NAMESPACE__ . '\\set_vary_headers' );
 }
 
 /**
