@@ -23,15 +23,17 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
-    - name: Run release and commit assets
+    - name: Compile assets
       run: |
         composer install --no-dev -o
         npm install
+        npm run build
+    - name: Add and commit build files
+      run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
+        git add -f dist/ vendor/
         npm run release
-        rm -rf assets/ config/
-        git add -f dist/js/assets.js assets/ config/
         git status
         git commit -m "Built assets"
     - name: Push changes
