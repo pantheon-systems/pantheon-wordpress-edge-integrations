@@ -32,6 +32,8 @@ jobs:
     - name: Run release and commit assets
       run: |
         npm run release
+        rm -rf assets/ config/
+        git add -f dist/js/assets.js assets/ config/
         git status
         git commit -m "Built assets"
     - name: Push changes
