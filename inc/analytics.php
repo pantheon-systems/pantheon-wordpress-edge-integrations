@@ -63,18 +63,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  * Enqueue the GTM script.
  */
 function enqueue_scripts() {
-	$gtm_code = get_gtm_code();
-
-	// Bail early only if we don't have a GTM code. If the code is provided externally, we still want to run the script.
-	if ( ! $gtm_code ) {
-		return;
-	}
-
 	$vary_headers = WP\get_supported_vary_headers();
 	wp_enqueue_script( 'ei-gtm', plugin_dir_url( dirname( __FILE__ ) ) . '/assets/js/gtm_headers.js', [], '1.0.0', true );
 
 	wp_localize_script( 'ei-gtm', 'eiGtm', [
-		'gtmCode' => $gtm_code,
 		'headersEnabled' => $vary_headers,
 		'geo' => WP\Geo\get_geo(),
 		'interest' => WP\Interest\get_interest(),
