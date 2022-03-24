@@ -13,6 +13,11 @@ namespace Pantheon\EI\WP;
  * Kick it off!
  */
 function bootstrap() {
+	// Helper variable function that simplifies callbacks.
+	$n = function( $callback ) {
+		return __NAMESPACE__ . "\\$callback";
+	};
+
 	define( 'PANTHEON_EDGE_INTEGRATIONS_DIR', dirname( __DIR__, 1 ) );
 	define( 'PANTHEON_EDGE_INTEGRATIONS_FILE', PANTHEON_EDGE_INTEGRATIONS_DIR . '/' . basename( dirname( __DIR__, 1 ) ) . '.php' );
 
