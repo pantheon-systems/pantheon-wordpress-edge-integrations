@@ -64,7 +64,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 function enqueue_scripts() {
 	$gtm_code = get_gtm_code();
 
-	// Bail early if we don't have a GTM code.
+	// Bail early only if we don't have a GTM code. If the code is provided externally, we still want to run the script.
 	if ( ! $gtm_code ) {
 		return;
 	}
