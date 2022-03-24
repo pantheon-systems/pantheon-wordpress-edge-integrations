@@ -17,6 +17,7 @@ function bootstrap() {
 	add_action( 'wp_body_open', __NAMESPACE__ . '\\after_body', 1 );
 	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
 	add_action( 'admin_init', __NAMESPACE__ . '\\register_setting' );
+	add_filter( 'pantheon.ei.gtm_code', __NAMESPACE__ . '\\filter_gtm_code', 1 );
 }
 
 /**
@@ -182,3 +183,27 @@ function sanitize_gtm_code( string $gtm_code ) : string {
 	return sanitize_text_field( $gtm_code );
 }
 
+/**
+ * Maybe filter the GTM code.
+ *
+ * The GTM code may come in three different options:
+ * 1. true - if a developer wants to use their own analytics plugin to manage GTM. In this case, true overrides the filter and disables the option in the admin.
+ * 2. false - if a developer has not defined a GTM code via the filter (the default state). In this case, the option in the admin is displayed.
+ * 3. A string - if a developer has defined a GTM code via the filter. In this case, the option in the admin is hidden.
+ *
+ * @param bool|string $gtm_code
+ *
+ * @return bool|string
+ */
+function filter_gtm_code( $gtm_code ) {
+	// Check for stored value for GTM code from the option in the admin..
+	$option = get_option( 'pantheon_ei_gtm_code', $gtm_code );
+
+	// If the option is true or false, we're either overriding the admin option or an option has not been set. In that case, we don't need to filter anything.
+	if ( is_bool( $option ) ) {
+		return $gtm_code;
+	}
+
+	// If the option is a string, it is the stored admin GTM code value, so we should filter the GTM code with the one stored in the database.
+	return $option;
+}
