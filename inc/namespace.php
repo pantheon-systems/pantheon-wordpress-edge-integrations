@@ -51,6 +51,7 @@ function enqueue_script() {
 
 		/**
 		 * Allow developers to hook in after the pantheon-ei script is enqueued.
+		 *
 		 * @todo Write documentation for this hook.
 		 * @hook pantheon.ei.enqueue_script
 		 * @param string $plugin_version The plugin version.
