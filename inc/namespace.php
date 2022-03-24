@@ -24,7 +24,25 @@ function bootstrap() {
 	Interest\bootstrap();
 
 	// Set the Vary headers.
-	add_action( 'init', __NAMESPACE__ . '\\set_vary_headers' );
+	add_action( 'init', $n( 'set_vary_headers' ) );
+
+	// Enqueue the script.
+	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
+}
+
+/**
+ * Registers & enequeues the script.
+ *
+ * @return void
+ */
+function register_script() {
+	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+	// Enqueue the script anytime we're not in the admin.
+	if ( ! is_admin() ) {
+		wp_enqueue_script( 'pantheon-ei', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+	}
 }
 
 /**
