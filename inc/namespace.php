@@ -25,8 +25,9 @@ function bootstrap() {
 	$plugin_version = $plugin_data['Version'];
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
-	// Load the Interest namespace.
+	// Load Interests and Analytics.
 	Interest\bootstrap();
+	Analytics\bootstrap();
 
 	// Set the Vary headers.
 	add_action( 'init', $n( 'set_vary_headers' ) );
