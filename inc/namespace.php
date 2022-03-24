@@ -46,7 +46,8 @@ function enqueue_script() {
 
 	// Enqueue the script anytime we're not in the admin.
 	if ( ! is_admin() ) {
-		wp_enqueue_script( 'pantheon-ei', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+		$path = ! empty( $suffix ) ? "/dist/js/assets$suffix.js" : '/assets/js/assets.js';
+		wp_enqueue_script( 'pantheon-ei', plugins_url( $path, PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
 	}
 }
 
