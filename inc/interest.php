@@ -34,8 +34,8 @@ function localize_script() {
 	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] ) ?: [];
 
 	wp_localize_script(
-		'pantheon-ei-interest',
-		'pantheon_ei',
+		'pantheon-ei',
+		'eiInterest',
 		[
 			/**
 			 * Allow engineers to modify terms before they are localized.
