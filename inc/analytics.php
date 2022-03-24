@@ -83,8 +83,9 @@ function enqueue_scripts() {
 /**
  * Get the GTM code.
  * If no GTM code exists, return false.
+ * Alternately, the user can filter this value as "true" if they want to use their own Google Analytics/Google Tag Manager plugin to store/manage their GTM code.
  *
- * @return string|false The GTM code, or false if none exists.
+ * @return bool|string The GTM code, or false if none exists.
  */
 function get_gtm_code() {
 	$gtm_code = apply_filters( 'pantheon.ei.gtm_code', '__return_false' );
