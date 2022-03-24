@@ -19,31 +19,19 @@ function bootstrap() {
 	};
 
 	add_action( 'init', $n( 'set_interest_header' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
+	add_action( 'wp_enqueue_scripts', $n( 'localize_script' ) );
 }
 
 /**
- * Registers the script.
+ * Pass interest data to the script.
  *
  * @return void
  */
-function register_script() {
-	if ( ! is_singular( get_interest_allowed_post_types() ) ) {
-		return;
-	}
-
+function localize_script() {
 	global $post;
 	$post_id = $post->ID;
-
-	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
-	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	wp_enqueue_script( 'pantheon-ei-interest', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
-
 	$taxonomy = get_interest_taxonomy();
-	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] );
-	if ( ! $post_terms ) {
-		return;
-	}
+	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] ) ?: [];
 
 	wp_localize_script(
 		'pantheon-ei-interest',
