@@ -32,7 +32,7 @@ function bootstrap() {
 	add_action( 'init', $n( 'set_vary_headers' ) );
 
 	// Enqueue the script.
-	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
+	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
 }
 
 /**
@@ -40,7 +40,7 @@ function bootstrap() {
  *
  * @return void
  */
-function register_script() {
+function enqueue_script() {
 	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
