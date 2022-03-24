@@ -20,7 +20,7 @@ function bootstrap() {
 
 	add_action( 'wp_head', $n( 'after_head' ), 1 );
 	add_action( 'wp_body_open', $n( 'after_body' ), 1 );
-	add_action( 'wp_enqueue_scripts', $n( 'localize_script' ) );
+	add_action( 'pantheon.ei.after_enqueue_script', $n( 'localize_script' ) );
 	add_action( 'admin_init', $n( 'register_setting' ) );
 	add_filter( 'pantheon.ei.gtm_code', $n( 'filter_gtm_code' ), 1 );
 }

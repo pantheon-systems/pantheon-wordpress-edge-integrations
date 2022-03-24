@@ -19,7 +19,7 @@ function bootstrap() {
 	};
 
 	add_action( 'init', $n( 'set_interest_header' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'localize_script' ) );
+	add_action( 'pantheon.ei.after_enqueue_script', $n( 'localize_script' ) );
 }
 
 /**
