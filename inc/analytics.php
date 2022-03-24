@@ -25,8 +25,8 @@ function bootstrap() {
 function after_head() {
 	$gtm_code = get_gtm_code();
 
-	// Bail early if we don't have a GTM code.
-	if ( ! $gtm_code ) {
+	// Bail early if we don't have a GTM code or if the GTM code is being overridden externally.
+	if ( is_bool( $gtm_code ) ) {
 		return;
 	}
 	?>
@@ -46,8 +46,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 function after_body() {
 	$gtm_code = get_gtm_code();
 
-	// Bail early if we don't have a GTM code.
-	if ( ! $gtm_code ) {
+	// Bail early if we don't have a GTM code or if the GTM code is being overridden externally.
+	if ( is_bool( $gtm_code ) ) {
 		return;
 	}
 	?>
