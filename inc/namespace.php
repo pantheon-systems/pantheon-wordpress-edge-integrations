@@ -48,6 +48,18 @@ function enqueue_script() {
 	// Enqueue the script anytime we're not in the admin.
 	if ( ! is_admin() ) {
 		wp_enqueue_script( 'pantheon-ei', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+
+		/**
+		 * Allow developers to hook in after the pantheon-ei script is enqueued.
+		 * @todo Write documentation for this hook.
+		 * @hook pantheon.ei.enqueue_script
+		 * @param string $plugin_version The plugin version.
+		 * @param string $plugin_file The plugin file path.
+		 */
+		do_action( 'pantheon.ei.after_enqueue_script', [
+			'plugin_version' => PANTHEON_EDGE_INTEGRATIONS_VERSION,
+			'plugin_file'    => PANTHEON_EDGE_INTEGRATIONS_FILE,
+		] );
 	}
 }
 
