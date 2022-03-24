@@ -88,7 +88,7 @@ function enqueue_scripts() {
  * @return bool|string The GTM code, or false if none exists.
  */
 function get_gtm_code() {
-	$gtm_code = apply_filters( 'pantheon.ei.gtm_code', '__return_false' );
+	$gtm_code = apply_filters( 'pantheon.ei.gtm_code', false );
 
 	// Bail if we don't have a valid GTM code.
 	if ( ! is_string( $gtm_code ) || false === stripos( $gtm_code, 'GTM' ) ) {
