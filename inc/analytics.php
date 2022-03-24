@@ -187,7 +187,7 @@ function sanitize_gtm_code( string $gtm_code ) : string {
  * 2. false - if a developer has not defined a GTM code via the filter (the default state). In this case, the option in the admin is displayed.
  * 3. A string - if a developer has defined a GTM code via the filter. In this case, the option in the admin is hidden.
  *
- * @param bool|string $gtm_code
+ * @param bool|string $gtm_code The GTM code.
  *
  * @return bool|string
  */
