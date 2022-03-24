@@ -13,11 +13,16 @@ use Pantheon\EI\WP;
  * Kick off the plugin.
  */
 function bootstrap() {
-	add_action( 'wp_head', __NAMESPACE__ . '\\after_head', 1 );
-	add_action( 'wp_body_open', __NAMESPACE__ . '\\after_body', 1 );
-	add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_scripts' );
-	add_action( 'admin_init', __NAMESPACE__ . '\\register_setting' );
-	add_filter( 'pantheon.ei.gtm_code', __NAMESPACE__ . '\\filter_gtm_code', 1 );
+	// Helper variable function that simplifies callbacks.
+	$n = function( $callback ) {
+		return __NAMESPACE__ . "\\$callback";
+	};
+
+	add_action( 'wp_head', $n( 'after_head' ), 1 );
+	add_action( 'wp_body_open', $n( 'after_body' ), 1 );
+	add_action( 'wp_enqueue_scripts', $n( 'localize_script' ) );
+	add_action( 'admin_init', $n( 'register_setting' ) );
+	add_filter( 'pantheon.ei.gtm_code', $n( 'filter_gtm_code' ), 1 );
 }
 
 /**
