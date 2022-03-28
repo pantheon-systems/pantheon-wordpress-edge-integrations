@@ -114,7 +114,7 @@ function register_setting() {
 		return;
 	}
 
-	// Regiter the setting.
+	// Register the setting.
 	\register_setting( 'general', 'pantheon_ei_gtm_code', [
 		'sanitize_callback' => __NAMESPACE__ . '\\sanitize_gtm_code',
 	] );
