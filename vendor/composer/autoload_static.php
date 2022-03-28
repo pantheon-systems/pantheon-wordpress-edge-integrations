@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInite51040fef24b8d6bfedf0c89db7f35c6
 {
     public static $files = array (
+        '832479e3f13f8200869f8160173d496a' => __DIR__ . '/../..' . '/inc/analytics.php',
         '0092b59e41a6cdec37a10e5a6e0639ae' => __DIR__ . '/../..' . '/inc/geo.php',
         'cd00a6ea12a10c51041427e0b5da4bc5' => __DIR__ . '/../..' . '/inc/interest.php',
         'e371d86f9fb3521b30e5f3a75d600f85' => __DIR__ . '/../..' . '/inc/namespace.php',
