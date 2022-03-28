@@ -37,7 +37,7 @@ function bootstrap() {
 }
 
 /**
- * Registers & enequeues the script.
+ * Registers & enqueues the script.
  *
  * @return void
  */
