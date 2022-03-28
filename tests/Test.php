@@ -40,4 +40,29 @@ class testsBase extends TestCase {
 		'The vary headers supported do not match.'
 		);
 	}
+
+	/**
+	 * Test the add_header_data function.
+	 */
+	public function testAddHeaderData() {
+		$input = [
+			'HTTP_IGNORED' => 'HTTP Ignored Entry',
+			'IGNORED_ENTRY' => 'Completely ignored entry',
+			'HTTP_SHOULD_BE_FOUND' => 'Should be found',
+			'HTTP_VARY' => 'Something, Wicked, This, Way',
+		];
+		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
+
+		$interest = add_header_data( [ 'Comes' ], $input );
+		$this->assertIsArray( $interest );
+		$this->assertNotEmpty(
+			$interest,
+			'Data is empty'
+		);
+		$this->assertEquals(
+			$interest,
+			$vary_header,
+			'Data does not match'
+		);
+	}
 }

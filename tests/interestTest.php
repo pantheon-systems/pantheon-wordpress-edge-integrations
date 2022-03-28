@@ -174,33 +174,6 @@ class interestsTests extends TestCase {
 	}
 
 	/**
-	 * Test the set_interest function.
-	 *
-	 * @group wp-interest
-	 */
-	public function testSetInterest() {
-		$input = [
-			'HTTP_IGNORED' => 'HTTP Ignored Entry',
-			'IGNORED_ENTRY' => 'Completely ignored entry',
-			'HTTP_SHOULD_BE_FOUND' => 'Should be found',
-			'HTTP_VARY' => 'Something, Wicked, This, Way',
-		];
-		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
-
-		$interest = Interest\set_interest( [ 'Comes' ], $input );
-		$this->assertIsArray( $interest );
-		$this->assertNotEmpty(
-			$interest,
-			'Data is empty'
-		);
-		$this->assertEquals(
-			$interest,
-			$vary_header,
-			'Data does not match'
-		);
-	}
-
-	/**
 	 * Test the pantheon.ei.parsed_interest_data filter.
 	 *
 	 * @group wp-interest
