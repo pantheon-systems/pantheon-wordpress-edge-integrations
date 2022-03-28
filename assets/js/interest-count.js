@@ -1,4 +1,4 @@
-/*global pantheon_ei*/
+/*global eiInterest*/
 /**
  * @file
  * Count interests and set cookie for interest header.
@@ -76,7 +76,7 @@ function getInterests() {
 		 */
 		constructor() {
 			// localStorage key.
-			this.key = 'pantheon_ei.interest';
+			this.key = 'eiInterest.interest';
 		}
 
 		/**
@@ -103,7 +103,7 @@ function getInterests() {
 	if ( ! runOnce ) {
 		runOnce = true;
 
-		const localizedObj = pantheon_ei;
+		const localizedObj = eiInterest;
 
 		// How many times should a tag be visited before adding to interest header.
 		const popularityCount = localizedObj.interest_threshold ? localizedObj.interest_threshold : 3;

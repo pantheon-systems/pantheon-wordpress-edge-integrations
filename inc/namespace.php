@@ -13,6 +13,11 @@ namespace Pantheon\EI\WP;
  * Kick it off!
  */
 function bootstrap() {
+	// Helper variable function that simplifies callbacks.
+	$n = function( $callback ) {
+		return __NAMESPACE__ . "\\$callback";
+	};
+
 	define( 'PANTHEON_EDGE_INTEGRATIONS_DIR', dirname( __DIR__, 1 ) );
 	define( 'PANTHEON_EDGE_INTEGRATIONS_FILE', PANTHEON_EDGE_INTEGRATIONS_DIR . '/' . basename( dirname( __DIR__, 1 ) ) . '.php' );
 
@@ -20,11 +25,42 @@ function bootstrap() {
 	$plugin_version = $plugin_data['Version'];
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
-	// Load the Interest namespace.
+	// Load Interests and Analytics.
 	Interest\bootstrap();
+	Analytics\bootstrap();
 
 	// Set the Vary headers.
-	add_action( 'init', __NAMESPACE__ . '\\set_vary_headers' );
+	add_action( 'init', $n( 'set_vary_headers' ) );
+
+	// Enqueue the script.
+	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
+}
+
+/**
+ * Registers & enqueues the script.
+ *
+ * @return void
+ */
+function enqueue_script() {
+	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+
+	// Enqueue the script anytime we're not in the admin.
+	if ( ! is_admin() ) {
+		wp_enqueue_script( 'pantheon-ei', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
+
+		/**
+		 * Allow developers to hook in after the pantheon-ei script is enqueued.
+		 *
+		 * @hook pantheon.ei.enqueue_script
+		 * @param string $plugin_version The plugin version.
+		 * @param string $plugin_file The plugin file path.
+		 */
+		do_action( 'pantheon.ei.after_enqueue_script', [
+			'plugin_version' => PANTHEON_EDGE_INTEGRATIONS_VERSION,
+			'plugin_file'    => PANTHEON_EDGE_INTEGRATIONS_FILE,
+		] );
+	}
 }
 
 /**
