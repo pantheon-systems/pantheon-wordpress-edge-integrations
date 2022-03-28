@@ -103,3 +103,23 @@ function set_vary_headers() {
 	// Set the Vary headers.
 	header( 'Vary: ' . implode( ', ', $supported_vary_headers ), false );
 }
+
+/**
+ * Add header key and custom data.
+ *
+ * @param array $key Key for the header, or array of keys.
+ * @param array $data Data to pass to the HeaderData class.
+ *
+ * @return array The header data.
+ */
+function add_header_data( array $key = null, array $data = null ) : array {
+	/**
+	 * Get the data from the HeaderData class and allow it to be filtered.
+	 *
+	 * @hook pantheon.ei.add_header_data
+	 * @param array The full, parsed header data as an array.
+	 */
+	$vary_header = apply_filters( 'pantheon.ei.add_header_data', EI\HeaderData::varyHeader( $key, $data ) );
+
+	return $vary_header;
+}
