@@ -10,7 +10,7 @@ namespace Pantheon\EI\WP\Analytics;
 use Pantheon\EI\WP;
 
 /**
- * Kick off the plugin.
+ * Kick off analytics.
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
