@@ -1,6 +1,6 @@
 {
   "name": "pantheon-wordpress-edge-integrations",
-  "version": "0.2.10",
+  "version": "0.2.11",
   "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
   "scripts": {
     "bump:patch": "bump patch --commit 'Version %s.' pantheon-wordpress-edge-integrations.php README.md",
@@ -9,6 +9,7 @@
     "start": "composer install --ignore-platform-reqs && npm install && npm run build",
     "build": "NODE_ENV=production webpack --config config/webpack.config.prod.js",
     "dev": "NODE_ENV=development webpack --config config/webpack.config.dev.js",
+    "release": "composer install --no-dev -o && npm install && npm run build && git add -f dist/ vendor/ && npm run dev && git add -f dist/js/assets.js",
     "watch": "NODE_ENV=development webpack --watch --config config/webpack.config.dev.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
