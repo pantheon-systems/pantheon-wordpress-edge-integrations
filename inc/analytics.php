@@ -21,7 +21,7 @@ function bootstrap() {
 	add_action( 'wp_head', $n( 'after_head' ), 1 );
 	add_action( 'wp_body_open', $n( 'after_body' ), 1 );
 	add_action( 'pantheon.ei.after_enqueue_script', $n( 'localize_script' ) );
-	add_action( 'admin_init', $n( 'register_setting' ) );
+	add_action( 'admin_init', $n( 'register_ei_settings' ) );
 	add_filter( 'pantheon.ei.gtm_code', $n( 'filter_gtm_code' ), 1 );
 }
 
@@ -98,7 +98,7 @@ function get_gtm_code() {
 /**
  * Register the GTM setting and add the setting field.
  */
-function register_setting() {
+function register_ei_settings() {
 	$gtm_code = get_gtm_code();
 
 	// Bail early and don't register the setting if we're overriding GTM in the EI plugin.
@@ -115,7 +115,7 @@ function register_setting() {
 	}
 
 	// Register the setting.
-	\register_setting( 'general', 'pantheon_ei_gtm_code', [
+	register_setting( 'general', 'pantheon_ei_gtm_code', [
 		'sanitize_callback' => __NAMESPACE__ . '\\sanitize_gtm_code',
 	] );
 
