@@ -19,35 +19,23 @@ function bootstrap() {
 	};
 
 	add_action( 'init', $n( 'set_interest_header' ) );
-	add_action( 'wp_enqueue_scripts', $n( 'register_script' ) );
+	add_action( 'pantheon.ei.after_enqueue_script', $n( 'localize_script' ) );
 }
 
 /**
- * Registers the script.
+ * Pass interest data to the script.
  *
  * @return void
  */
-function register_script() {
-	if ( ! is_singular( get_interest_allowed_post_types() ) ) {
-		return;
-	}
-
+function localize_script() {
 	global $post;
 	$post_id = $post->ID;
-
-	/* Use minified libraries if SCRIPT_DEBUG is turned off. */
-	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	wp_enqueue_script( 'pantheon-ei-interest', plugins_url( '/dist/js/assets' . $suffix . '.js', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION, true );
-
 	$taxonomy = get_interest_taxonomy();
-	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] );
-	if ( ! $post_terms ) {
-		return;
-	}
+	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] ) ?: [];
 
 	wp_localize_script(
-		'pantheon-ei-interest',
-		'pantheon_ei',
+		'pantheon-ei',
+		'eiInterest',
 		[
 			/**
 			 * Allow engineers to modify terms before they are localized.
@@ -57,6 +45,7 @@ function register_script() {
 			 */
 			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
 			'interest_threshold' => get_interest_threshold(),
+			'cookie_expiration' => get_cookie_expiration(),
 		]
 	);
 }
@@ -160,3 +149,17 @@ function get_interest_threshold() : int {
 	return apply_filters( 'pantheon.ei.interest_threshold', 3 );
 }
 
+/**
+ * Returns the cookie expiration for interests.
+ *
+ * @return int
+ */
+function get_cookie_expiration() : int {
+	/**
+	 * Allow engineers to modify the cookie expiration.
+	 *
+	 * @hook pantheon.ei.cookie_expiration
+	 * @param int How many days the interest cookie persists.
+	 */
+	return apply_filters( 'pantheon.ei.cookie_expiration', 14 );
+}

@@ -1,0 +1,38 @@
+name: Pantheon WP EI Build
+on:
+  pull_request:
+    branches:
+      - build
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Lint and Test
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: composer install
+    - name: Run lint
+      run: composer lint
+    - name: Run unit tests
+      run: composer test
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    name: Build
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Run release
+      run: |
+        git config --local user.email "bot@getpantheon.com"
+        git config --local user.name "Pantheon Automation"
+        npm run release
+        git status
+        git commit -m "Built assets"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.head_ref }}
+        force: true

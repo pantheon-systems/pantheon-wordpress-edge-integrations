@@ -3,6 +3,8 @@
     "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
     "type": "wordpress-plugin",
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": [
         {
             "type": "composer",
@@ -19,7 +21,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-cp-97--singleton"
+        "pantheon-systems/pantheon-edge-integrations": "^v1.0"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
@@ -29,12 +31,16 @@
     },
     "autoload": {
         "files": [
+            "inc/analytics.php",
             "inc/geo.php",
             "inc/interest.php",
             "inc/namespace.php"
         ]
     },
     "scripts": {
+        "bump:patch": "npm run bump:patch",
+        "bump:minor": "npm run bump:minor",
+        "bump:major": "npm run bump:major",
         "lint:php": "find ./pantheon-wordpress-edge-integrations.php ./inc ./tests  -name '*.php' -exec php -l {} \\;",
         "lint:phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
         "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",

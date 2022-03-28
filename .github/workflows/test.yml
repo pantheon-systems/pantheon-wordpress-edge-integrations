@@ -1,0 +1,22 @@
+name: Pantheon WP EI Lint and Test
+on:
+  push:
+    # This job is copied in build.yml so we can use the
+    # needs: test dependency on the build job.
+    # Cross workflow dependencies are not yet supported:
+    # https://github.community/t/how-do-i-specify-job-dependency-running-in-another-workflow/16482
+    branches-ignore:
+      - build
+      - 'release-**'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Lint and Test
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: composer install
+    - name: Run lint
+      run: composer lint
+    - name: Run unit tests
+      run: composer test

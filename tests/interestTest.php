@@ -28,7 +28,7 @@ class interestsTests extends TestCase {
 	 * Test Interest post types.
 	 */
 	public function testRegisterScript() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_allowed_post_types' ),
 			'get_interest_allowed_post_types function does not exist'
 		);
@@ -38,7 +38,7 @@ class interestsTests extends TestCase {
 	 * Test Interest taxonomy.
 	 */
 	public function testInterestTaxomony() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_taxonomy' ),
 			'get_interest_taxonomy function does not exist'
 		);
@@ -48,9 +48,19 @@ class interestsTests extends TestCase {
 	 * Test Interest threshold.
 	 */
 	public function testInterestThreshold() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_interest_threshold' ),
 			'get_interest_threshold function does not exist'
+		);
+	}
+
+	/**
+	 * Test Cookie expiration.
+	 */
+	public function testCookieExpiration() {
+		$this->assertTrue( 
+			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_cookie_expiration' ),
+			'get_cookie_expiration function does not exist'
 		);
 	}
 
@@ -103,6 +113,22 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test the pantheon.ei.cookie_expiration filter.
+	 */
+	public function testCookieExpirationFilter() {
+		// Filter the interest threshold.
+		add_filter( 'pantheon.ei.cookie_expiration', function( $value ) {
+			return 7;
+		}, 10, 1 );
+
+		$this->assertEquals(
+			Interest\get_cookie_expiration(),
+			7,
+			'Filtered cookie expiration does not match'
+		);
+	}
+
+	/**
 	 * Make sure get_interest exists.
 	 * @group wp-interest
 	 */
@@ -148,6 +174,33 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test the set_interest function.
+	 *
+	 * @group wp-interest
+	 */
+	public function testSetInterest() {
+		$input = [
+			'HTTP_IGNORED' => 'HTTP Ignored Entry',
+			'IGNORED_ENTRY' => 'Completely ignored entry',
+			'HTTP_SHOULD_BE_FOUND' => 'Should be found',
+			'HTTP_VARY' => 'Something, Wicked, This, Way',
+		];
+		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
+
+		$interest = Interest\set_interest( [ 'Comes' ], $input );
+		$this->assertIsArray( $interest );
+		$this->assertNotEmpty(
+			$interest,
+			'Data is empty'
+		);
+		$this->assertEquals(
+			$interest,
+			$vary_header,
+			'Data does not match'
+		);
+	}
+
+	/**
 	 * Test the pantheon.ei.parsed_interest_data filter.
 	 *
 	 * @group wp-interest
@@ -172,7 +225,7 @@ class interestsTests extends TestCase {
 	 *
 	 * @return array Mock interest data.
 	 */
-	private function mockGetInterestData() : array {
+	public function mockGetInterestData() : array {
 		return [
 			[
 				'mockInterestData' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
