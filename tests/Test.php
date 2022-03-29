@@ -53,7 +53,7 @@ class testsBase extends TestCase {
 		];
 		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
 
-		$interest = add_header_data( [ 'Comes' ], $input );
+		$interest = update_vary_headers( [ 'Comes' ], $input );
 		$this->assertIsArray( $interest );
 		$this->assertNotEmpty(
 			$interest,

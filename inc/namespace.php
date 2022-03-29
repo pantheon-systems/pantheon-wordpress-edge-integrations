@@ -107,14 +107,14 @@ function set_vary_headers() {
 }
 
 /**
- * Add header key and custom data.
+ * Adds header key and custom data.
  *
  * @param array $key Key for the header, or array of keys.
  * @param array $data Data to pass to the HeaderData class.
  *
  * @return array The header data.
  */
-function add_header_data( array $key = null, array $data = null ) : array {
+function update_vary_headers( array $key = null, array $data = null ) : array {
 	/**
 	 * Get the data from the HeaderData class and allow it to be filtered.
 	 *
