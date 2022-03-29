@@ -72,7 +72,7 @@ function localize_script() {
 
 	wp_localize_script( 'pantheon-ei', 'eiGtm', [
 		'headersEnabled' => $vary_headers,
-		'geo' => WP\Geo\get_geo(),
+		'geo' => json_decode( WP\Geo\get_geo() ),
 		'interest' => WP\Interest\get_interest(),
 	] );
 }
