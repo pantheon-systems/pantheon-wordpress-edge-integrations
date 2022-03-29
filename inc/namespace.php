@@ -107,7 +107,7 @@ function set_vary_headers() {
 }
 
 /**
- * Adds header key and custom data.
+ * Adds header key and custom data to vary header.
  *
  * @param array $key Key for the header, or array of keys.
  * @param array $data Data to pass to the HeaderData class.
