@@ -69,11 +69,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
  */
 function localize_script() {
 	$vary_headers = WP\get_supported_vary_headers();
+	$interests = WP\Interest\get_interest();
 
 	wp_localize_script( 'pantheon-ei', 'eiGtm', [
 		'headersEnabled' => $vary_headers,
 		'geo' => json_decode( WP\Geo\get_geo() ),
-		'interest' => WP\Interest\get_interest()[0],
+		'interest' => ! empty( $interest ) ? $interest[0] : '',
 	] );
 }
 
