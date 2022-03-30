@@ -9,6 +9,8 @@
 
 namespace Pantheon\EI\WP;
 
+use Pantheon\EI;
+
 /**
  * Kick it off!
  */
@@ -102,4 +104,24 @@ function set_vary_headers() {
 
 	// Set the Vary headers.
 	header( 'Vary: ' . implode( ', ', $supported_vary_headers ), false );
+}
+
+/**
+ * Adds header key and custom data to vary header.
+ *
+ * @param array $key Key for the header, or array of keys.
+ * @param array $data Data to pass to the HeaderData class.
+ *
+ * @return array The header data.
+ */
+function update_vary_headers( array $key = null, array $data = null ) : array {
+	/**
+	 * Get the data from the HeaderData class and allow it to be filtered.
+	 *
+	 * @hook pantheon.ei.add_header_data
+	 * @param array The full, parsed header data as an array.
+	 */
+	$vary_header = apply_filters( 'pantheon.ei.custom_header_data', EI\HeaderData::varyHeader( $key, $data ) );
+
+	return $vary_header;
 }

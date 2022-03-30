@@ -151,16 +151,16 @@ class interestsTests extends TestCase {
 	}
 
 	/**
-	 * Test the get_interest function.
+	 * Test the set_interest function.
 	 *
 	 * @dataProvider mockGetInterestData
 	 * @group wp-interest
 	 */
-	public function testGetInterest( array $interest_data ) {
+	public function testSetInterest( array $interest_data ) {
 		// Get the actual data in a format that's easier to read.
 		$parsed_data = EI\HeaderData::parse( 'Interest', $interest_data );
 
-		$interest = Interest\get_interest( $interest_data );
+		$interest = Interest\set_interest( $interest_data );
 		$this->assertIsArray( $interest );
 		$this->assertNotEmpty(
 			$interest,
@@ -169,33 +169,6 @@ class interestsTests extends TestCase {
 		$this->assertEquals(
 			$interest,
 			$parsed_data,
-			'Data does not match'
-		);
-	}
-
-	/**
-	 * Test the set_interest function.
-	 *
-	 * @group wp-interest
-	 */
-	public function testSetInterest() {
-		$input = [
-			'HTTP_IGNORED' => 'HTTP Ignored Entry',
-			'IGNORED_ENTRY' => 'Completely ignored entry',
-			'HTTP_SHOULD_BE_FOUND' => 'Should be found',
-			'HTTP_VARY' => 'Something, Wicked, This, Way',
-		];
-		$vary_header = EI\HeaderData::varyHeader( [ 'Comes' ], $input );
-
-		$interest = Interest\set_interest( [ 'Comes' ], $input );
-		$this->assertIsArray( $interest );
-		$this->assertNotEmpty(
-			$interest,
-			'Data is empty'
-		);
-		$this->assertEquals(
-			$interest,
-			$vary_header,
 			'Data does not match'
 		);
 	}
