@@ -37,8 +37,11 @@ Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning 
 2. On your local machine, checkout `main` and pull the latest.
 3. Checkout a new release branch: `git checkout -b release-major.minor.patch` and bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7), and [package.json](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/package.json#L3)
 4. Push up the release branch, and create a PR against the `build` branch.
-5. After all tests pass, and automation makes the commit containing the build files, merge the PR into `build`.
-6. Locally checkout the `build` branch and pull the latest.
-7. Create a new tag: `git tag major.minor.patch`. Iterate on the previous [tag](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/tags) as needed.
-8. Push the tag to the repo: `git push origin tag major.minor.patch`. This step triggers `release.yml` which will create a new release containing the compiled source files.
-9. Bump the version number in the `main` branch to major.minor.patch-dev via Pull Request once the release is published.
+5. After all tests and code reviews pass, and automation makes the commit containing the build files, merge the PR into `build`.
+6. Navigate to the [Releases](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/releases) page and click the "Draft a New Release" button.
+7. Under "Choose a Tag", enter the release version (`major.minor.patch`) and select "Create a new tag: `major.minor.patch` on publish".
+8. Set the target branch to `build`.
+9. Enter the version number as the release title.
+10. Click the "Auto-generate release notes" button to add the changelog to the release.
+11. Publish the release!
+12. Bump the version number in `pantheon-wordpress-edge-integrations.php` to `major.minor.patch-dev`, the version in `package.json` to `major.minor.patch`, and the version in the `README.md` to the latest _stable_ version (which should be the one you just published) and push directly to `main`.
