@@ -4,7 +4,7 @@
  * Description: WordPress plugin to support Pantheon Edge Integrations and personalization features.
  * Author: Pantheon
  * Author URI: https://pantheon.io
- * Version: 0.2.12-dev
+ * Version: 0.2.12
  *
  * @package Pantheon/EdgeIntegrations
  */
