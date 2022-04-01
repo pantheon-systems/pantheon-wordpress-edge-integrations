@@ -50,11 +50,7 @@ function localize_script() {
 			 * @hook pantheon.ei.localized_terms
 			 * @param array Terms to localize.
 			 */
-			'post_terms' => apply_filters( 'pantheon.ei.localized_terms', $post_terms ),
-			'interest_threshold' => get_interest_threshold(),
-			'cookie_expiration' => get_cookie_expiration(),
-		]
-	);
+	wp_localize_script( 'pantheon-ei', 'eiInterest', $localized_obj );
 }
 
 /**
