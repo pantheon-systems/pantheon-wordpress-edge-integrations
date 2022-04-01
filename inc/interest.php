@@ -40,16 +40,16 @@ function localize_script() {
 	$taxonomy = get_interest_taxonomy();
 	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] ) ?: [];
 
-	wp_localize_script(
-		'pantheon-ei',
-		'eiInterest',
-		[
-			/**
-			 * Allow engineers to modify terms before they are localized.
-			 *
-			 * @hook pantheon.ei.localized_terms
-			 * @param array Terms to localize.
-			 */
+	if ( in_array( $post->post_type, get_interest_allowed_post_types(), true ) ) {
+		/**
+		 * Allow engineers to modify terms before they are localized.
+		 *
+		 * @hook pantheon.ei.localized_terms
+		 * @param array Terms to localize.
+		 */
+		$localized_obj['post_terms'] = apply_filters( 'pantheon.ei.localized_terms', $post_terms );
+	}
+
 	wp_localize_script( 'pantheon-ei', 'eiInterest', $localized_obj );
 }
 
