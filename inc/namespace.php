@@ -32,7 +32,7 @@ function bootstrap() {
 	Analytics\bootstrap();
 
 	// Set the Vary headers.
-	add_action( 'init', $n( 'set_vary_headers' ) );
+	add_action( 'init', $n( 'set_vary_headers' ), 999 );
 
 	// Enqueue the script.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
