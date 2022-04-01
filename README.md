@@ -1,6 +1,6 @@
 # Pantheon WordPress Edge Integrations
 
-Stable tag: 0.2.12  
+Stable tag: 0.2.13  
 Requires at least: 5.8  
 Tested up to: 5.9  
 Requires PHP: 7.4  
