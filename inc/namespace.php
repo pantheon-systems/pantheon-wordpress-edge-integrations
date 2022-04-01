@@ -32,7 +32,7 @@ function bootstrap() {
 	Analytics\bootstrap();
 
 	// Set the Vary headers.
-	add_action( 'init', $n( 'set_vary_headers' ) );
+	add_action( 'init', $n( 'set_vary_headers' ), 999 );
 
 	// Enqueue the script.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
@@ -85,9 +85,12 @@ function get_supported_vary_headers() : array {
 	] );
 
 	// Omit headers that are not supported.
-	$key = array_search( false, $defaults, true );
-	if ( false !== $defaults ) {
-		unset( $defaults[ $key ] );
+	if ( ! is_bool( $defaults ) ) {
+		foreach ( $defaults as $key => $value ) {
+			if ( $value === false ) {
+				unset( $defaults[ $key ] );
+			}
+		}
 	}
 
 	// Return the modified array of supported vary header keys.
