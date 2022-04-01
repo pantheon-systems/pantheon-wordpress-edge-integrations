@@ -29,6 +29,13 @@ function bootstrap() {
  */
 function localize_script() {
 	global $post;
+
+	$localized_obj = [
+		'post_terms' => [],
+		'interest_threshold' => get_interest_threshold(),
+		'cookie_expiration' => get_cookie_expiration(),
+	];
+
 	$post_id = $post->ID;
 	$taxonomy = get_interest_taxonomy();
 	$post_terms = wp_get_post_terms( $post_id, $taxonomy, [ 'fields' => 'slugs' ] ) ?: [];
