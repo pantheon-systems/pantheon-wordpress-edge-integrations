@@ -1,0 +1,47 @@
+{
+    "packages": [
+        {
+            "name": "pantheon-systems/pantheon-edge-integrations",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pantheon-systems/pantheon-edge-integrations.git",
+                "reference": "4a6447a6d009ca8f6410390f4f0971ee7cd0de19"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pantheon-systems/pantheon-edge-integrations/zipball/4a6447a6d009ca8f6410390f4f0971ee7cd0de19",
+                "reference": "4a6447a6d009ca8f6410390f4f0971ee7cd0de19",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "time": "2022-02-24T17:14:59+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Pantheon\\EI\\": "src"
+                },
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Helper class for content personalization.",
+            "support": {
+                "issues": "https://github.com/pantheon-systems/pantheon-edge-integrations/issues",
+                "source": "https://github.com/pantheon-systems/pantheon-edge-integrations/tree/1.0.1"
+            },
+            "install-path": "../pantheon-systems/pantheon-edge-integrations"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}
