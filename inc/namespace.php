@@ -128,3 +128,28 @@ function update_vary_headers( array $key = null, array $data = null ) : array {
 
 	return $vary_header;
 }
+
+/**
+ * Check if Edge Integrations have been configured.
+ *
+ * Validates header data for any supported vary headers, including those that have been added later.
+ *
+ * @return bool Whether Edge Integrations have been configured and the CDN is returning data.
+ */
+function edge_integrations_enabled() : bool {
+	// Get the software-supported headers.
+	$headers = get_supported_vary_headers();
+	$enabled_headers = [];
+
+	// Loop through the headers and see if we've got data.
+	foreach ( $headers as $header ) {
+		$data = EI\HeaderData::header( $header );
+
+		if ( ! empty( $data ) ) {
+			$enabled_headers[] = $header;
+		}
+	}
+
+	// If enabled_headers is not empty, edge integrations are enabled.
+	return apply_filters( 'pantheon.ei.enabled', ! empty( $enabled_headers ) );
+}

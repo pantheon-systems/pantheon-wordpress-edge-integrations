@@ -65,4 +65,36 @@ class testsBase extends TestCase {
 			'Data does not match'
 		);
 	}
+
+	/**
+	 * Test the edge_integrations_enabled function.
+	 */
+	public function testEIEnabled() {
+		$headers = get_supported_vary_headers();
+		$enabled_headers = [];
+
+		foreach ( $headers as $header ) {
+			$data = EI\HeaderData::header( $header );
+
+			if ( $data ) {
+				$enabled_headers[] = $header;
+			}
+		}
+
+		// If $enabled_headers is empty, edge_integrations_enabled should return false.
+		if ( empty( $enabled_headers ) ) {
+			$this->assertFalse( edge_integrations_enabled() );
+		} else {
+			$this->assertTrue( edge_integrations_enabled() );
+		}
+
+		// Force true or false with the filter.
+		add_filter( 'pantheon.ei.enabled', '__return_true' );
+		$this->assertTrue( edge_integrations_enabled() );
+		remove_filter( 'pantheon.ei.enabled', '__return_true' );
+
+		add_filter( 'pantheon.ei.enabled', '__return_false' );
+		$this->assertFalse( edge_integrations_enabled() );
+		remove_filter( 'pantheon.ei.enabled', '__return_false' );
+	}
 }

@@ -1,6 +1,6 @@
 # Pantheon WordPress Edge Integrations
 
-Stable tag: 0.2.13  
+Stable tag: 0.2.14  
 Requires at least: 5.8  
 Tested up to: 5.9  
 Requires PHP: 7.4  
@@ -10,7 +10,7 @@ Contributors: jazzs3quence, jspellman, getpantheon
 
 WordPress plugin and developer toolkit to support Pantheon Edge Integrations and personalization features. 
 
-[![Unsupported](https://img.shields.io/badge/pantheon-unsupported-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#unsupported) ![Pantheon WordPress Edge Integrations](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/actions/workflows/test.yml/badge.svg) [![GitHub release](https://img.shields.io/github/release/pantheon-systems/pantheon-wordpress-edge-integrations.svg)](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/releases/)
+[![Unsupported](https://img.shields.io/badge/pantheon-unsupported-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#unsupported) ![Pantheon WordPress Edge Integrations](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/actions/workflows/test.yml/badge.svg) [![Packagist release](https://img.shields.io/packagist/v/pantheon-systems/pantheon-wordpress-edge-integrations.svg)](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/releases/) ![Commits since latest release](https://img.shields.io/github/commits-since/pantheon-systems/pantheon-wordpress-edge-integrations/latest)
 
 ## Description
 
