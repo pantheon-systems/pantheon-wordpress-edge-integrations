@@ -32,6 +32,9 @@ function bootstrap() {
 	Analytics\bootstrap();
 	Interest\bootstrap();
 
+	// Display a notice if EI headers are not found.
+	add_action( 'admin_init', $n( 'maybe_display_notice' ), 1 );
+
 	// Set the Vary headers.
 	add_action( 'init', $n( 'set_vary_headers' ), 999 );
 
@@ -39,6 +42,18 @@ function bootstrap() {
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
 }
 
+/**
+ * Display an admin notice if the EI headers are not found.
+ */
+function maybe_display_notice() {
+	if (
+		is_admin() &&
+		current_user_can( 'activate_plugins' ) &&
+		! edge_integrations_enabled()
+	) {
+		add_action( 'admin_notices', __NAMESPACE__ . '\\ei_not_active_notice' );
+	}
+}
 /**
  * Registers & enqueues the script.
  *
