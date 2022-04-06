@@ -54,6 +54,21 @@ function maybe_display_notice() {
 		add_action( 'admin_notices', __NAMESPACE__ . '\\ei_not_active_notice' );
 	}
 }
+
+/**
+ * Display a notice if Edge Integrations are not enabled.
+ */
+function ei_not_active_notice() {
+	$message = sprintf(
+			'%1$s <a href="%2$s>%3$s</a>',
+			__( 'Pantheon Edge Integrations does not detect the required edge configuration in this environment.', 'pantheon-wordpress-edge-integrations' ),
+			'', // Link to the setting here.
+			__( 'Check Status', 'pantheon-wordpress-edge-integrations' )
+	);
+
+	printf( '<div class="error"><p>%s</p></div>', $message );
+}
+
 /**
  * Registers & enqueues the script.
  *
