@@ -28,8 +28,9 @@ function bootstrap() {
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
 	// Load Interests and Analytics.
-	Interest\bootstrap();
+	Admin\bootstrap();
 	Analytics\bootstrap();
+	Interest\bootstrap();
 
 	// Set the Vary headers.
 	add_action( 'init', $n( 'set_vary_headers' ), 999 );
