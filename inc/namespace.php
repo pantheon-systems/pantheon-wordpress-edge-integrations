@@ -38,8 +38,9 @@ function bootstrap() {
 	// Set the Vary headers.
 	add_action( 'init', $n( 'set_vary_headers' ), 999 );
 
-	// Enqueue the script.
+	// Enqueue scripts.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
+	add_action( 'admin_enqueue_scripts', $n( 'enqueue_admin_scripts' ) );
 }
 
 /**
@@ -94,6 +95,13 @@ function enqueue_script() {
 			'plugin_file'    => PANTHEON_EDGE_INTEGRATIONS_FILE,
 		] );
 	}
+}
+
+/**
+ * Enqueue admin scripts.
+ */
+function enqueue_admin_scripts() {
+	wp_enqueue_style( 'ei-admin', plugins_url( '/assets/css/admin.css', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION );
 }
 
 /**
