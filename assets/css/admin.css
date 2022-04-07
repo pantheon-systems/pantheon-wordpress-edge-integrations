@@ -1,0 +1,11 @@
+td .ei-status p {
+	margin-top: 0;
+}
+
+.ei-status.enabled {
+	color: #008a20;
+}
+
+.ei-status.disabled {
+	color: #d63638;
+}
