@@ -61,13 +61,13 @@ function maybe_display_notice() {
  */
 function ei_not_active_notice() {
 	$message = sprintf(
-			'<p>%1$s <a href="%2$s">%3$s</a></p>',
-			__( 'Pantheon Edge Integrations does not detect the required edge configuration in this environment.', 'pantheon-wordpress-edge-integrations' ),
-			admin_url( 'options-general.php#ei-status' ),
-			__( 'Check Status', 'pantheon-wordpress-edge-integrations' )
+		'<p>%1$s <a href="%2$s">%3$s</a></p>',
+		__( 'Pantheon Edge Integrations does not detect the required edge configuration in this environment.', 'pantheon-wordpress-edge-integrations' ),
+		admin_url( 'options-general.php#ei-status' ),
+		__( 'Check Status', 'pantheon-wordpress-edge-integrations' )
 	);
 
-	printf( '<div class="error">%s</div>', $message );
+	printf( '<div class="error">%s</div>', wp_kses_post( $message ) );
 }
 
 /**
