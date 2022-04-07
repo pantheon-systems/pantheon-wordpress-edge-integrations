@@ -122,8 +122,9 @@ function render_ei_status_field( array $args ) {
 	$status = WP\edge_integrations_enabled() ? 'enabled' : 'disabled';
 	$label = $status === 'enabled' ? __( 'Configured', 'pantheon-wordpress-edge-integrations' ) : __( 'Not Configured', 'pantheon-wordpress-edge-integrations' );
 	$additional_info = sprintf(
-		'<p class="description">%s</p>',
-		__( 'You are seeing this message because the site does not detect the expected vary headers from the CDN. This could point to a problem in how you\'ve set up your allowed headers or, more likely, that your CDN is not configured to serve the expected headers. Please contact your Account Manager if you feel like you are seeing this message in error.', 'pantheon-wordpress-edge-integrations' )
+		'<p class="description">%1$s<br />%2$s</p>',
+		__( 'You are seeing this message because the site does not detect the expected vary headers from the CDN. This could point to a problem in the URL that you are using, how you\'ve set up your allowed headers or that your CDN is not configured to serve the expected headers.', 'pantheon-wordpress-edge-integrations' ),
+		__( 'Check your URL and contact your Account Manager if you feel like you are seeing this message in error.', 'pantheon-wordpress-edge-integrations' )
 	);
 	?>
 	<div id="<?php echo esc_attr( $id ); ?>" name="ei-status" class="ei-status <?php echo sanitize_title( $status ); ?>">
