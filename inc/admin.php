@@ -23,9 +23,12 @@ function bootstrap() {
 	add_action( 'admin_init', $n( 'register_edge_settings' ) );
 }
 
+/**
+ * Register all the EI settings.
+ */
 function register_edge_settings() {
-	register_gtm_settings();
 	register_ei_status();
+	register_gtm_settings();
 }
 
 /**
