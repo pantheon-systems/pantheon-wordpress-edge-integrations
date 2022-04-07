@@ -9,6 +9,7 @@
 
 namespace Pantheon\EI\WP\Admin;
 
+use Pantheon\EI\WP;
 use Pantheon\EI\WP\Analytics;
 
 /**
