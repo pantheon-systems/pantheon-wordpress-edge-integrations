@@ -70,7 +70,22 @@ function register_gtm_settings() {
 	);
 }
 
-function register_ei_status() {}
+/**
+ * Register the EI status field.
+ */
+function register_ei_status() {
+	add_settings_field(
+		'ei-status',
+		__( 'Edge Integrations Status', 'pantheon-wordpress-edge-integrations' ),
+		__NAMESPACE__ . '\\render_ei_status_field',
+		'general',
+		'default',
+		[
+			'id' => 'ei-status',
+			'label_for' => 'ei-status',
+		]
+	);
+}
 
 /**
  * Displays the input field for the Google Tag Manager code option field.
