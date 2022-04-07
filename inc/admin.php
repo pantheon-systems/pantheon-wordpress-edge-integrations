@@ -112,6 +112,25 @@ function render_gtm_code_field( array $args ) {
 }
 
 /**
+ * Render the Edge Integrations status field.
+ *
+ * @param array $args The argumens for the field passed from add_settings_field.
+ */
+function render_ei_status_field( array $args ) {
+	$id = $args['id'];
+	$status = WP\edge_integrations_enabled() ? 'enabled' : 'disabled';
+	$label = $status === 'enabled' ? __( 'Configured', 'pantheon-wordpress-edge-integrations' ) : __( 'Not Configured', 'pantheon-wordpress-edge-integrations' );
+	?>
+	<div id="<?php echo esc_attr( $id ); ?>" name="ei-status" class="ei-status <?php echo sanitize_title( $status ); ?>">
+		<p>
+			<span class="ei-current-status">
+				<?php echo esc_html( $label ); ?>
+			</span>
+		</p>
+	<?php
+}
+
+/**
  * Sanitize the GTM code.
  *
  * @param string $gtm_code The (dirty) GTM code.
