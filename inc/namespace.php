@@ -63,7 +63,7 @@ function ei_not_active_notice() {
 	$message = sprintf(
 			'<p>%1$s <a href="%2$s">%3$s</a></p>',
 			__( 'Pantheon Edge Integrations does not detect the required edge configuration in this environment.', 'pantheon-wordpress-edge-integrations' ),
-			'', // Link to the setting here.
+			admin_url( 'options-general.php#ei-status' ),
 			__( 'Check Status', 'pantheon-wordpress-edge-integrations' )
 	);
 
