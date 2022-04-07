@@ -189,6 +189,14 @@ function edge_integrations_enabled() : bool {
 		}
 	}
 
-	// If enabled_headers is not empty, edge integrations are enabled.
+	/**
+	 * Allow developers to filter the output of edge_integrations_enabled.
+	 *
+	 * This can be used to force the application to think that the headers have been detected when they haven't.
+	 *
+	 * Note: This does not change whether the headers exist, output may be unexpected if this value is "true" but the headers are not present.
+	 *
+	 * @param bool $enabled Whether Edge Integrations have been configured and the CDN is returning data.
+	 */
 	return apply_filters( 'pantheon.ei.enabled', ! empty( $enabled_headers ) );
 }
