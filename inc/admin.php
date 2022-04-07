@@ -127,7 +127,7 @@ function render_ei_status_field( array $args ) {
 		__( 'Check your URL and contact your Account Manager if you feel like you are seeing this message in error.', 'pantheon-wordpress-edge-integrations' )
 	);
 	?>
-	<div id="<?php echo esc_attr( $id ); ?>" name="ei-status" class="ei-status <?php echo sanitize_title( $status ); ?>">
+	<div id="<?php echo esc_attr( $id ); ?>" name="ei-status" class="ei-status <?php echo esc_html( $status ); ?>">
 		<p>
 			<span class="ei-current-status">
 				<?php echo esc_html( $label ); ?>
