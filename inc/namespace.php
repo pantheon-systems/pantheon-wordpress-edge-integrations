@@ -28,14 +28,46 @@ function bootstrap() {
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
 	// Load Interests and Analytics.
-	Interest\bootstrap();
+	Admin\bootstrap();
 	Analytics\bootstrap();
+	Interest\bootstrap();
+
+	// Display a notice if EI headers are not found.
+	add_action( 'admin_init', $n( 'maybe_display_notice' ), 1 );
 
 	// Set the Vary headers.
 	add_action( 'init', $n( 'set_vary_headers' ), 999 );
 
-	// Enqueue the script.
+	// Enqueue scripts.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
+	add_action( 'admin_enqueue_scripts', $n( 'enqueue_admin_scripts' ) );
+}
+
+/**
+ * Display an admin notice if the EI headers are not found.
+ */
+function maybe_display_notice() {
+	if (
+		is_admin() &&
+		current_user_can( 'activate_plugins' ) &&
+		! edge_integrations_enabled()
+	) {
+		add_action( 'admin_notices', __NAMESPACE__ . '\\ei_not_active_notice' );
+	}
+}
+
+/**
+ * Display a notice if Edge Integrations are not enabled.
+ */
+function ei_not_active_notice() {
+	$message = sprintf(
+		'<p>%1$s <a href="%2$s">%3$s</a></p>',
+		__( 'Pantheon Edge Integrations does not detect the required edge configuration in this environment.', 'pantheon-wordpress-edge-integrations' ),
+		admin_url( 'options-general.php#ei-status' ),
+		__( 'Check Status', 'pantheon-wordpress-edge-integrations' )
+	);
+
+	printf( '<div class="error">%s</div>', wp_kses_post( $message ) );
 }
 
 /**
@@ -63,6 +95,13 @@ function enqueue_script() {
 			'plugin_file'    => PANTHEON_EDGE_INTEGRATIONS_FILE,
 		] );
 	}
+}
+
+/**
+ * Enqueue admin scripts.
+ */
+function enqueue_admin_scripts() {
+	wp_enqueue_style( 'ei-admin', plugins_url( '/assets/css/admin.css', PANTHEON_EDGE_INTEGRATIONS_FILE ), [], PANTHEON_EDGE_INTEGRATIONS_VERSION );
 }
 
 /**
@@ -150,6 +189,14 @@ function edge_integrations_enabled() : bool {
 		}
 	}
 
-	// If enabled_headers is not empty, edge integrations are enabled.
+	/**
+	 * Allow developers to filter the output of edge_integrations_enabled.
+	 *
+	 * This can be used to force the application to think that the headers have been detected when they haven't.
+	 *
+	 * Note: This does not change whether the headers exist, output may be unexpected if this value is "true" but the headers are not present.
+	 *
+	 * @param bool $enabled Whether Edge Integrations have been configured and the CDN is returning data.
+	 */
 	return apply_filters( 'pantheon.ei.enabled', ! empty( $enabled_headers ) );
 }

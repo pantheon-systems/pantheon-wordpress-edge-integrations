@@ -26,11 +26,13 @@
     "require-dev": {
         "consolidation/robo": "^3.0",
         "humanmade/coding-standards": "^1.1",
+        "wp-coding-standards/wpcs": "2.3.0 as 2.2.1",
         "phpunit/phpunit": "^9.5",
         "wordpress/wordpress": "dev-master"
     },
     "autoload": {
         "files": [
+            "inc/admin.php",
             "inc/analytics.php",
             "inc/geo.php",
             "inc/interest.php",
