@@ -116,7 +116,7 @@ class testsBase extends TestCase {
 
 		// Test edge_ingegrations_enabled by passing in interest data.
 		add_filter( 'pantheon.ei.parsed_interest_data', function( $data ) {
-			return 'interest';
+			return ['interest'];
 		} );
 		$this->assertTrue( edge_integrations_enabled() );
 		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
