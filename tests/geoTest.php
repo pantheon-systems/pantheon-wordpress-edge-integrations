@@ -9,8 +9,6 @@ use Pantheon\EI;
 use Pantheon\EI\WP\Geo;
 use PHPUnit\Framework\TestCase;
 
-use function Pantheon\EI\WP\Geo\get_geo_allowed_values;
-
 /**
  * Main test class for WordPress Edge Integrations plugin.
  */
@@ -33,6 +31,7 @@ class geoTests extends TestCase {
 	 * @group wp-geo
 	 */
 	public function testGetGeo( array $audience_data ) {
+		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 		// Get the actual data in a format that's easier to read.
 		$parsed_data = EI\HeaderData::parse( 'Audience-Set', $audience_data );
 		// Get the geo country.
@@ -178,7 +177,7 @@ class geoTests extends TestCase {
 	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
 	 */
 	public function testGeoAllowedValues() {
-		$allowed_values = get_geo_allowed_values();
+		$allowed_values = Geo\get_geo_allowed_values();
 		$this->assertIsArray( $allowed_values );
 		$this->assertNotEmpty( $allowed_values );
 		$this->assertEquals(
@@ -205,7 +204,7 @@ class geoTests extends TestCase {
 		}, 10, 1 );
 
 		// Validate that the new value is in the allowed values.
-		$this->assertContains( 'some-other-value', get_geo_allowed_values() );
+		$this->assertContains( 'some-other-value', Geo\get_geo_allowed_values() );
 	}
 
 	/**

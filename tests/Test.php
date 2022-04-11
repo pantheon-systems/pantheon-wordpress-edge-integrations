@@ -96,5 +96,29 @@ class testsBase extends TestCase {
 		add_filter( 'pantheon.ei.enabled', '__return_false' );
 		$this->assertFalse( edge_integrations_enabled() );
 		remove_filter( 'pantheon.ei.enabled', '__return_false' );
+
+		// Test edge_integrations_enabled by passing in geo data.
+		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
+		$dummy_data = [
+			'city' => 'City',
+			'region' => 'State',
+			'country' => 'US',
+		];
+		add_filter( 'pantheon.ei.parsed_geo_data', function( $data ) use ( $dummy_data ) {
+			$data['city'] = $dummy_data['city'];
+			$data['region'] = $dummy_data['region'];
+			$data['country'] = $dummy_data['country'];
+			return $data;
+		} );
+		$this->assertTrue( edge_integrations_enabled() );
+		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
+
+		// Test edge_ingegrations_enabled by passing in interest data.
+		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
+		add_filter( 'pantheon.ei.parsed_interest_data', function( $data ) {
+			return 'interest';
+		} );
+		$this->assertTrue( edge_integrations_enabled() );
+		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 	}
 }
