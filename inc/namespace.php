@@ -190,15 +190,8 @@ function edge_integrations_enabled() : bool {
 
 	// Check any other headers that might have been set.
 	if ( ! $edge_enabled ) {
-		/**
-		 * Allow developers to add their own checks for Edge Integrations headers.
-		 *
-		 * If custom headers are being used, they should be passed into this filter so the edge_integrations_enabled() check can recognize them.
-		 * It is expectedt that the custom code has a function similar to get_geo and get_interest that returns the headers, and that this function uses this filter.
-		 *
-		 * @param string $custom_headers Custom headers added by third-party code.
-		 */
-		$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '' );
+		// Get the custom header data, if it's been set.
+		$custom_headers = apply_filters( 'pantheon.ei.custom_header_data', '' );
 
 		// Get the software-supported headers.
 		$headers = get_supported_vary_headers();
