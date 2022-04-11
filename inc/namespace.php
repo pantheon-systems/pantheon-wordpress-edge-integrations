@@ -179,27 +179,27 @@ function edge_integrations_enabled() : bool {
 	$edge_enabled = false;
 	$geo = Geo\get_geo();
 	$interest = Interest\get_interest();
-	/**
-	 * Allow developers to add their own checks for Edge Integrations headers.
-	 *
-	 * If custom headers are being used, they should be passed into this filter so the edge_integrations_enabled() check can recognize them.
-	 * It is expectedt that the custom code has a function similar to get_geo and get_interest that returns the headers, and that this function uses this filter.
-	 *
-	 * @param string $custom_headers Custom headers added by third-party code.
-	 */
-	$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '' );
 
 	// Check if we have geo or interest headers.
 	if (
 		! empty( $geo ) ||
-		! empty( $interest ) ||
-		! empty( $custom_headers )
+		! empty( $interest )
 	) {
 		$edge_enabled = true;
 	}
 
 	// Check any other headers that might have been set.
 	if ( ! $edge_enabled ) {
+		/**
+		 * Allow developers to add their own checks for Edge Integrations headers.
+		 *
+		 * If custom headers are being used, they should be passed into this filter so the edge_integrations_enabled() check can recognize them.
+		 * It is expectedt that the custom code has a function similar to get_geo and get_interest that returns the headers, and that this function uses this filter.
+		 *
+		 * @param string $custom_headers Custom headers added by third-party code.
+		 */
+		$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '' );
+
 		// Get the software-supported headers.
 		$headers = get_supported_vary_headers();
 		$enabled_headers = [];
@@ -213,7 +213,8 @@ function edge_integrations_enabled() : bool {
 			}
 		}
 
-		if ( ! empty( $enabled_headers ) ) {
+		// Check if custom headers were set AND they are not empty.
+		if ( ! empty( $custom_headers ) && ! empty( $enabled_headers ) ) {
 			$edge_enabled = true;
 		}
 	}
