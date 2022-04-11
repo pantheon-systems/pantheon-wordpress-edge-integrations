@@ -58,7 +58,7 @@ class interestsTests extends TestCase {
 	 * Test Cookie expiration.
 	 */
 	public function testCookieExpiration() {
-		$this->assertTrue( 
+		$this->assertTrue(
 			function_exists( '\\Pantheon\\EI\\WP\\Interest\\get_cookie_expiration' ),
 			'get_cookie_expiration function does not exist'
 		);
@@ -179,6 +179,7 @@ class interestsTests extends TestCase {
 	 * @group wp-interest
 	 */
 	public function testParsedInterestData() {
+		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 		$input = [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
 		// Filter the parsed interest data.
 		add_filter( 'pantheon.ei.parsed_interest_data', function( $interest_data ) {

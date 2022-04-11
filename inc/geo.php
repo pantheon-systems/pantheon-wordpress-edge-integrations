@@ -51,7 +51,7 @@ function get_geo( string $data_type = '', $data = null, string $header = 'Audien
 	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( $header, $data ) );
 	// If no geo data type was passed, return all Audience data.
 	if ( empty( $data_type ) ) {
-		return json_encode( $parsed_geo );
+		return ! empty( $parsed_geo ) ? json_encode( $parsed_geo ) : '';
 	}
 
 	// If no data exists for the data type, return an empty string.
