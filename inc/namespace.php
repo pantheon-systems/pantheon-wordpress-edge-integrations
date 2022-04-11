@@ -187,7 +187,7 @@ function edge_integrations_enabled() : bool {
 	 *
 	 * @param string $custom_headers Custom headers added by third-party code.
 	 */
-	$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '__return_empty_string' );
+	$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '' );
 
 	// Check if we have geo or interest headers.
 	if (
