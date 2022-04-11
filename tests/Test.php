@@ -70,6 +70,8 @@ class testsBase extends TestCase {
 	 * Test the edge_integrations_enabled function.
 	 */
 	public function testEIEnabled() {
+		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
+		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 		$headers = get_supported_vary_headers();
 		$enabled_headers = [];
 
@@ -98,7 +100,6 @@ class testsBase extends TestCase {
 		remove_filter( 'pantheon.ei.enabled', '__return_false' );
 
 		// Test edge_integrations_enabled by passing in geo data.
-		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 		$dummy_data = [
 			'city' => 'City',
 			'region' => 'State',
@@ -114,7 +115,6 @@ class testsBase extends TestCase {
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 
 		// Test edge_ingegrations_enabled by passing in interest data.
-		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 		add_filter( 'pantheon.ei.parsed_interest_data', function( $data ) {
 			return 'interest';
 		} );
