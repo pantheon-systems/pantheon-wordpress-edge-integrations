@@ -176,16 +176,39 @@ function update_vary_headers( array $key = null, array $data = null ) : array {
  * @return bool Whether Edge Integrations have been configured and the CDN is returning data.
  */
 function edge_integrations_enabled() : bool {
-	// Get the software-supported headers.
-	$headers = get_supported_vary_headers();
-	$enabled_headers = [];
+	$edge_enabled = false;
+	$geo = Geo\get_geo();
+	$interest = Interest\get_interest();
 
-	// Loop through the headers and see if we've got data.
-	foreach ( $headers as $header ) {
-		$data = EI\HeaderData::header( $header );
+	// Check if we have geo or interest headers.
+	if (
+		! empty( $geo ) ||
+		! empty( $interest )
+	) {
+		$edge_enabled = true;
+	}
 
-		if ( ! empty( $data ) ) {
-			$enabled_headers[] = $header;
+	// Check any other headers that might have been set.
+	if ( ! $edge_enabled ) {
+		// Get the custom header data, if it's been set.
+		$custom_headers = apply_filters( 'pantheon.ei.custom_header_data', '' );
+
+		// Get the software-supported headers.
+		$headers = get_supported_vary_headers();
+		$enabled_headers = [];
+
+		// Loop through the headers and see if we've got data.
+		foreach ( $headers as $header ) {
+			$data = EI\HeaderData::header( $header );
+
+			if ( ! empty( $data ) ) {
+				$enabled_headers[] = $header;
+			}
+		}
+
+		// Check if custom headers were set AND they are not empty.
+		if ( ! empty( $custom_headers ) && ! empty( $enabled_headers ) ) {
+			$edge_enabled = true;
 		}
 	}
 
@@ -198,5 +221,5 @@ function edge_integrations_enabled() : bool {
 	 *
 	 * @param bool $enabled Whether Edge Integrations have been configured and the CDN is returning data.
 	 */
-	return apply_filters( 'pantheon.ei.enabled', ! empty( $enabled_headers ) );
+	return apply_filters( 'pantheon.ei.enabled', $edge_enabled );
 }
