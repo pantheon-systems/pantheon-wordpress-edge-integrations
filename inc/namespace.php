@@ -179,11 +179,21 @@ function edge_integrations_enabled() : bool {
 	$edge_enabled = false;
 	$geo = Geo\get_geo();
 	$interest = Interest\get_interest();
+	/**
+	 * Allow developers to add their own checks for Edge Integrations headers.
+	 *
+	 * If custom headers are being used, they should be passed into this filter so the edge_integrations_enabled() check can recognize them.
+	 * It is expectedt that the custom code has a function similar to get_geo and get_interest that returns the headers, and that this function uses this filter.
+	 *
+	 * @param string $custom_headers Custom headers added by third-party code.
+	 */
+	$custom_headers = apply_filters( 'pantheon.ei.get_custom_headers', '__return_empty_string' );
 
 	// Check if we have geo or interest headers.
 	if (
 		! empty( $geo ) ||
-		! empty( $interest )
+		! empty( $interest ) ||
+		! empty( $custom_headers )
 	) {
 		$edge_enabled = true;
 	}
