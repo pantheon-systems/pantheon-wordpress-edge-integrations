@@ -40,9 +40,8 @@
         ]
     },
     "scripts": {
-        "bump:patch": "npm run bump:patch",
-        "bump:minor": "npm run bump:minor",
-        "bump:major": "npm run bump:major",
+        "release:pre": "bash scripts/pre-release",
+        "release:post": "bash scripts/post-release",
         "lint:php": "find ./pantheon-wordpress-edge-integrations.php ./inc ./tests  -name '*.php' -exec php -l {} \\;",
         "lint:phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
         "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",

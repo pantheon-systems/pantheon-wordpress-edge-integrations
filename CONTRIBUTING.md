@@ -33,6 +33,20 @@ Combinations of these tools can be built into the `RoboFile.php`, e.g. spinning 
 
 ## Release Process
 
+### Automated
+1. Merge all production-ready code into `main`.
+2. Run `composer release:pre`. This will prompt for the release number, bump all the versions to that version, and push a new `release-major.minor.patch` version branch.
+3. Create a PR against the `build` branch.
+4. After all tests and code reviews pass (including resolving any merge conflicts) and automation makes the commit containing the build files, merge the PR into `build`.
+5.  Navigate to the [Releases](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/releases) page and click the "Draft a New Release" button.
+7. Under "Choose a Tag", enter the release version (`major.minor.patch`) and select "Create a new tag: `major.minor.patch` on publish".
+8. Set the target branch to `build`.
+9. Enter the version number as the release title.
+10. Click the "Auto-generate release notes" button to add the changelog to the release.
+11. Publish the release!
+12. Run `composer release:post`. This will prompt for the current stable release and the next version number and bump the readme to the current stable, and all other versions to the next version. This is intended to be pushed to `main` after the release is published.
+
+### Manual
 1. Merge all production-ready code into `main`.
 2. On your local machine, checkout `main` and pull the latest.
 3. Checkout a new release branch: `git checkout -b release-major.minor.patch` and bump the version number in [pantheon-wordpress-edge-integrations.php](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/pantheon-wordpress-edge-integrations.php#L7), and [package.json](https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations/blob/main/package.json#L3)

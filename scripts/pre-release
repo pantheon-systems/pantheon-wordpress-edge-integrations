@@ -1,0 +1,24 @@
+#!/bin/bash
+# Announce the script so we know we're in the right place.
+echo "Welcome to the release prep script!"
+
+# Get the release version.
+echo "Enter the release version: "
+read VERSION
+
+# Make sure we're on the latest version of the working tree and checkout a new release branch.
+git checkout main && git pull
+git checkout -b release-$VERSION
+
+# Drop the -dev in the plugin file.
+sed -i '' "s/Version: .*-dev/Version: $VERSION/" pantheon-wordpress-edge-integrations.php
+
+# Bump the version in the readme.
+sed -i '' "s/Stable tag: .*/Stable tag: $VERSION  /" README.md
+
+# Commit the changes.
+git add pantheon-wordpress-edge-integrations.php README.md
+git commit -m "Bump version to $VERSION"
+git push --set-upstream origin release-$VERSION
+
+echo "Created new release branch for $VERSION. Make sure to set the parent branch to 'build'."
