@@ -83,7 +83,9 @@ function set_interest_header() {
 		return;
 	}
 
-	set_interest( [ 'HTTP_INTEREST' => $interest ] );
+	// Get the Interest header key. Allows the Interest header key to be customized.
+	$http_interest = strtoupper( 'HTTP_' . str_replace( '-', '_', get_interest_header_key() ) );
+	set_interest( [ $http_interest => $interest ] );
 }
 
 /**
@@ -100,7 +102,7 @@ function set_interest( array $data = null ) : array {
 	 * @hook pantheon.ei.applied_interest_data
 	 * @param array The full, parsed Interest data as an array.
 	 */
-	$applied_interest = apply_filters( 'pantheon.ei.applied_interest_data', EI\HeaderData::parse( 'Interest', $data ) );
+	$applied_interest = apply_filters( 'pantheon.ei.applied_interest_data', EI\HeaderData::parse( get_interest_header_key(), $data ) );
 
 	return $applied_interest;
 }
@@ -116,8 +118,7 @@ function get_interest() : array {
 	 *
 	 * @hook pantheon.ei.parsed_interest_data
 	 */
-	$parsed_interest = apply_filters( 'pantheon.ei.parsed_interest_data', EI\HeaderData::parse( 'Interest' ) );
-
+	$parsed_interest = apply_filters( 'pantheon.ei.parsed_interest_data', EI\HeaderData::parse( get_interest_header_key() ) );
 	return $parsed_interest;
 }
 
