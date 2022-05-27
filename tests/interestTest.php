@@ -25,6 +25,23 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test that we can get the expected Interest header key.
+	 */
+	public function testGetInterestHeaderKey() {
+		$this->assertEquals(
+			'P13n-Interest',
+			Interest\get_interest_header_key()
+		);
+
+		// This tests code in set_interest. This assertion ensures that the headers we set are correct.
+		$http_interest = strtoupper( 'HTTP_' . str_replace( '-', '_', Interest\get_interest_header_key() ) );
+		$this->assertEquals(
+			'HTTP_P13N_INTEREST',
+			$http_interest
+		);
+	}
+
+	/**
 	 * Test Interest post types.
 	 */
 	public function testRegisterScript() {
