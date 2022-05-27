@@ -35,7 +35,7 @@ class testsBase extends TestCase {
 	 * Test the supported vary headers.
 	 */
 	public function testSupportedVaryHeaders() {
-		$this->assertEquals( [ 'Audience-Set', 'Interest' ],
+		$this->assertEquals( [ 'P13n-Geo-Country-Code', 'P13n-Interest' ],
 		get_supported_vary_headers(),
 		'The vary headers supported do not match.'
 		);
