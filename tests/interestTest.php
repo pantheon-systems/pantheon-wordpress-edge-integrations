@@ -197,10 +197,10 @@ class interestsTests extends TestCase {
 	 */
 	public function testParsedInterestData() {
 		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
-		$input = [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+		$input = [ 'HTTP_P13N_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
 		// Filter the parsed interest data.
 		add_filter( 'pantheon.ei.parsed_interest_data', function( $interest_data ) {
-			return [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+			return [ 'HTTP_P13N_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
 		}, 10, 1 );
 
 		$data = Interest\get_interest( $input );
@@ -219,7 +219,7 @@ class interestsTests extends TestCase {
 	public function mockGetInterestData() : array {
 		return [
 			[
-				'mockInterestData' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
+				'mockInterestData' => [ 'HTTP_P13N_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
 			]
 		];
 	}
