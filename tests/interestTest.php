@@ -175,7 +175,7 @@ class interestsTests extends TestCase {
 	 */
 	public function testSetInterest( array $interest_data ) {
 		// Get the actual data in a format that's easier to read.
-		$parsed_data = EI\HeaderData::parse( 'Interest', $interest_data );
+		$parsed_data = EI\HeaderData::parse( Interest\get_interest_header_key(), $interest_data );
 
 		$interest = Interest\set_interest( $interest_data );
 		$this->assertIsArray( $interest );
