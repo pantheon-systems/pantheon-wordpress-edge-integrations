@@ -203,6 +203,61 @@ class geoTests extends TestCase {
 
 		// Validate that the new value is in the allowed values.
 		$this->assertContains( 'some-other-value', Geo\get_geo_allowed_values() );
+
+		// Reset the data back to the original.
+		add_filter( 'pantheon.ei.geo_allowed_values', function() {
+			return [
+				'',
+				'country-code',
+				'country-name',
+				'region',
+				'city',
+				'continent-code',
+				'conn-speed',
+				'conn-type',
+			];
+		}, 10, 1 );
+	}
+
+	public function testGeoAllowedHeaders() {
+		$allowed_headers = Geo\get_geo_allowed_headers();
+		$this->assertIsArray( $allowed_headers );
+		$this->assertNotEmpty( $allowed_headers );
+		$this->assertEquals(
+			$allowed_headers,
+			[
+				'p13n-geo-country-code',
+				'p13n-geo-country-name',
+				'p13n-geo-region',
+				'p13n-geo-city',
+				'p13n-geo-continent-code',
+				'p13n-geo-conn-speed',
+				'p13n-geo-conn-type',
+			],
+			'Allowed headers do not match'
+		);
+
+		// Add a new header value to the allowed headers.
+		add_filter( 'pantheon.ei.geo_allowed_headers', function( $values ) {
+			$values[] = 'some-other-header';
+			return $values;
+		}, 10, 1 );
+
+		// Validate that the new header value is in the allowed headers.
+		$this->assertContains( 'some-other-header', Geo\get_geo_allowed_headers() );
+
+		// Reset the data back to the original.
+		add_filter( 'pantheon.ei.geo_allowed_headers', function() {
+			return [
+				'p13n-geo-country-code',
+				'p13n-geo-country-name',
+				'p13n-geo-region',
+				'p13n-geo-city',
+				'p13n-geo-continent-code',
+				'p13n-geo-conn-speed',
+				'p13n-geo-conn-type',
+			];
+		}, 10, 1 );
 	}
 
 	/**

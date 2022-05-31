@@ -108,3 +108,29 @@ function get_geo_allowed_values() : array {
 		'conn-type',
 	] );
 }
+
+/**
+ * Returns the array of allowed headers.
+ *
+ * @return array
+ */
+function get_geo_allowed_headers() : array {
+	$values = get_geo_allowed_values();
+	$headers = [];
+
+	foreach ( $values as $value ) {
+		if ( empty( $value ) ) {
+			continue;
+		}
+
+		$headers[] = "p13n-geo-$value";
+	}
+
+	/**
+	 * Allow developers to modify the allowed geo headers.
+	 *
+	 * @hook pantheon.ei.geo_headers
+	 * @param array The allowed geo headers.
+	 */
+	return apply_filters( 'pantheon.ei.geo_allowed_headers', $headers );
+}
