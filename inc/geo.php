@@ -22,7 +22,7 @@ use Pantheon\EI;
  *
  * @return string The requested geo data.
  */
-function get_geo( string $data_type = '', $data = null, string $header = 'Audience-Set' ) : string {
+function get_geo( string $data_type = '', $data = null, string $header = 'country-code' ) : string {
 	// If the passed data type is not allowed, return an empty string.
 	if ( ! in_array( $data_type, get_geo_allowed_values(), true ) ) {
 		return '';
