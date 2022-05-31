@@ -32,15 +32,30 @@ function get_geo( string $data_type = '', $data = null ) : string {
 		return '';
 	}
 
-	/**
-	 * Get the geo data from the HeaderData class and allow it to be filtered.
-	 *
-	 * For filtering purposes, the data passed is an array of key/value pairs of geo data. Because this filter fires after the data types are checked, it's possible (but not recommended) to provide data that would otherwise be filtered out.
-	 *
-	 * @hook pantheon.ei.geo_data
-	 * @param array The full, parsed Audience geo data as an array.
-	 */
-	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( $header, $data ) );
+	// If no geo data type was passed, return all geo data.
+	if ( empty( $data_type ) ) {
+		/**
+		 * Allow developers to filter the data that is returned when no data type is passed.
+		 *
+		 * Normally, if no data type is passed, all geo data is fetched and returned. This filter allows the developer to specify the data that comes back.
+		 *
+		 * This gets passed through json_encode before being returned.
+		 *
+		 * @hook pantheon.ei.get_all_geo
+		 * @param array $data The full, parsed geo data as an array.
+		 */
+		$all_geo = apply_filters( 'pantheon.ei.get_all_geo', [
+			'country-code' => EI\HeaderData::parse( 'p13n-geo-country-code', $data ),
+			'country-name' => EI\HeaderData::parse( 'p13n-geo-country-name', $data ),
+			'region' => EI\HeaderData::parse( 'p13n-geo-region', $data ),
+			'city' => EI\HeaderData::parse( 'p13n-geo-city', $data ),
+			'continent-code' => EI\HeaderData::parse( 'p13n-geo-continent-code', $data ),
+			'conn-speed' => EI\HeaderData::parse( 'p13n-geo-conn-speed', $data ),
+			'conn-type' => EI\HeaderData::parse( 'p13n-geo-conn-type', $data ),
+		] );
+
+		return json_encode( $all_geo );
+	}
 
 	/**
 	 * Allow developers to modify the requested geo data. This filter fires after the data is parsed and before it is returned making this the last stop before data is output.
