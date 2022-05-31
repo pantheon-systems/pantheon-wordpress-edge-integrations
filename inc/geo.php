@@ -41,10 +41,6 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	 * @param array The full, parsed Audience geo data as an array.
 	 */
 	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( $header, $data ) );
-	// If no geo data type was passed, return all Audience data.
-	if ( empty( $data_type ) ) {
-		return ! empty( $parsed_geo ) ? json_encode( $parsed_geo ) : '';
-	}
 
 	// If no data exists for the data type, return an empty string.
 	if ( ! isset( $parsed_geo[ $data_type ] ) ) {
