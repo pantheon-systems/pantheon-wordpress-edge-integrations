@@ -184,15 +184,13 @@ class geoTests extends TestCase {
 			$allowed_values,
 			[
 				'',
-				'country',
+				'country-code',
+				'country-name',
 				'region',
 				'city',
-				'continent',
+				'continent-code',
 				'conn-speed',
 				'conn-type',
-				'lat',
-				'lon',
-				'latlon',
 			],
 			'Allowed values do not match'
 		);

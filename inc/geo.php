@@ -97,5 +97,14 @@ function get_geo_allowed_values() : array {
 	 * @hook pantheon.ei.geo_data_types
 	 * @param array The allowed geo data types.
 	 */
-	return apply_filters( 'pantheon.ei.geo_allowed_values', [ '', 'country', 'region', 'city', 'continent', 'conn-speed', 'conn-type', 'lat', 'lon', 'latlon' ] );
+	return apply_filters( 'pantheon.ei.geo_allowed_values', [
+		'',
+		'country-code',
+		'country-name',
+		'region',
+		'city',
+		'continent-code',
+		'conn-speed',
+		'conn-type',
+	] );
 }
