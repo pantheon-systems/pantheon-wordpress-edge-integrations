@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "dev-ei-218-header-changes"
+        "pantheon-systems/pantheon-edge-integrations": "^v1.0"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
