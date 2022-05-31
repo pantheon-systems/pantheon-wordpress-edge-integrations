@@ -42,11 +42,6 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	 */
 	$parsed_geo = apply_filters( 'pantheon.ei.parsed_geo_data', EI\HeaderData::parse( $header, $data ) );
 
-	// If no data exists for the data type, return an empty string.
-	if ( ! isset( $parsed_geo[ $data_type ] ) ) {
-		return '';
-	}
-
 	/**
 	 * Allow developers to modify the requested geo data. This filter fires after the data is parsed and before it is returned making this the last stop before data is output.
 	 *
