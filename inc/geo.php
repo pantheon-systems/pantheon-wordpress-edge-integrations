@@ -45,10 +45,10 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	/**
 	 * Allow developers to modify the requested geo data. This filter fires after the data is parsed and before it is returned making this the last stop before data is output.
 	 *
-	 * @hook pantheon.ei.geo_data
-	 * @param string The requested geo data.
+	 * @hook pantheon.ei.get_geo_{$data_type}
+	 * @param array The requested geo header data.
 	 */
-	return apply_filters( 'pantheon.ei.get_geo', $parsed_geo[ $data_type ] );
+	return apply_filters( "pantheon.ei.get_geo_$data_type", EI\HeaderData::parse( $header, $data ) );
 }
 
 /**
