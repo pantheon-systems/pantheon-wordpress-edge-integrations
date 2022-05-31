@@ -16,15 +16,19 @@ use Pantheon\EI;
  *
  * If an empty string is passed, get_geo() will return all Audience data encoded in JSON format.
  *
- * @param string $header The header to use for geolocation data. Defaults to 'Audience-Set'.
- *
  * @param mixed $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.
  *
  * @return string The requested geo data.
  */
-function get_geo( string $data_type = '', string $header = 'country-code', $data = null ) : string {
+function get_geo( string $data_type = '', $data = null ) : string {
 	// If the passed data type is not allowed, return an empty string.
 	if ( ! in_array( $data_type, get_geo_allowed_values(), true ) ) {
+		return '';
+	}
+
+	// Set the header and make sure it is a valid header.
+	$header = "p13n-geo-$data_type";
+	if ( ! in_array( $header, get_geo_allowed_headers(), true ) ) {
 		return '';
 	}
 
