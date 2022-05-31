@@ -103,7 +103,7 @@ class testsBase extends TestCase {
 		$dummy_data = [
 			'city' => 'City',
 			'region' => 'State',
-			'country' => 'US',
+			'country-code' => 'US',
 		];
 		add_filter( 'pantheon.ei.parsed_geo_data', function( $data ) use ( $dummy_data ) {
 			$data = empty( $data ) ? [] : $data;

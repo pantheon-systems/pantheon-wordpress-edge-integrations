@@ -32,112 +32,35 @@ class geoTests extends TestCase {
 	 */
 	public function testGetGeo( array $audience_data ) {
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
-		// Get the actual data in a format that's easier to read.
-		$parsed_data = EI\HeaderData::parse( 'Audience-Set', $audience_data );
-		// Get the geo country.
-		$country = Geo\get_geo( 'country', $audience_data );
-		$parsed_country = $parsed_data['country'];
 
-		// Test the country.
-		$this->assertIsString( $country );
-		$this->assertNotEmpty(
-			$country,
-			'Country data is empty'
-		);
-		$this->assertEquals(
-			$country,
-			$parsed_country,
-			'Country data does not match'
-		);
+		foreach ( $audience_data as $region => $audience ) {
+			foreach ( $audience as $header => $value ) {
+				// Get the actual data.
+				$parsed_data = EI\HeaderData::parse( "p13n-geo-$header", $value );
+				// Get the geo data.
+				$value_to_test = Geo\get_geo( $header );
+				// Make sure the data matches.
+				$this->assertIsString( $value_to_test );
+				$this->assertNotEmpty(
+					$value_to_test,
+					"Data is empty for $region $header"
+				);
+				$this->assertEquals(
+					$value_to_test,
+					$parsed_data,
+					"Data does not match for $region $header"
+				);
+			}
 
-		// Get the geo region.
-		$region = Geo\get_geo( 'region', $audience_data );
-		$parsed_region = $parsed_data['region'];
-
-		// Test the region.
-		$this->assertIsString( $region );
-		$this->assertNotEmpty(
-			$region,
-			'Region data is empty'
-		);
-		$this->assertEquals(
-			$region,
-			$parsed_region,
-			'Region data does not match'
-		);
-
-		// Get the geo city.
-		$city = Geo\get_geo( 'city', $audience_data );
-		$parsed_city = $parsed_data['city'];
-
-		// Test the city.
-		$this->assertIsString( $city );
-		$this->assertNotEmpty(
-			$city,
-			'City data is empty'
-		);
-		$this->assertEquals(
-			$city,
-			$parsed_city,
-			'City data does not match'
-		);
-
-		// Get the geo continent.
-		$continent = Geo\get_geo( 'continent', $audience_data );
-		$parsed_continent = $parsed_data['continent'];
-
-		// Test the continent.
-		$this->assertIsString( $continent );
-		$this->assertNotEmpty(
-			$continent,
-			'Continent data is empty'
-		);
-		$this->assertEquals(
-			$continent,
-			$parsed_continent,
-			'Continent data does not match'
-		);
-
-		// Get the connection type.
-		$conn_type = Geo\get_geo( 'conn-type', $audience_data );
-		$parsed_conn_type = $parsed_data['conn-type'];
-
-		// Test the connection type.
-		$this->assertIsString( $conn_type );
-		$this->assertNotEmpty(
-			$conn_type,
-			'Connection type data is empty'
-		);
-		$this->assertEquals(
-			$conn_type,
-			$parsed_conn_type,
-			'Connection type data does not match'
-		);
-
-		// Get the connection speed.
-		$conn_speed = Geo\get_geo( 'conn-speed', $audience_data );
-		$parsed_conn_speed = $parsed_data['conn-speed'];
-
-		// Test the connection speed.
-		$this->assertIsString( $conn_speed );
-		$this->assertNotEmpty(
-			$conn_speed,
-			'Connection speed data is empty'
-		);
-		$this->assertEquals(
-			$conn_speed,
-			$parsed_conn_speed,
-			'Connection speed data does not match'
-		);
-
-		// Test that some other string returns empty.
-		$this->assertEmpty(
-			Geo\get_geo( 'some-other-string', $audience_data ),
-			'Disallowed strings should return empty'
-		);
+			// Test that some other string returns empty.
+			$this->assertEmpty(
+				Geo\get_geo( 'some-other-string' ),
+				'Disallowed strings should return empty'
+			);
+		}
 
 		// Test the get_geo function with no data type passed.
-		$empty_geo = Geo\get_geo( '', $audience_data );
+		$empty_geo = Geo\get_geo( '', $audience_data['us'] );
 		$this->assertNotEmpty(
 			$empty_geo,
 			'Empty data type should not return empty'
@@ -161,14 +84,32 @@ class geoTests extends TestCase {
 	 */
 	public function mockAudienceData() : array {
 		return [
-			[
-				'US' => [ 'HTTP_AUDIENCE_SET' => 'country:US|city:Salt Lake City|region:UT|continent:NA|conn-speed:broadband|conn-type:wired' ]
+			'us' => [
+				'country-code' => 'US',
+				'country-name' => 'united states',
+				'city' => 'salt lake city',
+				'region' => 'UT',
+				'continent-code' => 'NA',
+				'conn-speed' => 'broadband',
+				'conn-type' => 'wired',
 			],
-			[
-				'CA' => [ 'HTTP_AUDIENCE_SET' => 'country:CA|city:Vancouver|region:BC|continent:NA|conn-speed:cable|conn-type:wifi' ]
+			'ca' => [
+				'country-code' => 'CA',
+				'country-name' => 'canada',
+				'city' => 'vancouver',
+				'region' => 'BC',
+				'continent-code' => 'NA',
+				'conn-speed' => 'cable',
+				'conn-type' => 'wifi',
 			],
-			[
-				'UK' => [ 'HTTP_AUDIENCE_SET' => 'country:UK|city:London|region:LND|continent:EU|conn-speed:xdsl|conn-type:?' ]
+			'uk' => [
+				'country-code' => 'UK',
+				'country-name' => 'united kingdom',
+				'city' => 'london',
+				'region' => 'LND',
+				'continent-code' => 'EU',
+				'conn-speed' => 'xdsl',
+				'conn-type' => '',
 			],
 		];
 	}
