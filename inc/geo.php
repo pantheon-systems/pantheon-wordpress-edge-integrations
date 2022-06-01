@@ -46,13 +46,13 @@ function get_geo( string $data_type = '', $data = null ) : string {
 		 * @param array $data The full, parsed geo data as an array.
 		 */
 		$all_geo = apply_filters( 'pantheon.ei.get_all_geo', [
-			'country-code' => EI\HeaderData::parse( 'p13n-geo-country-code', $data ),
-			'country-name' => EI\HeaderData::parse( 'p13n-geo-country-name', $data ),
-			'region' => EI\HeaderData::parse( 'p13n-geo-region', $data ),
-			'city' => EI\HeaderData::parse( 'p13n-geo-city', $data ),
-			'continent-code' => EI\HeaderData::parse( 'p13n-geo-continent-code', $data ),
-			'conn-speed' => EI\HeaderData::parse( 'p13n-geo-conn-speed', $data ),
-			'conn-type' => EI\HeaderData::parse( 'p13n-geo-conn-type', $data ),
+			'country-code' => EI\HeaderData::parse( 'P13n-Geo-Country-Code', $data ),
+			'country-name' => EI\HeaderData::parse( 'P13n-Geo-Country-Name', $data ),
+			'region' => EI\HeaderData::parse( 'P13n-Geo-Region', $data ),
+			'city' => EI\HeaderData::parse( 'P13n-Geo-City', $data ),
+			'continent-code' => EI\HeaderData::parse( 'P13n-Geo-continent-code', $data ),
+			'conn-speed' => EI\HeaderData::parse( 'P13n-Geo-Conn-Speed', $data ),
+			'conn-type' => EI\HeaderData::parse( 'P13n-Geo-Conn-Type', $data ),
 		] );
 
 		return json_encode( $all_geo );
