@@ -22,6 +22,7 @@ use Pantheon\EI;
  */
 function get_geo( string $data_type = '', $data = null ) : string {
 	// If the passed data type is not allowed, return an empty string.
+	$data_type = strtolower( $data_type );
 	if ( ! in_array( $data_type, get_geo_allowed_values(), true ) ) {
 		return '';
 	}
