@@ -278,21 +278,6 @@ class geoTests extends TestCase {
 			] ),
 			'Parsed data does not match'
 		);
-
-		// Reset the geo data to something resembling real data. This is a hack because data is retained across tests.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
-			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
-		}, 10 );
-	}
-
-	/**
-	 * Test that the pantheon.ei.get_geo action hook fires.
-	 *
-	 * @group wp-geo
-	 */
-	public function testGetGeoAction() {
-		Geo\get_geo();
-		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.before_get_geo' ) );
 	}
 
 	/**
