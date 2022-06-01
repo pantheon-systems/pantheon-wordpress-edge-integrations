@@ -305,15 +305,10 @@ class geoTests extends TestCase {
 	 */
 	public function testUndefinedArrayKey() {
 		// Reset the geo data to nothing.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
+		add_filter( 'pantheon.ei.get_all_geo', function() {
 			return [];
 		}, 10 );
 
-		$this->assertEmpty( Geo\get_geo( 'country' ) );
-
-		// Reset the geo back to something resembling real data.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
-			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
-		}, 10 );
+		$this->assertEmpty( Geo\get_geo( 'country-code' ) );
 	}
 }
