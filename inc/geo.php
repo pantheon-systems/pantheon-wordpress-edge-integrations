@@ -35,6 +35,15 @@ function get_geo( string $data_type = '', $data = null ) : string {
 
 	// If no geo data type was passed, return all geo data.
 	if ( empty( $data_type ) ) {
+		$geo_data = EI\HeaderData::personalizationObject( $data );
+		$all_geo = [];
+
+		// Loop through the geo headers and load up the all geo data with data from the personalization object.
+		foreach ( get_geo_allowed_headers() as $header ) {
+			$key = strtolower( str_replace( 'P13n-Geo-', '', $header ) );
+			$all_geo[ $key ] = isset( $geo_data[ $header ] ) ? $geo_data[ $header ] : '';
+		}
+
 		/**
 		 * Allow developers to filter the data that is returned when no data type is passed.
 		 *
@@ -45,15 +54,7 @@ function get_geo( string $data_type = '', $data = null ) : string {
 		 * @hook pantheon.ei.get_all_geo
 		 * @param array $data The full, parsed geo data as an array.
 		 */
-		$all_geo = apply_filters( 'pantheon.ei.get_all_geo', [
-			'country-code' => EI\HeaderData::parse( 'P13n-Geo-Country-Code', $data ),
-			'country-name' => EI\HeaderData::parse( 'P13n-Geo-Country-Name', $data ),
-			'region' => EI\HeaderData::parse( 'P13n-Geo-Region', $data ),
-			'city' => EI\HeaderData::parse( 'P13n-Geo-City', $data ),
-			'continent-code' => EI\HeaderData::parse( 'P13n-Geo-continent-code', $data ),
-			'conn-speed' => EI\HeaderData::parse( 'P13n-Geo-Conn-Speed', $data ),
-			'conn-type' => EI\HeaderData::parse( 'P13n-Geo-Conn-Type', $data ),
-		] );
+		$all_geo = apply_filters( 'pantheon.ei.get_all_geo', $all_geo );
 
 		return json_encode( $all_geo );
 	}
