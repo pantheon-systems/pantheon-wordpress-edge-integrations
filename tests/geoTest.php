@@ -157,6 +157,8 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 *
+	 * @group wp-geo
 	 */
 	public function testGeoAllowedValues() {
 		$allowed_values = Geo\get_geo_allowed_values();
@@ -201,6 +203,11 @@ class geoTests extends TestCase {
 		}, 10, 1 );
 	}
 
+	/**
+	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 *
+	 * @group wp-geo
+	 */
 	public function testGeoAllowedHeaders() {
 		$allowed_headers = Geo\get_geo_allowed_headers();
 		$this->assertIsArray( $allowed_headers );
@@ -244,6 +251,8 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.parsed_geo_data filter.
+	 *
+	 * @group wp-geo
 	 */
 	public function testParsedGeoData() {
 		// Filter the parsed geo data.
@@ -278,6 +287,8 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test that the pantheon.ei.get_geo action hook fires.
+	 *
+	 * @group wp-geo
 	 */
 	public function testGetGeoAction() {
 		Geo\get_geo();
@@ -286,6 +297,8 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.get_geo filter.
+	 *
+	 * @group wp-geo
 	 */
 	public function testGetGeoFilter() {
 		// Filter the geo data.
@@ -302,6 +315,8 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test that we dn't get an undefined array key error when calling a geo value that doesn't exist.
+	 *
+	 * @group wp-geo
 	 */
 	public function testUndefinedArrayKey() {
 		// Reset the geo data to nothing.
