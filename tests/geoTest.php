@@ -95,6 +95,12 @@ class geoTests extends TestCase {
 			$parsed_data,
 			'Empty data type should return parsed data'
 		);
+
+		// Ensure the json-encoded string matches what's expected.
+		$this->assertEquals(
+			$empty_geo,
+			json_encode( $parsed_data ),
+		);
 	}
 
 	/**
