@@ -107,6 +107,23 @@ class geoTests extends TestCase {
 	}
 
 	/**
+	 * Format mock data to emulate actual headers.
+	 * Used to pass into returnPersonalizationObject which expects actual header data.
+	 *
+	 * @see EI\HeaderData::personalizationObject
+	 * @param array $data The data to format.
+	 *
+	 * @return array The formatted data.
+	 */
+	private function format_mock_header_data( array $data ) : array {
+		$new_data = [];
+		foreach ( $data as $header => $value ) {
+			$new_data[ strtoupper( str_replace( '-', '_', 'HTTP_' . $header ) ) ] = $value;
+		}
+		return $new_data;
+	}
+
+	/**
 	 * Data provider for testGetGeo.
 	 *
 	 * @return array Mock audience data.
