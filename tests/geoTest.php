@@ -84,33 +84,33 @@ class geoTests extends TestCase {
 	 */
 	public function mockAudienceData() : array {
 		return [
-			'us' => [
-				'country-code' => 'US',
-				'country-name' => 'united states',
-				'city' => 'salt lake city',
-				'region' => 'UT',
-				'continent-code' => 'NA',
-				'conn-speed' => 'broadband',
-				'conn-type' => 'wired',
-			],
-			'ca' => [
-				'country-code' => 'CA',
-				'country-name' => 'canada',
-				'city' => 'vancouver',
-				'region' => 'BC',
-				'continent-code' => 'NA',
-				'conn-speed' => 'cable',
-				'conn-type' => 'wifi',
-			],
-			'uk' => [
-				'country-code' => 'UK',
-				'country-name' => 'united kingdom',
-				'city' => 'london',
-				'region' => 'LND',
-				'continent-code' => 'EU',
-				'conn-speed' => 'xdsl',
-				'conn-type' => '',
-			],
+			'us' => [ [
+				'P13n-Geo-Country-Code' => 'US',
+				'P13n-Geo-Country-Name' => 'united states',
+				'P13n-Geo-City' => 'salt lake city',
+				'P13n-Geo-Region' => 'UT',
+				'P13n-Geo-Continent-Code' => 'NA',
+				'P13n-Geo-Conn-Speed' => 'broadband',
+				'P13n-Geo-Conn-Type' => 'wired',
+			] ],
+			'ca' => [ [
+				'P13n-Geo-Country-Code' => 'CA',
+				'P13n-Geo-Country-Name' => 'canada',
+				'P13n-Geo-City' => 'vancouver',
+				'P13n-Geo-Region' => 'BC',
+				'P13n-Geo-Continent-Code' => 'NA',
+				'P13n-Geo-Conn-Speed' => 'cable',
+				'P13n-Geo-Conn-Type' => 'wifi',
+			] ],
+			'uk' => [ [
+				'P13n-Geo-Country-Code' => 'UK',
+				'P13n-Geo-Country-Name' => 'united kingdom',
+				'P13n-Geo-City' => 'london',
+				'P13n-Geo-Region' => 'LND',
+				'P13n-Geo-Continent-Code' => 'EU',
+				'P13n-Geo-Conn-Speed' => 'xdsl',
+				'P13n-Geo-Conn-Type' => '',
+			] ],
 		];
 	}
 
