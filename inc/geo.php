@@ -105,7 +105,7 @@ function get_geo_allowed_headers() : array {
 			continue;
 		}
 
-		$headers[] = "p13n-geo-$value";
+		$headers[] = ucwords( "p13n-geo-$value", '-' );
 	}
 
 	/**
