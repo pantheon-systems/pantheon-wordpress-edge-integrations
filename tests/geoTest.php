@@ -63,6 +63,9 @@ class geoTests extends TestCase {
 				$value,
 				"Data does not match for $region $data_type"
 			);
+
+			// Build the parsed data for testing later.
+			$parsed_data[ $data_type ] = $value;
 		}
 
 		// Test that some other string returns empty.
