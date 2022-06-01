@@ -256,7 +256,7 @@ class geoTests extends TestCase {
 	 */
 	public function testParsedGeoData() {
 		// Filter the parsed geo data.
-		add_filter( 'pantheon.ei.parsed_geo_data', function( $geo_data ) {
+		add_filter( 'pantheon.ei.get_all_geo', function( $geo_data ) {
 			return [
 				'name' => 'Chris Reynolds',
 				'role' => 'Software Engineer',
