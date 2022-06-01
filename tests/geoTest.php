@@ -215,13 +215,13 @@ class geoTests extends TestCase {
 		$this->assertEquals(
 			$allowed_headers,
 			[
-				'p13n-geo-country-code',
-				'p13n-geo-country-name',
-				'p13n-geo-city',
-				'p13n-geo-region',
-				'p13n-geo-continent-code',
-				'p13n-geo-conn-speed',
-				'p13n-geo-conn-type',
+				'P13n-Geo-Country-Code',
+				'P13n-Geo-Country-Name',
+				'P13n-Geo-City',
+				'P13n-Geo-Region',
+				'P13n-Geo-Continent-Code',
+				'P13n-Geo-Conn-Speed',
+				'P13n-Geo-Conn-Type',
 			],
 			'Allowed headers do not match'
 		);
@@ -238,13 +238,13 @@ class geoTests extends TestCase {
 		// Reset the data back to the original.
 		add_filter( 'pantheon.ei.geo_allowed_headers', function() {
 			return [
-				'p13n-geo-country-code',
-				'p13n-geo-country-name',
-				'p13n-geo-city',
-				'p13n-geo-region',
-				'p13n-geo-continent-code',
-				'p13n-geo-conn-speed',
-				'p13n-geo-conn-type',
+				'P13n-Geo-Country-Code',
+				'P13n-Geo-Country-Name',
+				'P13n-Geo-City',
+				'P13n-Geo-Region',
+				'P13n-Geo-Continent-Code',
+				'P13n-Geo-Conn-Speed',
+				'P13n-Geo-Conn-Type',
 			];
 		}, 10, 1 );
 	}
