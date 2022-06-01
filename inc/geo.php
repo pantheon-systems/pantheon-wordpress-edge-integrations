@@ -28,7 +28,7 @@ function get_geo( string $data_type = '', $data = null ) : string {
 	}
 
 	// Set the header and make sure it is a valid header.
-	$header = "p13n-geo-$data_type";
+	$header = 'P13n-Geo-' . ucwords( $data_type, '-' );
 	if ( ! in_array( $header, get_geo_allowed_headers(), true ) ) {
 		return '';
 	}
