@@ -71,6 +71,14 @@ class geoTests extends TestCase {
 			'Disallowed strings should return empty'
 		);
 
+		// Massage the data so we get actual results.
+		add_filter( 'pantheon.ei.get_all_geo', function() use ( $audience_data ) {
+			foreach ( $audience_data as $header => $value ) {
+				$filtered_data[ strtolower( str_replace( 'P13n-Geo-', '', $header ) ) ] = $value;
+			}
+			return $filtered_data;
+		} );
+
 		// Test the get_geo function with no data type passed.
 		$empty_geo = Geo\get_geo( '', $audience_data );
 		$this->assertNotEmpty(
