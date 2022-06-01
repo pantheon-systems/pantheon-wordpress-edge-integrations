@@ -72,7 +72,7 @@ class geoTests extends TestCase {
 		);
 
 		// Test the get_geo function with no data type passed.
-		$empty_geo = Geo\get_geo( '', $audience_data['us'] );
+		$empty_geo = Geo\get_geo( '', $audience_data );
 		$this->assertNotEmpty(
 			$empty_geo,
 			'Empty data type should not return empty'
