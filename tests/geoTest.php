@@ -287,12 +287,12 @@ class geoTests extends TestCase {
 	 */
 	public function testGetGeoFilter() {
 		// Filter the geo data.
-		add_filter( 'pantheon.ei.get_geo', function( $value ) {
+		add_filter( 'pantheon.ei.get_geo_country-name', function( $value ) {
 			return 'Antarctica';
 		}, 10, 1 );
 
 		$this->assertEquals(
-			Geo\get_geo( 'country' ),
+			Geo\get_geo( 'country-name' ),
 			'Antarctica',
 			'Filtered geo data does not match'
 		);
