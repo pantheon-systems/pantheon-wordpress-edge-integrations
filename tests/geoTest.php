@@ -33,31 +33,43 @@ class geoTests extends TestCase {
 	public function testGetGeo( array $audience_data ) {
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 
-		foreach ( $audience_data as $region => $audience ) {
-			foreach ( $audience as $header => $value ) {
-				// Get the actual data.
-				$parsed_data = EI\HeaderData::parse( "p13n-geo-$header", $value );
-				// Get the geo data.
-				$value_to_test = Geo\get_geo( $header );
-				// Make sure the data matches.
-				$this->assertIsString( $value_to_test );
+		foreach ( $audience_data as $header => $value ) {
+			$data = [
+				'HTTP_' . strtoupper( str_replace( '-', '_', $header ) ) => $value,
+			];
+			$region = $audience_data['P13n-Geo-Country-Code'];
+			$data_type = str_replace( 'p13n-geo-', '', strtolower( $header ) );
+			// Get the geo data.
+			$value_to_test = Geo\get_geo( $data_type, $data );
+			// Make sure the data matches.
+			$this->assertIsString( $value_to_test );
+
+			// We left the UK conn-type empty, so check for empty.
+			if ( $region === 'UK' && $data_type === 'conn-type' ) {
+				$this->assertEquals(
+					'',
+					$value_to_test,
+					'UK conn-type should be empty'
+				);
+			} else {
 				$this->assertNotEmpty(
 					$value_to_test,
-					"Data is empty for $region $header"
-				);
-				$this->assertEquals(
-					$value_to_test,
-					$parsed_data,
-					"Data does not match for $region $header"
+					"Data is empty for $region $data_type"
 				);
 			}
 
-			// Test that some other string returns empty.
-			$this->assertEmpty(
-				Geo\get_geo( 'some-other-string' ),
-				'Disallowed strings should return empty'
+			$this->assertEquals(
+				$value_to_test,
+				$value,
+				"Data does not match for $region $data_type"
 			);
 		}
+
+		// Test that some other string returns empty.
+		$this->assertEmpty(
+			Geo\get_geo( 'some-other-string' ),
+			'Disallowed strings should return empty'
+		);
 
 		// Test the get_geo function with no data type passed.
 		$empty_geo = Geo\get_geo( '', $audience_data['us'] );
