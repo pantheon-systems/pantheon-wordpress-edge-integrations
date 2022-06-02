@@ -309,6 +309,6 @@ class geoTests extends TestCase {
 			return [];
 		}, 10 );
 
-		$this->assertEmpty( Geo\get_geo( 'country-code' ) );
+		$this->assertEmpty( Geo\get_geo( 'conn-speed' ) );
 	}
 }
