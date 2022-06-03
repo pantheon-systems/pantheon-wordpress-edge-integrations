@@ -73,7 +73,7 @@ function localize_script() {
  * @return void
  */
 function set_interest_header() {
-	$cookie_key = 'interest';
+	$cookie_key = get_interest_header_key();
 	if ( ! array_key_exists( $cookie_key, $_COOKIE ) ) {
 		return;
 	}
