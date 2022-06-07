@@ -24,6 +24,8 @@ function bootstrap() {
 
 /**
  * Return the Interest header key.
+ *
+ * @return string The Interest header key.
  */
 function get_interest_header_key() : string {
 	/**
