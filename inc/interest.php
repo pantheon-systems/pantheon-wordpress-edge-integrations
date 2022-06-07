@@ -32,7 +32,7 @@ function get_interest_header_key() : string {
 	 * Allow the Interest header key to be customized.
 	 *
 	 * @hook pantheon.ei.interest_header_key
-	 * @todo Write docs for this function and filter.
+	 *
 	 * @param string $key The Interest header key.
 	 */
 	return apply_filters( 'pantheon.ei.interest_header_key', 'P13n-Interest' );
