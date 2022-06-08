@@ -7,13 +7,13 @@
     "prefer-stable": true,
     "repositories": [
         {
-            "type": "composer",
-            "url": "https://packagist.org"
-        },
-        {
             "type": "path",
             "url": "packages/*",
             "symlink": true
+        },
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
         },
         {
             "type": "git",
@@ -21,7 +21,7 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "^v1.0"
+        "pantheon-systems/pantheon-edge-integrations": "^v1.1.0-alpha1"
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
@@ -40,14 +40,15 @@
         ]
     },
     "scripts": {
-        "bump:patch": "npm run bump:patch",
-        "bump:minor": "npm run bump:minor",
-        "bump:major": "npm run bump:major",
+        "release:pre": "bash scripts/pre-release",
+        "release:post": "bash scripts/post-release",
         "lint:php": "find ./pantheon-wordpress-edge-integrations.php ./inc ./tests  -name '*.php' -exec php -l {} \\;",
         "lint:phpcs": "vendor/bin/phpcs -s --standard=phpcs.ruleset.xml .",
         "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",
         "lint": "composer lint:php && composer lint:phpcs",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
+        "test:geo": "vendor/bin/phpunit -c phpunit.xml --group wp-geo",
+        "test:interest": "vendor/bin/phpunit -c phpunit.xml --group wp-interest",
         "test": "composer test:unit"
     },
     "config": {

@@ -1,0 +1,56 @@
+#!/bin/bash
+# Announce the script so we know we're in the right place.
+echo "Welcome to the release prep script!"
+
+# Check if this is a pre-release or a regular release.
+echo "Are you creating a pre-release? (y/n)"
+read PRE_RELEASE
+
+if [ "$PRE_RELEASE" == "y" ]; then
+  echo "Got it. Preparing for pre-release."
+  # Get the branch to merge into.
+  echo "What's the main branch that the pre-release will be merged into? (e.g. branches/0.3.x)?"
+  read BRANCH
+
+  # Get the release version.
+  echo "Enter the pre-release version (e.g. 0.3.0-alpha1): "
+  read VERSION
+
+  # Make sure we're on the latest version of that branch and checkout a new pre-release branch.
+  git checkout $BRANCH && git pull
+  git checkout -b release-$VERSION
+
+  # Drop the -dev in the plugin file. We won't change the stable version in the readme for a pre-release.
+  sed -i '' "s/Version: .*-dev/Version: $VERSION/" pantheon-wordpress-edge-integrations.php
+
+  # Commit the changes.
+  git add pantheon-wordpress-edge-integrations.php
+  git commit -m "Bump version to $VERSION"
+  git push --set-upstream origin release-$VERSION
+
+  echo "Created new release branch for $VERSION. Make sure to set the parent branch to 'build'."
+  return 0;
+else
+  echo "Got it. Preparing for release."
+  # Get the release version.
+  echo "Enter the release version: "
+  read VERSION
+
+  # Make sure we're on the latest version of the working tree and checkout a new release branch.
+  git checkout main && git pull
+  git checkout -b release-$VERSION
+
+  # Drop the -dev in the plugin file.
+  sed -i '' "s/Version: .*-dev/Version: $VERSION/" pantheon-wordpress-edge-integrations.php
+
+  # Bump the version in the readme.
+  sed -i '' "s/Stable tag: .*/Stable tag: $VERSION  /" README.md
+
+  # Commit the changes.
+  git add pantheon-wordpress-edge-integrations.php README.md
+  git commit -m "Bump version to $VERSION"
+  git push --set-upstream origin release-$VERSION
+
+  echo "Created new release branch for $VERSION. Make sure to set the parent branch to 'build'."
+  return 0;
+fi

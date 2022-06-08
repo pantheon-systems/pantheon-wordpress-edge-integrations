@@ -1,6 +1,6 @@
 {
   "name": "pantheon-wordpress-edge-integrations",
-  "version": "0.2.16",
+  "version": "0.2.17",
   "description": "WordPress plugin to support Pantheon Edge Integrations and personalization features",
   "scripts": {
     "bump:patch": "bump patch --commit 'Version %s.' pantheon-wordpress-edge-integrations.php README.md",
