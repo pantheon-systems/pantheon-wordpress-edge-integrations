@@ -118,9 +118,14 @@ function get_supported_vary_headers() : array {
 	 * @param array $defaults Array of vary headers supported by the plugin.
 	 */
 	$defaults = apply_filters( 'pantheon.ei.supported_vary_headers', [
-		'Audience-Set' => true,
-		'Audience' => false,
-		'Interest' => true,
+		'P13n-Geo-Country-Code' => true,
+		'P13n-Geo-Country-Name' => false,
+		'P13n-Geo-Region' => false,
+		'P13n-Geo-City' => false,
+		'P13n-Geo-Continent-Code' => false,
+		'P13n-Geo-Conn-Type' => false,
+		'P13n-Geo-Conn-Speed' => false,
+		'P13n-Interest' => true,
 	] );
 
 	// Omit headers that are not supported.

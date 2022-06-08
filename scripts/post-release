@@ -1,0 +1,28 @@
+#!/bin/bash
+# Announce the script so we know we're in the right place.
+echo "Welcome to the post-release script!
+In this script, we will bump the version number in the plugin file, package.json and the stable version readme."
+
+echo "Enter the current stable release version: "
+read CURRENT_VERSION
+
+echo "Enter the next release version: "
+read NEXT_VERSION
+
+# Check out the main branch and pull the latest changes.
+git checkout main && git pull
+
+# Bump the version in the plugin file.
+sed -i '' "s/Version: .*-dev/Version: $NEXT_VERSION-dev/" pantheon-wordpress-edge-integrations.php
+
+# Bump the version in the readme to the current stable.
+sed -i '' "s/Stable tag: .*/Stable tag: $CURRENT_VERSION  /" README.md
+
+# Bump the versions in the package.json and package-lock.json files.
+node_modules/.bin/bump $NEXT_VERSION package.json package-lock.json
+
+# Commit the changes but don't push.
+git add pantheon-wordpress-edge-integrations.php README.md package.json package-lock.json
+git commit -m "Bump versions to $NEXT_VERSION and current stable $CURRENT_VERSION"
+
+echo "Bumped versions to $NEXT_VERSION and current stable $CURRENT_VERSION. Make sure to push to the main branch."

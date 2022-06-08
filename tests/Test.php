@@ -35,7 +35,7 @@ class testsBase extends TestCase {
 	 * Test the supported vary headers.
 	 */
 	public function testSupportedVaryHeaders() {
-		$this->assertEquals( [ 'Audience-Set', 'Interest' ],
+		$this->assertEquals( [ 'P13n-Geo-Country-Code', 'P13n-Interest' ],
 		get_supported_vary_headers(),
 		'The vary headers supported do not match.'
 		);
@@ -70,6 +70,8 @@ class testsBase extends TestCase {
 	 * Test the edge_integrations_enabled function.
 	 */
 	public function testEIEnabled() {
+		$_SERVER['HTTP_P13N_INTEREST'] = 'foo';
+		$_SERVER['HTTP_P13N_GEO_COUNTRY_CODE'] = 'bar';
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 		$headers = get_supported_vary_headers();
@@ -103,9 +105,10 @@ class testsBase extends TestCase {
 		$dummy_data = [
 			'city' => 'City',
 			'region' => 'State',
-			'country' => 'US',
+			'country-code' => 'US',
 		];
 		add_filter( 'pantheon.ei.parsed_geo_data', function( $data ) use ( $dummy_data ) {
+			$data = empty( $data ) ? [] : $data;
 			$data['city'] = $dummy_data['city'];
 			$data['region'] = $dummy_data['region'];
 			$data['country'] = $dummy_data['country'];
