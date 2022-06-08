@@ -29,7 +29,6 @@ if [ "$PRE_RELEASE" == "y" ]; then
   git push --set-upstream origin release-$VERSION
 
   echo "Created new release branch for $VERSION. Make sure to set the parent branch to 'build'."
-  return 0;
 else
   echo "Got it. Preparing for release."
   # Get the release version.
@@ -52,5 +51,4 @@ else
   git push --set-upstream origin release-$VERSION
 
   echo "Created new release branch for $VERSION. Make sure to set the parent branch to 'build'."
-  return 0;
 fi
