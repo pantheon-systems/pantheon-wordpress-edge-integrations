@@ -30,6 +30,10 @@ function register_endpoints() {
 	] );
 }
 
+function get_available_segments() : array {
+
+	return $segments;
+}
 
 /**
  * Get descriptions for enabled segments.
