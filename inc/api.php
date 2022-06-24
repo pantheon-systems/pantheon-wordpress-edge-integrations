@@ -29,3 +29,44 @@ function register_endpoints() {
 		'callback' => __NAMESPACE__ . '\\get_available_segments',
 	] );
 }
+
+
+/**
+ * Get descriptions for enabled segments.
+ *
+ * @param string $segment The segment to get descriptions for. If empty, all segments are returned.
+ *
+ * @return array An array of segment descriptions or an array containing the name and description of the requested segment.
+ */
+function get_segment_descriptions( string $segment = '' ) : array {
+	$geo_description = [
+		'name' => 'geo',
+		'description' => 'User segments derived from geolocation information.',
+	];
+
+	$interest_description = [
+		'name' => 'interest',
+		'description' => 'User segments derived from site behavior and interest patterns.',
+	];
+
+	if ( ! in_array( $segment, ['', 'geo', 'interest'], true ) ) {
+		return [];
+	}
+
+	if ( '' === $segment ) {
+		$description = [
+			'geo' => $geo_description,
+			'interest' => $interest_description,
+		];
+	}
+
+	if ( 'geo' === $segment ) {
+		$description = $geo_description;
+	}
+
+	if ( 'interest' === $segment ) {
+		$description = $interest_description;
+	}
+
+	return $description;
+}
