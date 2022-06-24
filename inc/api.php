@@ -9,4 +9,4 @@
 
 namespace Pantheon\EI\WP\API;
 
-function bootstrap() {}
+use WP_REST_Server;
