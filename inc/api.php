@@ -31,7 +31,30 @@ function register_endpoints() {
 	] );
 }
 
+/**
+ * Return the available segments.
+ *
+ * @return array
+ */
 function get_available_segments() : array {
+	$supported_vary_headers = WP\get_supported_vary_headers();
+	$available_segments = [];
+
+	foreach ( $supported_vary_headers as $vary_header ) {
+		if ( false !== stripos( $vary_header, 'Interest' ) ) {
+			$available_segments[] = 'interest';
+		};
+
+		if ( false !== stripos( $vary_header, 'Geo' ) ) {
+			$available_segments[] = 'geo';
+		};
+	}
+
+	if ( count( $available_segments ) > 1 ) {
+		$segments = get_segment_descriptions();
+	} else {
+		$segments = get_segment_descriptions( $available_segments[0] );
+	}
 
 	return $segments;
 }
