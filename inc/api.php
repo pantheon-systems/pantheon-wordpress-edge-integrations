@@ -9,6 +9,7 @@
 
 namespace Pantheon\EI\WP\API;
 
+use Pantheon\EI\WP;
 use WP_REST_Server;
 
 const API_NAMESPACE = 'pantheon/v1/ei';
