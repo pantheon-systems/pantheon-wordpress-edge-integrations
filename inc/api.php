@@ -26,8 +26,11 @@ function bootstrap() {
  */
 function register_endpoints() {
 	register_rest_route( API_NAMESPACE, 'segments', [
-		'method' => WP_REST_Server::READABLE,
-		'callback' => __NAMESPACE__ . '\\get_available_segments',
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_available_segments',
+		],
+		'schema' => __NAMESPACE__ . '\\get_segments_schema',
 	] );
 }
 
@@ -57,6 +60,35 @@ function get_available_segments() : array {
 	}
 
 	return $segments;
+}
+
+/**
+ * Define the schema for the segments endpoint.
+ *
+ * @return array The segments endpoint schema.
+ */
+function get_segmests_schema() : array {
+	return [
+		'title' => 'segments',
+		'type' => 'array',
+		'properties' => [
+			'name' => [
+				'description' => esc_html__( 'The type of segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'description' => [
+				'description' => esc_html__( 'Description of the segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'route' => [
+				'description' => esc_html__( 'The API endpoint URL for the segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+		],
+	];
 }
 
 /**
