@@ -27,9 +27,10 @@ function bootstrap() {
 	$plugin_version = $plugin_data['Version'];
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
-	// Load Interests and Analytics.
+	// Bootstrap all the things.
 	Admin\bootstrap();
 	Analytics\bootstrap();
+	API\bootstrap();
 	Interest\bootstrap();
 
 	// Display a notice if EI headers are not found.
