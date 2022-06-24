@@ -34,6 +34,7 @@
         "files": [
             "inc/admin.php",
             "inc/analytics.php",
+            "inc/api.php",
             "inc/geo.php",
             "inc/interest.php",
             "inc/namespace.php"
