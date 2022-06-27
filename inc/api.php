@@ -203,3 +203,30 @@ function get_geo_segments_schema() : array {
 		],
 	];
 }
+
+/**
+ * Return the interest segments. Interests are the terms of whatever taxonomy or taxonomies have been set as interests.
+ *
+ * @see get_interest_taxonomy()
+ *
+ * @return array An array of terms from the assigned interest taxonomy(ies).
+ */
+function get_interests_segments() : array {
+	$interest_taxonomy = Interest\get_interest_taxonomy();
+	$terms = get_terms( [
+		'taxonomy' => $interest_taxonomy,
+		'hide_empty' => false,
+	] );
+	$segments = [];
+	$i = 0;
+
+	foreach ( $terms as $term ) {
+		$segments[ $i ] = new stdClass();
+		$segments[ $i ]->name = $term->name;
+		$segments[ $i ]->type = $term->taxonomy;
+		$segments[ $i ]->id = $term->term_id;
+		$i++;
+	}
+
+	return $segments;
+}
