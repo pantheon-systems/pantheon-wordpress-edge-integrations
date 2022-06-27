@@ -43,6 +43,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_geo_segments_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'segments/interests', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_interests_segments',
+		],
+		'schema' => __NAMESPACE__ . '\\get_interests_segments_schema',
+	] );
 }
 
 /**
