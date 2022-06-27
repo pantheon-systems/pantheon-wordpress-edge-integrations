@@ -11,6 +11,7 @@ namespace Pantheon\EI\WP\API;
 
 use Pantheon\EI\WP;
 use Pantheon\EI\WP\Geo;
+use Pantheon\EI\WP\Interest;
 use stdClass;
 use WP_REST_Server;
 
