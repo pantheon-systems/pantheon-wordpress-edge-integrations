@@ -132,3 +132,31 @@ function get_segment_descriptions( string $segment = '' ) : array {
 
 	return $description;
 }
+
+/**
+ * Return an array of the geo segments available and which ones are enabled.
+ *
+ * @return array An array of geo segments with values of true or false depending on which ones are varied on.
+ */
+function get_geo_segments() : array {
+	$segments = array_filter( Geo\get_geo_allowed_values() );
+	$allowed_headers = array_map(
+		function( $header ) {
+			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
+		}, WP\get_supported_vary_headers() );
+	$geo = [];
+
+	foreach ( $segments as $segment ) {
+		$element = new stdClass();
+		$element->name = $segment;
+		if ( in_array( $segment, $allowed_headers, true ) ) {
+			$element->enabled = true;
+			$geo[] = $element;
+		} else {
+			$element->enabled = false;
+			$geo[] = $element;
+		}
+	}
+
+	return $geo;
+}
