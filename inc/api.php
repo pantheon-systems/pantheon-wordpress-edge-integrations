@@ -67,6 +67,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_geo_allowed_config_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'config/interest/cookie-expiration', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_cookie_expiration',
+		],
+		'schema' => __NAMESPACE__ . '\\get_interest_cookie_expiration_schema',
+	] );
 }
 
 /**
@@ -390,5 +398,17 @@ function get_geo_allowed_config_schema() : array {
 	return [
 		'title' => 'geo allowed config',
 		'type' => 'array',
+	];
+}
+
+/**
+ * Define the cookie expiration schema.
+ *
+ * @return array
+ */
+function get_interest_cookie_expiration_schema() : array {
+	return [
+		'title' => 'interest cookie expiration',
+		'type' => 'integer',
 	];
 }
