@@ -107,6 +107,30 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_all_user_data_schema',
 	] );
+
+	// Define the user data endpointds.
+	$user_data = [
+		'conn-speed',
+		'conn-type',
+		'geo/city',
+		'geo/continent-code',
+		'geo/country-code',
+		'geo/country-name',
+		'geo/region',
+		'interest',
+	];
+
+	// Register a route for each user data type.
+	foreach ( $user_data as $data ) {
+		$callback = __NAMESPACE__ . '\\get_user_data_' . str_replace( '-', '_', str_replace( 'geo/', '', $data ) );
+		register_rest_route( API_NAMESPACE, "user/$data", [
+			[
+				'method' => WP_REST_Server::READABLE,
+				'callback' => $callback,
+			],
+			'schema' => $callback . '_schema',
+		] );
+	}
 }
 
 /**
@@ -549,5 +573,181 @@ function get_all_user_data_schema() : array {
 				'readonly' => true,
 			],
 		],
+	];
+}
+
+/**
+ * Return the current user's city.
+ *
+ * @return string
+ */
+function get_user_data_city() : string {
+	return get_all_user_data()->geo->city;
+}
+
+/**
+ * Define the user data city schema.
+ *
+ * @return array
+ */
+function get_user_data_city_schema() : array {
+	return [
+		'title' => 'user data city',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's connection speed.
+ *
+ * @return string
+ */
+function get_user_data_conn_speed() : string {
+	return Geo\get_geo('conn-speed');
+}
+
+/**
+ * Define the user data connection speed schema.
+ *
+ * @return array
+ */
+function get_user_data_conn_speed_schema() : array {
+	return [
+		'title' => 'user data conn speed',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's connection type.
+ *
+ * @return string
+ */
+function get_user_data_conn_type() : string {
+	return Geo\get_geo('conn-type');
+}
+
+/**
+ * Define the user data connection type schema.
+ *
+ * @return array
+ */
+function get_user_data_conn_type_schema() : array {
+	return [
+		'title' => 'user data conn type',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's continent code.
+ *
+ * @return string
+ */
+function get_user_data_continent_code() : string {
+	return Geo\get_geo('continent-code');
+}
+
+/**
+ * Define the user data continent code schema.
+ *
+ * @return array
+ */
+function get_user_data_continent_code_schema() : array {
+	return [
+		'title' => 'user data continent code',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's country code.
+ *
+ * @return string
+ */
+function get_user_data_country_code() : string {
+	return Geo\get_geo('country-code');
+}
+
+/**
+ * Define the user data country code schema.
+ *
+ * @return array
+ */
+function get_user_data_country_code_schema() : array {
+	return [
+		'title' => 'user data country code',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's country name.
+ *
+ * @return string
+ */
+function get_user_data_country_name() : string {
+	return Geo\get_geo('country-name');
+}
+
+/**
+ * Define the user data country name schema.
+ *
+ * @return array
+ */
+function get_user_data_country_name_schema() : array {
+	return [
+		'title' => 'user data country name',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's region.
+ *
+ * @return string
+ */
+function get_user_data_region() : string {
+	return get_all_user_data()->geo->region;
+}
+
+/**
+ * Define the user data region schema.
+ *
+ * @return array
+ */
+function get_user_data_region_schema() : array {
+	return [
+		'title' => 'user data region',
+		'type' => 'string',
+		'readonly' => true,
+	];
+}
+
+/**
+ * Return the current user's interest segment.
+ *
+ * @return string
+ */
+function get_user_data_interest() : string {
+	return get_all_user_data()->interest;
+}
+
+/**
+ * Define the user data interest schema.
+ *
+ * @return array
+ */
+function get_user_data_interest_schema() : array {
+	return [
+		'title' => 'user data interest',
+		'type' => 'string',
+		'readonly' => true,
 	];
 }
