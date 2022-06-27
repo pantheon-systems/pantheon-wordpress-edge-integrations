@@ -63,7 +63,7 @@ function register_endpoints() {
 	register_rest_route( API_NAMESPACE, 'config/geo/allowed', [
 		[
 			'method' => WP_REST_Server::READABLE,
-			'callback' => __NAMESPACE__ . '\\get_geo_allowed_config',
+			'callback' => '\\Pantheon\\EI\\WP\\Geo\\get_geo_allowed_headers',
 		],
 		'schema' => __NAMESPACE__ . '\\get_geo_allowed_config_schema',
 	] );
@@ -402,15 +402,6 @@ function get_config_schema() : array {
 			],
 		],
 	];
-}
-
-/**
- * Get the allowed values for the geo segment. These are just the allowed geo headers.
- *
- * @return array An array of the allowed geo headers.
- */
-function get_geo_allowed_config() : array {
-	return Geo\get_geo_allowed_headers();
 }
 
 /**
