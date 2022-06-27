@@ -99,6 +99,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_threshold_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'user', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_all_user_data',
+		],
+		'schema' => __NAMESPACE__ . '\\get_all_user_data_schema',
+	] );
 }
 
 /**
@@ -467,5 +475,79 @@ function get_interest_threshold_schema() : array {
 	return [
 		'title' => 'interest threshold',
 		'type' => 'integer',
+	];
+}
+
+/**
+ * Return the current user's personalization data.
+ *
+ * @return object The current user's personalization data.
+ */
+function get_all_user_data() : object {
+	$user = new stdClass();
+	$user->geo = json_decode( Geo\get_geo() );
+	$interest = Interest\get_interest();
+	$user->interest = ! empty( $interest ) ? $interest[0] : '';
+	return $user;
+}
+
+/**
+ * Define the user data schema.
+ *
+ * @return array
+ */
+function get_all_user_data_schema() : array {
+	return [
+		'title' => 'all user data',
+		'type' => 'object',
+		'properties' => [
+			'geo' => [
+				'description' => esc_html__( 'The current user\'s geo segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'object',
+				'readonly' => true,
+				'properties' => [
+					'country-code' => [
+						'description' => esc_html__( 'The current user\'s ISO country code.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'country-name' => [
+						'description' => esc_html__( 'The current user\'s country.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'city' => [
+						'description' => esc_html__( 'The current user\'s city.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'region' => [
+						'description' => esc_html__( 'The current user\'s state, territory, county or province.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'continent_code' => [
+						'description' => esc_html__( 'The current user\'s continent code.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'conn-speed' => [
+						'description' => esc_html__( 'The current user\'s internet connection speed.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+					'conn-type' => [
+						'description' => esc_html__( 'The current user\'s internet connection type.', 'pantheon-wordpress-edge-integrations' ),
+						'type' => 'string',
+						'readonly' => true,
+					],
+				],
+			],
+			'interest' => [
+				'description' => esc_html__( 'The current user\'s interest segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+		],
 	];
 }
