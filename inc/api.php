@@ -51,6 +51,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_interests_segments_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'config/geo/allowed', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_geo_allowed_config',
+		],
+		'schema' => __NAMESPACE__ . '\\get_geo_allowed_config_schema',
+	] );
 }
 
 /**
@@ -257,5 +265,26 @@ function get_interests_segments_schema() : array {
 				'readonly' => true,
 			],
 		],
+	];
+}
+
+/**
+ * Get the allowed values for the geo segment. These are just the allowed geo headers.
+ *
+ * @return array An array of the allowed geo headers.
+ */
+function get_geo_allowed_config() : array {
+	return Geo\get_geo_allowed_headers();
+}
+
+/**
+ * Define the geo allowed config schema.
+ *
+ * @return array The geo allowed config schema.
+ */
+function get_geo_allowed_config_schema() : array {
+	return [
+		'title' => 'geo allowed config',
+		'type' => 'array',
 	];
 }
