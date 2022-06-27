@@ -52,6 +52,14 @@ function register_endpoints() {
 		'schema' => __NAMESPACE__ . '\\get_interests_segments_schema',
 	] );
 
+	register_rest_route( API_NAMESPACE, 'config', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_config',
+		],
+		'schema' => __NAMESPACE__ . '\\get_config_schema',
+	] );
+
 	register_rest_route( API_NAMESPACE, 'config/geo/allowed', [
 		[
 			'method' => WP_REST_Server::READABLE,
@@ -262,6 +270,102 @@ function get_interests_segments_schema() : array {
 			'id' => [
 				'description' => esc_html__( 'The taxonomy term ID of the term.', 'pantheon-wordpress-edge-integrations' ),
 				'type' => 'integer',
+				'readonly' => true,
+			],
+		],
+	];
+}
+
+/**
+ * Return current settings and configuration information in the config endpoint.
+ * This endpoint displays the current working configuration of the plugin based on the filters that are in place.
+ *
+ * @return object The current configuration of the plugin.
+ */
+function get_config() : object {
+	// The list of endpoints under /config.
+	$endpoints = [
+		'geo/allowed',
+		'interest/cookie-expiration',
+		'interest/post-types',
+		'interest/taxonomies',
+		'interest/threshold',
+	];
+
+	// Descriptions for the config endpoints.
+	$descriptions = [
+		'geo/allowed' => 'The list of geo segments that are allowed to be varied upon.',
+		'interest/cookie-expiration' => 'The number of days until the interest cookie expires.',
+		'interest/post-types' => 'The list of post types that are considered for interest segments.',
+		'interest/taxonomies' => 'The list of taxonomies that are considered for interest segments.',
+		'interest/threshold' => 'The minimum number of times a term must be used to be considered an interest.',
+	];
+
+	// Set up the config endpoint object.
+	$config = new stdClass();
+	$config->namespace = API_NAMESPACE;
+	$config->routes = [];
+
+	// Loop through each endpoint and add information.
+	foreach ( $endpoints as $route ) {
+		$config->routes[ API_NAMESPACE . "/config/$route" ] = [
+			'description' => $descriptions[ $route ],
+			'_link' => get_rest_url( null, API_NAMESPACE . "/config/$route" )
+		];
+	}
+
+	$config->vary_headers = WP\get_supported_vary_headers();
+	$config->version = PANTHEON_EDGE_INTEGRATIONS_VERSION;
+
+	return $config;
+}
+
+/**
+ * Define the schema for the config endpoint.
+ *
+ * @return array The config endpoint schema.
+ */
+function get_config_schema() : array {
+	return [
+		'title' => 'edge integrations config',
+		'type' => 'object',
+		'properties' => [
+			'namespace' => [
+				'description' => esc_html__( 'The namespace of the API.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'routes' => [
+				'description' => esc_html__( 'The list of endpoints under /config.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'array',
+				'readonly' => true,
+				'items' => [
+					'type' => 'object',
+					'properties' => [
+						'description' => [
+							'description' => esc_html__( 'The description of the endpoint.', 'pantheon-wordpress-edge-integrations' ),
+							'type' => 'string',
+							'readonly' => true,
+						],
+						'_link' => [
+							'description' => esc_html__( 'The link to the endpoint.', 'pantheon-wordpress-edge-integrations' ),
+							'type' => 'string',
+							'readonly' => true,
+						],
+					],
+				],
+			],
+			'vary_headers' => [
+				'description' => esc_html__( 'The list of headers that can be varied upon.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'array',
+				'readonly' => true,
+				'items' => [
+					'type' => 'string',
+				],
+			],
+			'version' => [
+				'description' => esc_html__( 'The version of the Edge Integrations WordPress plugin.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
 				'readonly' => true,
 			],
 		],
