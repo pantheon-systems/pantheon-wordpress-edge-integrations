@@ -118,7 +118,7 @@ function get_segment_descriptions( string $segment = '' ) : array {
 	$interest_description = [
 		'name' => 'interest',
 		'description' => 'User segments derived from site behavior and interest patterns.',
-		'route' => get_rest_url( null, API_NAMESPACE . '/segments/interest' ),
+		'route' => get_rest_url( null, API_NAMESPACE . '/segments/interests' ),
 	];
 
 	if ( ! in_array( $segment, ['', 'geo', 'interest'], true ) ) {
