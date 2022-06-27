@@ -75,6 +75,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_cookie_expiration_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'config/interest/post-types', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_interest_allowed_post_types',
+		],
+		'schema' => __NAMESPACE__ . '\\get_interest_allowed_post_types_schema',
+	] );
 }
 
 /**
@@ -410,5 +418,20 @@ function get_interest_cookie_expiration_schema() : array {
 	return [
 		'title' => 'interest cookie expiration',
 		'type' => 'integer',
+	];
+}
+
+/**
+ * Define the interest post types schema.
+ *
+ * @return array
+ */
+function get_interest_allowed_post_types_schema() : array {
+	return [
+		'title' => 'interest allowed post types',
+		'type' => 'array',
+		'items' => [
+			'type' => 'string',
+		],
 	];
 }
