@@ -10,6 +10,8 @@
 namespace Pantheon\EI\WP\API;
 
 use Pantheon\EI\WP;
+use Pantheon\EI\WP\Geo;
+use stdClass;
 use WP_REST_Server;
 
 const API_NAMESPACE = 'pantheon/v1/ei';
@@ -31,6 +33,14 @@ function register_endpoints() {
 			'callback' => __NAMESPACE__ . '\\get_available_segments',
 		],
 		'schema' => __NAMESPACE__ . '\\get_segments_schema',
+	] );
+
+	register_rest_route( API_NAMESPACE, 'segments/geo', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_geo_segments',
+		],
+		'schema' => __NAMESPACE__ . '\\get_geo_segments_schema',
 	] );
 }
 
@@ -159,4 +169,28 @@ function get_geo_segments() : array {
 	}
 
 	return $geo;
+}
+
+/**
+ * Define the geo segments schema.
+ *
+ * @return array The geo segments schema.
+ */
+function get_geo_segments_schema() : array {
+	return [
+		'title' => 'geo segments',
+		'type' => 'array',
+		'properties' => [
+			'name' => [
+				'description' => esc_html__( 'The type of geo segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'enabled' => [
+				'description' => esc_html__( 'Whether the geo segment is being varied upon.' ),
+				'type' => 'boolean',
+				'readonly' => true,
+			],
+		],
+	];
 }
