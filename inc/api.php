@@ -83,6 +83,14 @@ function register_endpoints() {
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_allowed_post_types_schema',
 	] );
+
+	register_rest_route( API_NAMESPACE, 'config/interest/taxonomies', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_interest_taxonomy',
+		],
+		'schema' => __NAMESPACE__ . '\\get_interest_allowed_taxonomies_schema',
+	] );
 }
 
 /**
@@ -429,6 +437,21 @@ function get_interest_cookie_expiration_schema() : array {
 function get_interest_allowed_post_types_schema() : array {
 	return [
 		'title' => 'interest allowed post types',
+		'type' => 'array',
+		'items' => [
+			'type' => 'string',
+		],
+	];
+}
+
+/**
+ * Define the interest taxonomies schema.
+ *
+ * @return array
+ */
+function get_interest_allowed_taxonomies_schema() : array {
+	return [
+		'title' => 'interest allowed taxonomies',
 		'type' => 'array',
 		'items' => [
 			'type' => 'string',
