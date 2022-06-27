@@ -230,3 +230,32 @@ function get_interests_segments() : array {
 
 	return $segments;
 }
+
+/**
+ * Define the interest segments schema.
+ *
+ * @return array The interest segments schema.
+ */
+function get_interests_segments_schema() : array {
+	return [
+		'title' => 'interest segments',
+		'type' => 'array',
+		'properties' => [
+			'name' => [
+				'description' => esc_html__( 'The segment name, in this case, the taxonomy term.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'type' => [
+				'description' => esc_html__( 'The taxonomy the term belongs to.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'id' => [
+				'description' => esc_html__( 'The taxonomy term ID of the term.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'integer',
+				'readonly' => true,
+			],
+		],
+	];
+}
