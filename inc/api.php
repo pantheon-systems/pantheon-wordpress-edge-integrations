@@ -177,7 +177,7 @@ function get_available_segments() : array {
  *
  * @return array The segments endpoint schema.
  */
-function get_segmests_schema() : array {
+function get_segments_schema() : array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'segments',
