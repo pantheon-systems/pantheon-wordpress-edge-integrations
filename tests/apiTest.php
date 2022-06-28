@@ -37,7 +37,7 @@ class apiTests extends TestCase {
 	 *
 	 * @group wp-api
 	 */
-	public function testGetAvailableSegments() {
+	public function testGetSegments() {
 		$available_segments = get_available_segments();
 		$this->assertIsArray( $available_segments );
 		$this->assertNotEmpty( $available_segments );
