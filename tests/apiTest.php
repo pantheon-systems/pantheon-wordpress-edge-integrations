@@ -10,15 +10,13 @@ namespace Pantheon\EI\WP\API;
 use Ironbound\WP_REST_API\SchemaValidator;
 use Pantheon\EI\WP;
 use Pantheon\EI\WP\Geo;
-use PHPUnit\Framework\TestCase;
 use WP_REST_Request;
+use WP_UnitTestCase;
 
 /**
  * Main test class for WordPress Edge Integrations plugin API.
  */
-class apiTests extends TestCase {
-	public function __construct() {
-		parent::__construct();
+class apiTests extends WP_UnitTestCase {
 		add_action( 'plugins_loaded', function() {
 			$middleware = new SchemaValidator\Middleware( 'pantheon/v1', [
 				'methodParamDescription' => __( 'HTTP method to get the schema for. If not provided, will use the base schema.', 'text-domain' ),
