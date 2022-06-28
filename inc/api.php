@@ -32,6 +32,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => __NAMESPACE__ . '\\get_available_segments',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_segments_schema',
 	] );
@@ -40,6 +41,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => __NAMESPACE__ . '\\get_geo_segments',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_geo_segments_schema',
 	] );
@@ -48,6 +50,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => __NAMESPACE__ . '\\get_interests_segments',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_interests_segments_schema',
 	] );
@@ -56,6 +59,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => __NAMESPACE__ . '\\get_config',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_config_schema',
 	] );
@@ -64,6 +68,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => '\\Pantheon\\EI\\WP\\Geo\\get_geo_allowed_headers',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_geo_allowed_config_schema',
 	] );
@@ -72,6 +77,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_cookie_expiration',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_cookie_expiration_schema',
 	] );
@@ -80,6 +86,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_interest_allowed_post_types',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_allowed_post_types_schema',
 	] );
@@ -88,6 +95,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_interest_taxonomy',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_allowed_taxonomies_schema',
 	] );
@@ -96,6 +104,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => '\\Pantheon\\EI\\WP\\Interest\\get_interest_threshold',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_interest_threshold_schema',
 	] );
@@ -104,6 +113,7 @@ function register_endpoints() {
 		[
 			'method' => WP_REST_Server::READABLE,
 			'callback' => __NAMESPACE__ . '\\get_all_user_data',
+			'permission_callback' => '__return_true',
 		],
 		'schema' => __NAMESPACE__ . '\\get_all_user_data_schema',
 	] );
@@ -127,6 +137,7 @@ function register_endpoints() {
 			[
 				'method' => WP_REST_Server::READABLE,
 				'callback' => $callback,
+				'permission_callback' => '__return_true',
 			],
 			'schema' => $callback . '_schema',
 		] );
