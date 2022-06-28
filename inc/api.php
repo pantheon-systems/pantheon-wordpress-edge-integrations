@@ -387,10 +387,10 @@ function get_config() : object {
 
 	// Loop through each endpoint and add information.
 	foreach ( $endpoints as $route ) {
-		$config->routes[ API_NAMESPACE . "/config/$route" ] = [
-			'description' => $descriptions[ $route ],
-			'_link' => get_rest_url( null, API_NAMESPACE . "/config/$route" ),
-		];
+		$config->routes[ API_NAMESPACE . "/config/$route" ] = new stdClass();
+		$config->routes[ API_NAMESPACE . "/config/$route" ]->description = $descriptions[ $route ];
+		$config->routes[ API_NAMESPACE . "/config/$route" ]->_link =
+get_rest_url( null, API_NAMESPACE . "/config/$route" );
 	}
 
 	$config->vary_headers = WP\get_supported_vary_headers();
