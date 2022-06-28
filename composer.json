@@ -49,7 +49,7 @@
         "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",
         "lint": "composer lint:php && composer lint:phpcs",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
-        "test:install-wp-unit": "bin/install-wp-tests.sh test-db root '' latest",
+        "test:install-wp-unit": "bin/install-wp-tests.sh test-db root '' localhost latest",
         "test:base": "vendor/bin/phpunit -c phpunit.xml --group wp",
         "test:api": "vendor/bin/phpunit -c phpunit.xml --group wp-api",
         "test:geo": "vendor/bin/phpunit -c phpunit.xml --group wp-geo",
