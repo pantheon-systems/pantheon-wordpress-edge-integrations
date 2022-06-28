@@ -39,8 +39,18 @@ class apiTests extends TestCase {
 	 */
 	public function testGetSegments() {
 		$available_segments = get_available_segments();
-		$this->assertIsArray( $available_segments );
+		$schema = get_segments_schema();
+		$this->assertEquals( $schema['type'], gettype( $available_segments ) );
 		$this->assertNotEmpty( $available_segments );
 		$this->assertEquals( 2, count( $available_segments ) );
+
+		foreach ( $available_segments as $segment ) {
+			$this->assertArrayHasKey( 'name', $segment );
+			$this->assertEquals( $schema['properties']['name']['type'], gettype( $segment['name'] ) );
+			$this->assertArrayHasKey( 'description', $segment );
+			$this->assertEquals( $schema['properties']['description']['type'], gettype( $segment['description'] ) );
+			$this->assertArrayHasKey( 'route', $segment );
+			$this->assertEquals( $schema['properties']['route']['type'], gettype( $segment['route'] ) );
+		}
 	}
 }
