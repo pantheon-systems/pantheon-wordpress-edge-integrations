@@ -7,13 +7,24 @@
 
 namespace Pantheon\EI\WP\API;
 
+use Ironbound\WP_REST_API\SchemaValidator;
 use PHPUnit\Framework\TestCase;
-USE WP_REST_Request;
+use WP_REST_Request;
 
 /**
  * Main test class for WordPress Edge Integrations plugin API.
  */
 class apiTests extends TestCase {
+	public function __construct() {
+		parent::__construct();
+		add_action( 'plugins_loaded', function() {
+			$middleware = new SchemaValidator\Middleware( 'pantheon/v1', [
+				'methodParamDescription' => __( 'HTTP method to get the schema for. If not provided, will use the base schema.', 'text-domain' ),
+				'schemaNotFound'         => __( 'Schema not found.', 'text-domain' ),
+			] );
+			$middleware->initialize();
+		} );
+	}
 	/**
 	 * Quick wrapper around the WP_REST_Request class.
 	 */

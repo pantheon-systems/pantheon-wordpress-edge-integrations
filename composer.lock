@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59a98758d94ca6afc9ef99d4bd6aa15f",
+    "content-hash": "5ea2c5b43210ad55f461a4253ff5ac7e",
     "packages": [
         {
             "name": "pantheon-systems/pantheon-edge-integrations",
@@ -917,6 +917,122 @@
                 "source": "https://github.com/humanmade/coding-standards/tree/v1.1.3"
             },
             "time": "2021-02-03T22:20:56+00:00"
+        },
+        {
+            "name": "ironbound/wp-rest-api-schema-validator",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/iron-bound-designs/wp-rest-api-schema-validator.git",
+                "reference": "3c9fbde83da1bd3713222098d4bac15abd07daec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/iron-bound-designs/wp-rest-api-schema-validator/zipball/3c9fbde83da1bd3713222098d4bac15abd07daec",
+                "reference": "3c9fbde83da1bd3713222098d4bac15abd07daec",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "^5.1",
+                "php": ">=5.3.29|>=7.0.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8|^5.7"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IronBound\\WP_REST_API\\SchemaValidator\\": "src/",
+                    "IronBound\\WP_REST_API\\SchemaValidator\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Timothy Jacobs",
+                    "email": "timothy@ironbounddesigns.com"
+                }
+            ],
+            "description": "Validate WP REST API requests using a complete JSON Schema validator.",
+            "support": {
+                "issues": "https://github.com/iron-bound-designs/wp-rest-api-schema-validator/issues",
+                "source": "https://github.com/iron-bound-designs/wp-rest-api-schema-validator/tree/master"
+            },
+            "time": "2021-07-26T19:09:51+00:00"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "5.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "ad87d5a5ca981228e0e205c2bc7dfb8e24559b60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/ad87d5a5ca981228e0e205c2bc7dfb8e24559b60",
+                "reference": "ad87d5a5ca981228e0e205c2bc7dfb8e24559b60",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.2.20||~2.15.1",
+                "json-schema/json-schema-test-suite": "1.2.0",
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "bin": [
+                "bin/validate-json"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JsonSchema\\": "src/JsonSchema/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "issues": "https://github.com/justinrainbow/json-schema/issues",
+                "source": "https://github.com/justinrainbow/json-schema/tree/5.2.12"
+            },
+            "time": "2022-04-13T08:02:27+00:00"
         },
         {
             "name": "league/container",
@@ -4461,7 +4577,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "ironbound/wp-rest-api-schema-validator": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
