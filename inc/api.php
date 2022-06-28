@@ -210,7 +210,7 @@ function get_segment_descriptions( string $segment = '' ) : array {
 		'route' => get_rest_url( null, API_NAMESPACE . '/segments/interests' ),
 	];
 
-	if ( ! in_array( $segment, ['', 'geo', 'interest'], true ) ) {
+	if ( ! in_array( $segment, [ '', 'geo', 'interest' ], true ) ) {
 		return [];
 	}
 
@@ -242,7 +242,8 @@ function get_geo_segments() : array {
 	$allowed_headers = array_map(
 		function( $header ) {
 			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
-		}, WP\get_supported_vary_headers() );
+		}, WP\get_supported_vary_headers()
+	);
 	$geo = [];
 
 	foreach ( $segments as $segment ) {
@@ -374,7 +375,7 @@ function get_config() : object {
 	foreach ( $endpoints as $route ) {
 		$config->routes[ API_NAMESPACE . "/config/$route" ] = [
 			'description' => $descriptions[ $route ],
-			'_link' => get_rest_url( null, API_NAMESPACE . "/config/$route" )
+			'_link' => get_rest_url( null, API_NAMESPACE . "/config/$route" ),
 		];
 	}
 
@@ -604,7 +605,7 @@ function get_user_data_city_schema() : array {
  * @return string
  */
 function get_user_data_conn_speed() : string {
-	return Geo\get_geo('conn-speed');
+	return Geo\get_geo( 'conn-speed' );
 }
 
 /**
@@ -626,7 +627,7 @@ function get_user_data_conn_speed_schema() : array {
  * @return string
  */
 function get_user_data_conn_type() : string {
-	return Geo\get_geo('conn-type');
+	return Geo\get_geo( 'conn-type' );
 }
 
 /**
@@ -648,7 +649,7 @@ function get_user_data_conn_type_schema() : array {
  * @return string
  */
 function get_user_data_continent_code() : string {
-	return Geo\get_geo('continent-code');
+	return Geo\get_geo( 'continent-code' );
 }
 
 /**
@@ -670,7 +671,7 @@ function get_user_data_continent_code_schema() : array {
  * @return string
  */
 function get_user_data_country_code() : string {
-	return Geo\get_geo('country-code');
+	return Geo\get_geo( 'country-code' );
 }
 
 /**
@@ -692,7 +693,7 @@ function get_user_data_country_code_schema() : array {
  * @return string
  */
 function get_user_data_country_name() : string {
-	return Geo\get_geo('country-name');
+	return Geo\get_geo( 'country-name' );
 }
 
 /**
