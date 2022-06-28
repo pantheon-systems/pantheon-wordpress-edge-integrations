@@ -104,4 +104,38 @@ class apiTests extends WP_UnitTestCase {
 			}
 		}
 	}
+
+	/**
+	 * Test the interest segments.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_interest_segments
+	 * @covers Pantheon\EI\WP\API\get_interest_segments_schema
+	 * @group wp-api
+	 */
+	public function testGetInterestsSegments() {
+		$terms = get_terms( [
+			'taxonomy' => 'category',
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		] );
+		$segments = get_interests_segments();
+		$schema = get_interests_segments_schema();
+
+		$this->assertEquals( $schema['type'], gettype( $segments ) );
+		$this->assertNotEmpty( $segments );
+		$this->assertEquals( count( $terms ), count( $segments ) );
+
+		foreach ( $segments as $segment ) {
+			$this->assertEquals( 'object', gettype( $segment ) );
+			// Check that the term name is in the array of terms.
+			$this->assertContains( $segment->name, $terms );
+			$this->assertEquals( $schema['properties']['name']['type'], gettype( $segment->name ) );
+			// Check that the term_id is in the array of terms.
+			$this->assertArrayHasKey( $segment->id, $terms );
+			$this->assertEquals( $schema['properties']['id']['type'], gettype( $segment->id ) );
+			$this->assertEquals( 'category', $segment->type );
+			$this->assertEquals( $schema['properties']['type']['type'], gettype( $segment->type ) );
+		}
+
+	}
 }
