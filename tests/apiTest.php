@@ -35,6 +35,9 @@ class apiTests extends TestCase {
 	/**
 	 * Test the available segments function.
 	 *
+	 * @covers Pantheon\EI\WP\API\get_available_segments
+	 * @covers Pantheon\EI\WP\API\get_segments_schema
+	 * @covers Pantheon\EI\WP\API\get_segment_descriptions
 	 * @group wp-api
 	 */
 	public function testGetSegments() {
