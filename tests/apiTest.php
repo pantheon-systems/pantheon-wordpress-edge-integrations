@@ -17,6 +17,7 @@ use WP_UnitTestCase;
  * Main test class for WordPress Edge Integrations plugin API.
  */
 class apiTests extends WP_UnitTestCase {
+	public function setUp() : void {
 		add_action( 'plugins_loaded', function() {
 			$middleware = new SchemaValidator\Middleware( 'pantheon/v1', [
 				'methodParamDescription' => __( 'HTTP method to get the schema for. If not provided, will use the base schema.', 'text-domain' ),
@@ -24,6 +25,10 @@ class apiTests extends WP_UnitTestCase {
 			] );
 			$middleware->initialize();
 		} );
+		parent::setUp();
+		self::maybe_create_terms();
+	}
+
 	}
 
 	/**
