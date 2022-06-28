@@ -179,6 +179,7 @@ function get_available_segments() : array {
  */
 function get_segmests_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'segments',
 		'type' => 'array',
 		'properties' => [
@@ -279,6 +280,7 @@ function get_geo_segments() : array {
  */
 function get_geo_segments_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'geo segments',
 		'type' => 'array',
 		'properties' => [
@@ -330,6 +332,7 @@ function get_interests_segments() : array {
  */
 function get_interests_segments_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest segments',
 		'type' => 'array',
 		'properties' => [
@@ -403,6 +406,7 @@ function get_config() : object {
  */
 function get_config_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'edge integrations config',
 		'type' => 'object',
 		'properties' => [
@@ -455,6 +459,7 @@ function get_config_schema() : array {
  */
 function get_geo_allowed_config_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'geo allowed config',
 		'type' => 'array',
 	];
@@ -467,6 +472,7 @@ function get_geo_allowed_config_schema() : array {
  */
 function get_interest_cookie_expiration_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest cookie expiration',
 		'type' => 'integer',
 	];
@@ -479,6 +485,7 @@ function get_interest_cookie_expiration_schema() : array {
  */
 function get_interest_allowed_post_types_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest allowed post types',
 		'type' => 'array',
 		'items' => [
@@ -494,6 +501,7 @@ function get_interest_allowed_post_types_schema() : array {
  */
 function get_interest_allowed_taxonomies_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest allowed taxonomies',
 		'type' => 'array',
 		'items' => [
@@ -509,6 +517,7 @@ function get_interest_allowed_taxonomies_schema() : array {
  */
 function get_interest_threshold_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest threshold',
 		'type' => 'integer',
 	];
@@ -534,6 +543,7 @@ function get_all_user_data() : object {
  */
 function get_all_user_data_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'all user data',
 		'type' => 'object',
 		'properties' => [
@@ -604,6 +614,7 @@ function get_user_data_city() : string {
  */
 function get_user_data_city_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data city',
 		'type' => 'string',
 		'readonly' => true,
@@ -626,6 +637,7 @@ function get_user_data_conn_speed() : string {
  */
 function get_user_data_conn_speed_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data conn speed',
 		'type' => 'string',
 		'readonly' => true,
@@ -648,6 +660,7 @@ function get_user_data_conn_type() : string {
  */
 function get_user_data_conn_type_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data conn type',
 		'type' => 'string',
 		'readonly' => true,
@@ -670,6 +683,7 @@ function get_user_data_continent_code() : string {
  */
 function get_user_data_continent_code_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data continent code',
 		'type' => 'string',
 		'readonly' => true,
@@ -692,6 +706,7 @@ function get_user_data_country_code() : string {
  */
 function get_user_data_country_code_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data country code',
 		'type' => 'string',
 		'readonly' => true,
@@ -714,6 +729,7 @@ function get_user_data_country_name() : string {
  */
 function get_user_data_country_name_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data country name',
 		'type' => 'string',
 		'readonly' => true,
@@ -736,6 +752,7 @@ function get_user_data_region() : string {
  */
 function get_user_data_region_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data region',
 		'type' => 'string',
 		'readonly' => true,
@@ -758,6 +775,7 @@ function get_user_data_interest() : string {
  */
 function get_user_data_interest_schema() : array {
 	return [
+		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data interest',
 		'type' => 'string',
 		'readonly' => true,
