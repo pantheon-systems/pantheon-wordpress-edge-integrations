@@ -136,6 +136,37 @@ class apiTests extends WP_UnitTestCase {
 			$this->assertEquals( 'category', $segment->type );
 			$this->assertEquals( $schema['properties']['type']['type'], gettype( $segment->type ) );
 		}
+	}
 
+	/**
+	 * Test the config endpoint.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_config
+	 * @covers Pantheon\EI\WP\API\get_config_schema
+	 * @group wp-api
+	 */
+	public function testGetConfig() {
+		$config = get_config();
+		$schema = get_config_schema();
+		$vary_headers = WP\get_supported_vary_headers();
+		$version = PANTHEON_EDGE_INTEGRATIONS_VERSION;
+
+		// Check the schema.
+		$this->assertEquals( $schema['type'], gettype( $config ) );
+		$this->assertEquals( $schema['properties']['namespace']['type'], gettype( $config->namespace ) );
+		$this->assertEquals( $schema['properties']['routes']['type'], gettype( $config->routes ) );
+		$this->assertEquals( $schema['properties']['vary_headers']['type'], gettype( $config->vary_headers ) );
+		$this->assertEquals( $schema['properties']['version']['type'], gettype( $config->version ) );
+
+		$this->assertEquals( $version, $config->version );
+		$this->assertEquals( $vary_headers, $config->vary_headers );
+		$this->assertEquals( API_NAMESPACE, $config->namespace );
+		$this->assertEquals( 5, count( $config->routes ) );
+
+		// Check the routes.
+		foreach ( $config->routes as $name => $route ) {
+			$this->assertEquals( $schema['properties']['routes']['items']['type'], gettype( $route ) );
+			$this->assertEquals( get_rest_url() . $name, $route->_link );
+		}
 	}
 }
