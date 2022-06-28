@@ -49,6 +49,8 @@
         "lint": "composer lint:php && composer lint:phpcs",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
         "test:install-wp-unit": "bin/install-wp-tests.sh test-db root ''",
+        "test:base": "vendor/bin/phpunit -c phpunit.xml --group wp",
+        "test:api": "vendor/bin/phpunit -c phpunit.xml --group wp-api",
         "test:geo": "vendor/bin/phpunit -c phpunit.xml --group wp-geo",
         "test:interest": "vendor/bin/phpunit -c phpunit.xml --group wp-interest",
         "test": "composer test:unit"
