@@ -29,6 +29,19 @@ class apiTests extends WP_UnitTestCase {
 		self::maybe_create_terms();
 	}
 
+	/**
+	 * Create terms if we need them.
+	 */
+	private function maybe_create_terms() {
+		$terms = get_terms( [
+			'taxonomy'   => 'category',
+			'hide_empty' => false,
+		] );
+
+		// Don't create more terms if we already have at least 10.
+		if ( count( $terms ) < 10 ) {
+			$this->factory->category->create_many( 10 );
+		}
 	}
 
 	/**
