@@ -28,7 +28,7 @@
         "humanmade/coding-standards": "^1.1",
         "wp-coding-standards/wpcs": "2.3.0 as 2.2.1",
         "phpunit/phpunit": "^9.5",
-        "wordpress/wordpress": "dev-master"
+        "yoast/phpunit-polyfills": "^1.0"
     },
     "autoload": {
         "files": [
