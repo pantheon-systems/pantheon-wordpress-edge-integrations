@@ -37,7 +37,7 @@ function bootstrap() {
 	add_action( 'admin_init', $n( 'maybe_display_notice' ), 1 );
 
 	// Set the Vary headers.
-	add_action( 'init', $n( 'set_vary_headers' ), 999 );
+	add_action( 'send_headers', $n( 'set_vary_headers' ) );
 
 	// Enqueue scripts.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
