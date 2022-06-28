@@ -8,6 +8,8 @@
 namespace Pantheon\EI\WP\API;
 
 use Ironbound\WP_REST_API\SchemaValidator;
+use Pantheon\EI\WP;
+use Pantheon\EI\WP\Geo;
 use PHPUnit\Framework\TestCase;
 use WP_REST_Request;
 
@@ -25,6 +27,7 @@ class apiTests extends TestCase {
 			$middleware->initialize();
 		} );
 	}
+
 	/**
 	 * Quick wrapper around the WP_REST_Request class.
 	 */
@@ -54,6 +57,35 @@ class apiTests extends TestCase {
 			$this->assertEquals( $schema['properties']['description']['type'], gettype( $segment['description'] ) );
 			$this->assertArrayHasKey( 'route', $segment );
 			$this->assertEquals( $schema['properties']['route']['type'], gettype( $segment['route'] ) );
+		}
+	}
+
+	/**
+	 * Test the geo segments function.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_geo_segments
+	 * @covers Pantheon\EI\WP\API\get_geo_segments_schema
+	 * @group wp-api
+	 */
+	public function testGetGeoSegments() {
+		$segments = get_geo_segments();
+		$schema = get_geo_segments_schema();
+		$allowed_values = array_filter( Geo\get_geo_allowed_values() );
+		$supported_headers = array_map( function( $header ) {
+			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
+		}, WP\get_supported_vary_headers() );
+
+		$this->assertEquals( $schema['type'], gettype( $segments ) );
+		$this->assertNotEmpty( $segments );
+		$this->assertEquals( count( $allowed_values ), count( $segments ) );
+
+		foreach ( $segments as $segment ) {
+			$this->assertEquals( 'object', gettype( $segment ) );
+			if ( in_array( $segment->name, $supported_headers, true ) ) {
+				$this->assertTrue( $segment->enabled );
+			} else {
+				$this->assertFalse( $segment->enabled );
+			}
 		}
 	}
 }
