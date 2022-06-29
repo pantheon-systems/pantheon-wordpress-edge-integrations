@@ -10,6 +10,7 @@ namespace Pantheon\EI\WP\API;
 use Ironbound\WP_REST_API\SchemaValidator;
 use Pantheon\EI\WP;
 use Pantheon\EI\WP\Geo;
+use Pantheon\Ei\WP\Interest;
 use WP_REST_Request;
 use WP_UnitTestCase;
 
