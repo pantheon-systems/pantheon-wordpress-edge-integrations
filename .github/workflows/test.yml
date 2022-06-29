@@ -13,7 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint and Test
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - uses: shogo82148/actions-setup-mysql@v1
+      with:
+        mysql-version: 'mariadb-10.9'
+      run: mysql -uroot -h127.0.0.1 -e 'SELECT version()'
     - name: Install dependencies
       run: composer install
     - name: Install WP Unit
