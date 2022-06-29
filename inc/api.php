@@ -531,38 +531,40 @@ function get_interest_threshold_schema() : array {
  * @return object The current user's personalization data.
  */
 function get_all_user_data( WP_REST_Request $request = null ) : object {
-	$geo = [];
-	$passed_geo = [
-		'HTTP_P13N_GEO_COUNTRY_CODE' => $request->get_param( 'country-code' ),
-		'HTTP_P13N_GEO_COUNTRY_NAME' => $request->get_param( 'country-name' ),
-		'HTTP_P13N_GEO_CITY' => $request->get_param( 'city' ),
-		'HTTP_P13N_GEO_REGION' => $request->get_param( 'region' ),
-		'HTTP_P13N_GEO_CONTINENT_CODE' => $request->get_param( 'continent-code' ),
-		'HTTP_P13N_GEO_CONN_SPEED' => $request->get_param( 'conn-speed' ),
-		'HTTP_P13N_GEO_CONN_TYPE' => $request->get_param( 'conn-type' ),
-	];
-	$passed_interest = $request->get_param( 'interest' );
+	if ( $request ) {
+		$geo = [];
 
-	// If geo information was passed to the API endpoint, send it to the get_geo function to return in the API response.
-	if (
-		! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_CODE'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_NAME'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_CITY'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_REGION'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_CONTINENT_CODE'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_CONN_SPEED'] ) ||
-		! empty( $passed_geo['HTTP_P13N_GEO_CONN_TYPE'] )
-	) {
-		$geo = json_decode( Geo\get_geo( '', $passed_geo ) );
+		$passed_geo = [
+			'HTTP_P13N_GEO_COUNTRY_CODE' => $request->get_param( 'country-code' ),
+			'HTTP_P13N_GEO_COUNTRY_NAME' => $request->get_param( 'country-name' ),
+			'HTTP_P13N_GEO_CITY' => $request->get_param( 'city' ),
+			'HTTP_P13N_GEO_REGION' => $request->get_param( 'region' ),
+			'HTTP_P13N_GEO_CONTINENT_CODE' => $request->get_param( 'continent-code' ),
+			'HTTP_P13N_GEO_CONN_SPEED' => $request->get_param( 'conn-speed' ),
+			'HTTP_P13N_GEO_CONN_TYPE' => $request->get_param( 'conn-type' ),
+		];
+		$passed_interest = $request->get_param( 'interest' );
+
+		// If geo information was passed to the API endpoint, send it to the get_geo function to return in the API response.
+		if (
+			! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_CODE'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_NAME'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_CITY'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_REGION'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_CONTINENT_CODE'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_CONN_SPEED'] ) ||
+			! empty( $passed_geo['HTTP_P13N_GEO_CONN_TYPE'] )
+		) {
+			$geo = json_decode( Geo\get_geo( '', $passed_geo ) );
+		}
+
+		// If an interest was passed to the API endpoint, use the filter to reflect that.
+		if ( $passed_interest ) {
+			add_filter( 'pantheon.ei.parsed_interest_data', function() use ( $passed_interest ) : array {
+				return [ $passed_interest ];
+			} );
+		}
 	}
-
-	// If an interest was passed to the API endpoint, use the filter to reflect that.
-	if ( $passed_interest ) {
-		add_filter( 'pantheon.ei.parsed_interest_data', function() use ( $passed_interest ) : array {
-			return [ $passed_interest ];
-		} );
-	}
-
 
 	$user = new stdClass();
 	$user->geo = empty( $geo ) ? json_decode( Geo\get_geo() ) : $geo;
