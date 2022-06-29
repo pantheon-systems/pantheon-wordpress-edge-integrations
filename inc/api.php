@@ -664,7 +664,8 @@ function get_user_data_city_schema() : array {
  * @return string
  */
 function get_user_data_conn_speed() : string {
-	return Geo\get_geo( 'conn-speed' );
+	$conn_speed = 'conn-speed';
+	return get_all_user_data()->geo->$conn_speed;
 }
 
 /**
@@ -687,7 +688,8 @@ function get_user_data_conn_speed_schema() : array {
  * @return string
  */
 function get_user_data_conn_type() : string {
-	return Geo\get_geo( 'conn-type' );
+	$conn_type = 'conn-type';
+	return get_all_user_data()->geo->$conn_type;
 }
 
 /**
@@ -710,7 +712,8 @@ function get_user_data_conn_type_schema() : array {
  * @return string
  */
 function get_user_data_continent_code() : string {
-	return Geo\get_geo( 'continent-code' );
+	$continent_code = 'continent-code';
+	return get_all_user_data()->geo->$continent_code;
 }
 
 /**
@@ -733,7 +736,8 @@ function get_user_data_continent_code_schema() : array {
  * @return string
  */
 function get_user_data_country_code() : string {
-	return Geo\get_geo( 'country-code' );
+	$country_code = 'country-code';
+	return get_all_user_data()->geo->$country_code;
 }
 
 /**
@@ -756,7 +760,8 @@ function get_user_data_country_code_schema() : array {
  * @return string
  */
 function get_user_data_country_name() : string {
-	return Geo\get_geo( 'country-name' );
+	$country_name = 'country-name';
+	return get_all_user_data()->geo->$country_name;
 }
 
 /**
