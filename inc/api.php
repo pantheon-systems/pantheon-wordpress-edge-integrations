@@ -532,13 +532,13 @@ function get_interest_threshold_schema() : array {
 function get_all_user_data( WP_REST_Request $request = null ) : object {
 	$geo = [];
 	$passed_geo = [
-		strtoupper( 'HTTP_P13n_Geo_Country_Code' ) => $request->get_param( 'country-code' ),
-		strtoupper( 'HTTP_P13n_Geo_Country_Name' ) => $request->get_param( 'country-name' ),
-		strtoupper( 'HTTP_P13n_Geo_City'  )=> $request->get_param( 'city' ),
-		strtoupper( 'HTTP_P13n_Geo_Region'  )=> $request->get_param( 'region' ),
-		strtoupper( 'HTTP_P13n_Geo_Continent_Code' ) => $request->get_param( 'continent-code' ),
-		strtoupper( 'HTTP_P13n_Geo_Conn_Speed' ) => $request->get_param( 'conn-speed' ),
-		strtoupper( 'HTTP_P13n_Geo_Conn_Type' ) => $request->get_param( 'conn-type' ),
+		'HTTP_P13N_GEO_COUNTRY_CODE' => $request->get_param( 'country-code' ),
+		'HTTP_P13N_GEO_COUNTRY_NAME' => $request->get_param( 'country-name' ),
+		'HTTP_P13N_GEO_CITY' => $request->get_param( 'city' ),
+		'HTTP_P13N_GEO_REGION' => $request->get_param( 'region' ),
+		'HTTP_P13N_GEO_CONTINENT_CODE' => $request->get_param( 'continent-code' ),
+		'HTTP_P13N_GEO_CONN_SPEED' => $request->get_param( 'conn-speed' ),
+		'HTTP_P13N_GEO_CONN_TYPE' => $request->get_param( 'conn-type' ),
 	];
 	$passed_interest = $request->get_param( 'interest' );
 
