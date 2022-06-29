@@ -20,7 +20,7 @@ jobs:
         root-password: ''
     - name: Start MariaDB
       run: mysql -uroot -h127.0.0.1 \
-        CREATE DATABASE test-db \
+        -e 'CREATE DATABASE test-db' \
         -e 'SELECT version()'
     - name: Install dependencies
       run: composer install
