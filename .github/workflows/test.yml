@@ -19,8 +19,9 @@ jobs:
         mysql-version: 'mariadb-10.9'
         root-password: ''
     - name: Start MariaDB
-      run: mysql -uroot -h127.0.0.1 -e 'SELECT version() \
-        CREATE DATABASE test-db'
+      run: mysql -uroot -h127.0.0.1 \
+        CREATE DATABASE test-db \
+        -e 'SELECT version()'
     - name: Install dependencies
       run: composer install
     - name: Install WP Unit
