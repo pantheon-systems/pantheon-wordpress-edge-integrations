@@ -390,8 +390,7 @@ function get_config() : object {
 	foreach ( $endpoints as $route ) {
 		$config->routes[ API_NAMESPACE . "/config/$route" ] = new stdClass();
 		$config->routes[ API_NAMESPACE . "/config/$route" ]->description = $descriptions[ $route ];
-		$config->routes[ API_NAMESPACE . "/config/$route" ]->_link =
-get_rest_url( null, API_NAMESPACE . "/config/$route" );
+		$config->routes[ API_NAMESPACE . "/config/$route" ]->_link = get_rest_url( null, API_NAMESPACE . "/config/$route" );
 	}
 
 	$config->vary_headers = WP\get_supported_vary_headers();
@@ -527,6 +526,8 @@ function get_interest_threshold_schema() : array {
 /**
  * Return the current user's personalization data.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return object The current user's personalization data.
  */
 function get_all_user_data( WP_REST_Request $request = null ) : object {
@@ -564,7 +565,7 @@ function get_all_user_data( WP_REST_Request $request = null ) : object {
 
 
 	$user = new stdClass();
-	$user->geo = empty( $geo )? json_decode( Geo\get_geo() ) : $geo;
+	$user->geo = empty( $geo ) ? json_decode( Geo\get_geo() ) : $geo;
 	$interest = Interest\get_interest();
 	$user->interest = ! empty( $interest ) ? $interest[0] : '';
 	return $user;
