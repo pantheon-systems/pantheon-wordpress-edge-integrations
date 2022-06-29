@@ -170,4 +170,19 @@ class apiTests extends WP_UnitTestCase {
 			$this->assertEquals( get_rest_url() . $name, $route->_link );
 		}
 	}
+
+	/**
+	 * Test the allowed geo config endpoint
+	 *
+	 * @covers Pantheon\EI\WP\API\get_allowed_geo_config_schema
+	 * @group wp-api
+	 */
+	public function testGeoAllowedConfig() {
+		$schema = get_geo_allowed_config_schema();
+		$response = $this->get_api_response( '/config/geo/allowed' );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( Geo\get_geo_allowed_headers(), $response->data );
+	}
 }
