@@ -13,6 +13,7 @@ use Pantheon\EI\WP;
 use Pantheon\EI\WP\Geo;
 use Pantheon\EI\WP\Interest;
 use stdClass;
+use WP_REST_Request;
 use WP_REST_Server;
 
 const API_NAMESPACE = 'pantheon/v1/ei';
@@ -528,9 +529,42 @@ function get_interest_threshold_schema() : array {
  *
  * @return object The current user's personalization data.
  */
-function get_all_user_data() : object {
+function get_all_user_data( WP_REST_Request $request = null ) : object {
+	$geo = [];
+	$passed_geo = [
+		strtoupper( 'HTTP_P13n_Geo_Country_Code' ) => $request->get_param( 'country-code' ),
+		strtoupper( 'HTTP_P13n_Geo_Country_Name' ) => $request->get_param( 'country-name' ),
+		strtoupper( 'HTTP_P13n_Geo_City'  )=> $request->get_param( 'city' ),
+		strtoupper( 'HTTP_P13n_Geo_Region'  )=> $request->get_param( 'region' ),
+		strtoupper( 'HTTP_P13n_Geo_Continent_Code' ) => $request->get_param( 'continent-code' ),
+		strtoupper( 'HTTP_P13n_Geo_Conn_Speed' ) => $request->get_param( 'conn-speed' ),
+		strtoupper( 'HTTP_P13n_Geo_Conn_Type' ) => $request->get_param( 'conn-type' ),
+	];
+	$passed_interest = $request->get_param( 'interest' );
+
+	// If geo information was passed to the API endpoint, send it to the get_geo function to return in the API response.
+	if (
+		! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_CODE'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_COUNTRY_NAME'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_CITY'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_REGION'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_CONTINENT_CODE'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_CONN_SPEED'] ) ||
+		! empty( $passed_geo['HTTP_P13N_GEO_CONN_TYPE'] )
+	) {
+		$geo = json_decode( Geo\get_geo( '', $passed_geo ) );
+	}
+
+	// If an interest was passed to the API endpoint, use the filter to reflect that.
+	if ( $passed_interest ) {
+		add_filter( 'pantheon.ei.parsed_interest_data', function() use ( $passed_interest ) : array {
+			return [ $passed_interest ];
+		} );
+	}
+
+
 	$user = new stdClass();
-	$user->geo = json_decode( Geo\get_geo() );
+	$user->geo = empty( $geo )? json_decode( Geo\get_geo() ) : $geo;
 	$interest = Interest\get_interest();
 	$user->interest = ! empty( $interest ) ? $interest[0] : '';
 	return $user;
