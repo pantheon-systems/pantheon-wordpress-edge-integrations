@@ -189,4 +189,64 @@ class apiTests extends WP_UnitTestCase {
 		$this->assertEquals( $schema['type'], gettype( $response->data ) );
 		$this->assertEquals( Geo\get_geo_allowed_headers(), $response->data );
 	}
+
+	/**
+	 * Test the interest cookie expiration endpoing.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_interest_cookie_expiration_schema
+	 * @group wp-api
+	 */
+	public function testGetInterestCookieExpiration() {
+		$schema = get_interest_cookie_expiration_schema();
+		$response = $this->get_api_response( '/config/interest/cookie-expiration' );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( Interest\get_cookie_expiration(), $response->data );
+	}
+
+	/**
+	 * Test the interest allowed post types endpoint.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_interest_allowed_post_types_schema
+	 * @group wp-api
+	 */
+	public function testGetInterestAllowedPostTypes() {
+		$schema = get_interest_allowed_post_types_schema();
+		$response = $this->get_api_response( '/config/interest/post-types' );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( Interest\get_interest_allowed_post_types(), $response->data );
+	}
+
+	/**
+	 * Test the interest allowed taxonomies endpoint.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_interest_allowed_taxonomies_schema
+	 * @group wp-api
+	 */
+	public function testGetInterestAllowedTaxonomies() {
+		$schema = get_interest_allowed_taxonomies_schema();
+		$response = $this->get_api_response( '/config/interest/taxonomies' );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( Interest\get_interest_taxonomy(), $response->data );
+	}
+
+	/**
+	 * Test the interest threshold endpoint.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_interest_threshold_schema
+	 * @group wp-api
+	 */
+	public function testGetInterestThreshold() {
+		$schema = get_interest_threshold_schema();
+		$response = $this->get_api_response( '/config/interest/threshold' );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( Interest\get_interest_threshold(), $response->data );
+	}
 }
