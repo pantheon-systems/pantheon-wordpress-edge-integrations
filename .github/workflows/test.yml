@@ -17,6 +17,7 @@ jobs:
     - uses: shogo82148/actions-setup-mysql@v1
       with:
         mysql-version: 'mariadb-10.9'
+    - name: Start MariaDB
       run: mysql -uroot -h127.0.0.1 -e 'SELECT version()'
     - name: Install dependencies
       run: composer install
