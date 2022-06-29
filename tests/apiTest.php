@@ -48,8 +48,11 @@ class apiTests extends WP_UnitTestCase {
 	/**
 	 * Quick wrapper around the WP_REST_Request class.
 	 */
-	private function get_api_response( $endpoint = '' ) {
+	private function get_api_response( $endpoint = '', $query_params = [] ) {
 		$request = new WP_REST_Request( 'GET', '/' . API_NAMESPACE . $endpoint );
+		if ( ! empty( $query_params ) ) {
+			$request->set_query_params( $query_params );
+		}
 		return rest_do_request( $request );
 	}
 
