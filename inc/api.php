@@ -638,10 +638,12 @@ function get_all_user_data_schema() : array {
 /**
  * Return the current user's city.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_city() : string {
-	return get_all_user_data()->geo->city;
+function get_user_data_city( WP_REST_Request $request = null ) : string {
+	return get_all_user_data( $request )->geo->city;
 }
 
 /**
@@ -661,11 +663,13 @@ function get_user_data_city_schema() : array {
 /**
  * Return the current user's connection speed.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_conn_speed() : string {
+function get_user_data_conn_speed( WP_REST_Request $request = null ) : string {
 	$conn_speed = 'conn-speed';
-	return get_all_user_data()->geo->$conn_speed;
+	return get_all_user_data( $request )->geo->$conn_speed;
 }
 
 /**
@@ -685,11 +689,13 @@ function get_user_data_conn_speed_schema() : array {
 /**
  * Return the current user's connection type.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_conn_type() : string {
+function get_user_data_conn_type( WP_REST_Request $request = null ) : string {
 	$conn_type = 'conn-type';
-	return get_all_user_data()->geo->$conn_type;
+	return get_all_user_data( $request )->geo->$conn_type;
 }
 
 /**
@@ -709,11 +715,13 @@ function get_user_data_conn_type_schema() : array {
 /**
  * Return the current user's continent code.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_continent_code() : string {
+function get_user_data_continent_code( WP_REST_Request $request = null ) : string {
 	$continent_code = 'continent-code';
-	return get_all_user_data()->geo->$continent_code;
+	return get_all_user_data( $request )->geo->$continent_code;
 }
 
 /**
@@ -733,11 +741,13 @@ function get_user_data_continent_code_schema() : array {
 /**
  * Return the current user's country code.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_country_code() : string {
+function get_user_data_country_code( WP_REST_Request $request = null ) : string {
 	$country_code = 'country-code';
-	return get_all_user_data()->geo->$country_code;
+	return get_all_user_data( $request )->geo->$country_code;
 }
 
 /**
@@ -757,11 +767,13 @@ function get_user_data_country_code_schema() : array {
 /**
  * Return the current user's country name.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_country_name() : string {
+function get_user_data_country_name( WP_REST_Request $request = null ) : string {
 	$country_name = 'country-name';
-	return get_all_user_data()->geo->$country_name;
+	return get_all_user_data( $request )->geo->$country_name;
 }
 
 /**
@@ -781,10 +793,12 @@ function get_user_data_country_name_schema() : array {
 /**
  * Return the current user's region.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_region() : string {
-	return get_all_user_data()->geo->region;
+function get_user_data_region( WP_REST_Request $request = null ) : string {
+	return get_all_user_data( $request )->geo->region;
 }
 
 /**
@@ -804,10 +818,12 @@ function get_user_data_region_schema() : array {
 /**
  * Return the current user's interest segment.
  *
+ * @param WP_REST_Request $request The REST API request.
+ *
  * @return string
  */
-function get_user_data_interest() : string {
-	return get_all_user_data()->interest;
+function get_user_data_interest( WP_REST_Request $request = null ) : string {
+	return get_all_user_data( $request )->interest;
 }
 
 /**
