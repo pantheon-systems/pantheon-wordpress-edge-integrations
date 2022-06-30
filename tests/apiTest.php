@@ -310,6 +310,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user connection speed endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_conn_speed
+	 * @covers Pantheon\EI\WP\API\get_user_data_conn_speed_schema
+	 * @group wp-api
+	 */
+	public function testUserDataConnSpeed() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_conn_type_schema();
+		$response = $this->get_api_response( '/user/conn-speed', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['conn-speed'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
