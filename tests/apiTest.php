@@ -249,4 +249,40 @@ class apiTests extends WP_UnitTestCase {
 		$this->assertEquals( $schema['type'], gettype( $response->data ) );
 		$this->assertEquals( Interest\get_interest_threshold(), $response->data );
 	}
+
+	/**
+	 * Test the get all user data endpoint.
+	 *
+	 * @covers Pantheon\EI\WP\API\get_all_user_data
+	 * @covers Pantheon\EI\WP\API\get_all_user_data_schema
+	 * @group wp-api
+	 */
+	public function testGetAllUserData() {
+		$query_params = [
+			'interest' => 'foo',
+			'country-code' => 'US',
+			'country-name' => 'United States',
+			'region' => 'CA',
+			'city' => 'San Francisco',
+			'continent-code' => 'NA',
+			'conn-speed' => 'broadband',
+			'conn-type' => 'wifi',
+		];
+		$schema = get_all_user_data_schema();
+		$response = $this->get_api_response( '/user', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $schema['properties']['geo']['type'], gettype( $response->data->geo ) );
+		$this->assertEquals( $schema['properties']['interest']['type'], gettype( $response->data->interest ) );
+
+		// Loop through the mock data and ensure that the API response came back with the same information.
+		foreach ( $query_params as $segment => $value ) {
+			if ( $segment === 'interest' ) {
+				$this->assertEquals( $value, $response->data->$segment );
+			} else {
+				$this->assertEquals( $value, $response->data->geo->$segment );
+			}
+		}
+	}
 }
