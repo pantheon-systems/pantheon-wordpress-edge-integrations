@@ -326,6 +326,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user continent code endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_continent_code
+	 * @covers Pantheon\EI\WP\API\get_user_data_continent_code_schema
+	 * @group wp-api
+	 */
+	public function testUserDataContinentCode() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_continent_code_schema();
+		$response = $this->get_api_response( '/user/geo/continent-code', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['continent-code'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
