@@ -342,6 +342,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user country code endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_country_code
+	 * @covers Pantheon\EI\WP\API\get_user_data_country_code_schema
+	 * @group wp-api
+	 */
+	public function testUserDataCountryCode() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_country_code_schema();
+		$response = $this->get_api_response( '/user/geo/country-code', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['country-code'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
