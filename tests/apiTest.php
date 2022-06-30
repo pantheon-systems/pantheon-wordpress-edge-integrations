@@ -374,6 +374,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user region endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_region
+	 * @covers Pantheon\EI\WP\API\get_user_data_region_schema
+	 * @group wp-api
+	 */
+	public function testUserDataRegion() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_region_schema();
+		$response = $this->get_api_response( '/user/geo/region', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['region'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
