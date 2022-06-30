@@ -258,16 +258,7 @@ class apiTests extends WP_UnitTestCase {
 	 * @group wp-api
 	 */
 	public function testGetAllUserData() {
-		$query_params = [
-			'interest' => 'foo',
-			'country-code' => 'US',
-			'country-name' => 'United States',
-			'region' => 'CA',
-			'city' => 'San Francisco',
-			'continent-code' => 'NA',
-			'conn-speed' => 'broadband',
-			'conn-type' => 'wifi',
-		];
+		$query_params = $this->mockUserData();
 		$schema = get_all_user_data_schema();
 		$response = $this->get_api_response( '/user', $query_params );
 
@@ -284,5 +275,23 @@ class apiTests extends WP_UnitTestCase {
 				$this->assertEquals( $value, $response->data->geo->$segment );
 			}
 		}
+	}
+
+	/**
+	 * Mock some user data for tests.
+	 *
+	 * @return array
+	 */
+	private function mockUserData() : array {
+		return [
+			'interest' => 'foo',
+			'country-code' => 'US',
+			'country-name' => 'United States',
+			'region' => 'CA',
+			'city' => 'San Francisco',
+			'continent-code' => 'NA',
+			'conn-speed' => 'broadband',
+			'conn-type' => 'wifi',
+		];
 	}
 }
