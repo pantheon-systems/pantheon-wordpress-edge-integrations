@@ -279,6 +279,8 @@ class apiTests extends WP_UnitTestCase {
 
 	/**
 	 * Test the user city endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_city
+	 * @covers Pantheon\EI\WP\API\get_user_data_city_schema
 	 * @group wp-api
 	 */
 	public function testGetUserDataCity() {
