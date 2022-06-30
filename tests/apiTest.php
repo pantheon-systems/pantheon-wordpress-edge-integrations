@@ -317,7 +317,7 @@ class apiTests extends WP_UnitTestCase {
 	 */
 	public function testUserDataConnSpeed() {
 		$query_params = $this->mockUserData();
-		$schema = get_user_data_conn_type_schema();
+		$schema = get_user_data_conn_speed_schema();
 		$response = $this->get_api_response( '/user/conn-speed', $query_params );
 
 		$this->assertNotEmpty( $response->data );
