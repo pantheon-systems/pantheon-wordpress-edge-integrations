@@ -390,6 +390,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user interest endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_interest
+	 * @covers Pantheon\EI\WP\API\get_user_data_interest_schema
+	 * @group wp-api
+	 */
+	public function testUserDataInterest() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_interest_schema();
+		$response = $this->get_api_response( '/user/interest', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['interest'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
