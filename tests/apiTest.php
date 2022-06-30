@@ -358,6 +358,22 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user country name endpoint.
+	 * @covers Pantheon\EI\WP\API\get_user_data_country_name
+	 * @covers Pantheon\EI\WP\API\get_user_data_country_name_schema
+	 * @group wp-api
+	 */
+	public function testUserDataCountryName() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_country_name_schema();
+		$response = $this->get_api_response( '/user/geo/country-name', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['country-name'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
