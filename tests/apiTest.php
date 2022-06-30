@@ -278,6 +278,20 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
+	 * Test the user city endpoint.
+	 * @group wp-api
+	 */
+	public function testGetUserDataCity() {
+		$query_params = $this->mockUserData();
+		$schema = get_user_data_city_schema();
+		$response = $this->get_api_response( '/user/geo/city', $query_params );
+
+		$this->assertNotEmpty( $response->data );
+		$this->assertEquals( $schema['type'], gettype( $response->data ) );
+		$this->assertEquals( $query_params['city'], $response->data );
+	}
+
+	/**
 	 * Mock some user data for tests.
 	 *
 	 * @return array
