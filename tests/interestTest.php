@@ -16,6 +16,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Make sure unit tests are running.
+	 * @group wp-interest
 	 */
 	public function testNamespaceLoaded() {
 		$this->assertTrue(
@@ -26,6 +27,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test that we can get the expected Interest header key.
+	 * @group wp-interest
 	 */
 	public function testGetInterestHeaderKey() {
 		$this->assertEquals(
@@ -43,6 +45,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Interest post types.
+	 * @group wp-interest
 	 */
 	public function testRegisterScript() {
 		$this->assertTrue(
@@ -53,6 +56,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Interest taxonomy.
+	 * @group wp-interest
 	 */
 	public function testInterestTaxomony() {
 		$this->assertTrue(
@@ -63,6 +67,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Interest threshold.
+	 * @group wp-interest
 	 */
 	public function testInterestThreshold() {
 		$this->assertTrue(
@@ -73,6 +78,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Cookie expiration.
+	 * @group wp-interest
 	 */
 	public function testCookieExpiration() {
 		$this->assertTrue(
@@ -83,6 +89,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.post_types filter.
+	 * @group wp-interest
 	 */
 	public function testInterestPostTypesFilter() {
 		// Filter the interest threshold.
@@ -99,6 +106,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.taxonomy filter.
+	 * @group wp-interest
 	 */
 	public function testInterestTaxonomyFilter() {
 		// Filter the interest taxonomy.
@@ -115,6 +123,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.interest_threshold filter.
+	 * @group wp-interest
 	 */
 	public function testInterestThresholdFilter() {
 		// Filter the interest threshold.
@@ -131,6 +140,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.cookie_expiration filter.
+	 * @group wp-interest
 	 */
 	public function testCookieExpirationFilter() {
 		// Filter the interest threshold.

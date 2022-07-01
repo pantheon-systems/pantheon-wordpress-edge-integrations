@@ -28,12 +28,14 @@
         "humanmade/coding-standards": "^1.1",
         "wp-coding-standards/wpcs": "2.3.0 as 2.2.1",
         "phpunit/phpunit": "^9.5",
-        "wordpress/wordpress": "dev-master"
+        "yoast/phpunit-polyfills": "^1.0",
+        "ironbound/wp-rest-api-schema-validator": "dev-master"
     },
     "autoload": {
         "files": [
             "inc/admin.php",
             "inc/analytics.php",
+            "inc/api.php",
             "inc/geo.php",
             "inc/interest.php",
             "inc/namespace.php"
@@ -47,6 +49,9 @@
         "lint:phpcbf": "vendor/bin/phpcbf -s --standard=phpcs.ruleset.xml .",
         "lint": "composer lint:php && composer lint:phpcs",
         "test:unit": "vendor/bin/phpunit -c phpunit.xml",
+        "test:install-wp-unit": "bin/install-wp-tests.sh test-db root '' 127.0.0.1 latest",
+        "test:base": "vendor/bin/phpunit -c phpunit.xml --group wp",
+        "test:api": "vendor/bin/phpunit -c phpunit.xml --group wp-api",
         "test:geo": "vendor/bin/phpunit -c phpunit.xml --group wp-geo",
         "test:interest": "vendor/bin/phpunit -c phpunit.xml --group wp-interest",
         "test": "composer test:unit"

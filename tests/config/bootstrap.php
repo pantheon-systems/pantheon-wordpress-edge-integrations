@@ -5,25 +5,33 @@
  * @package Pantheon/EdgeIntegrations
  */
 
-use Pantheon\EI\WP;
-
 /**
  * Call the autoloader
  */
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-/**
- * Bootstrap WordPress.
- */
-defined( 'ABSPATH' ) or define( 'ABSPATH', __DIR__ . '/../../vendor/wordpress/wordpress/src/' );
-defined( 'WPINC' ) or define( 'WPINC', 'wp-includes' );
-require_once ABSPATH . WPINC . '/default-constants.php';
-require_once ABSPATH . WPINC . '/functions.php';
-require_once ABSPATH . WPINC . '/load.php';
-require_once ABSPATH . WPINC . '/plugin.php';
-wp_initial_constants();
+$_tests_dir = getenv( 'WP_TESTS_DIR' );
+
+if ( ! $_tests_dir ) {
+	$_tests_dir = rtrim( sys_get_temp_dir(), '/\\' ) . '/wordpress-tests-lib';
+}
+
+if ( ! file_exists( "{$_tests_dir}/includes/functions.php" ) ) {
+	echo "Could not find {$_tests_dir}/includes/functions.php, have you run bin/install-wp-tests.sh ?" . PHP_EOL; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	exit( 1 );
+}
+
+// Give access to tests_add_filter() function.
+require_once "{$_tests_dir}/includes/functions.php";
 
 /**
- * Bootsrap the plugin
+ * Manually load the plugin being tested.
  */
-WP\bootstrap();
+function _manually_load_plugin() {
+	require dirname( __FILE__, 3 ) . '/pantheon-wordpress-edge-integrations.php';
+}
+
+tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
+
+// Start up the WP testing environment.
+require "{$_tests_dir}/includes/bootstrap.php";

@@ -27,16 +27,17 @@ function bootstrap() {
 	$plugin_version = $plugin_data['Version'];
 	define( 'PANTHEON_EDGE_INTEGRATIONS_VERSION', $plugin_version );
 
-	// Load Interests and Analytics.
+	// Bootstrap all the things.
 	Admin\bootstrap();
 	Analytics\bootstrap();
+	API\bootstrap();
 	Interest\bootstrap();
 
 	// Display a notice if EI headers are not found.
 	add_action( 'admin_init', $n( 'maybe_display_notice' ), 1 );
 
 	// Set the Vary headers.
-	add_action( 'init', $n( 'set_vary_headers' ), 999 );
+	add_action( 'send_headers', $n( 'set_vary_headers' ) );
 
 	// Enqueue scripts.
 	add_action( 'wp_enqueue_scripts', $n( 'enqueue_script' ) );
