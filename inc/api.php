@@ -128,7 +128,7 @@ function register_endpoints() {
 		'schema' => __NAMESPACE__ . '\\get_all_user_data_schema',
 	] );
 
-	// Define the user data endpointds.
+	// Define the user data endpoints.
 	$user_data = [
 		'conn-speed',
 		'conn-type',
