@@ -69,7 +69,7 @@ class apiTests extends WP_UnitTestCase {
 		$schema = get_segments_schema();
 		$this->assertEquals( $schema['type'], gettype( $available_segments ) );
 		$this->assertNotEmpty( $available_segments );
-		$this->assertEquals( 2, count( $available_segments ) );
+		$this->assertEquals( 3, count( $available_segments ) );
 
 		foreach ( $available_segments as $segment ) {
 			$this->assertArrayHasKey( 'name', $segment );
@@ -78,6 +78,23 @@ class apiTests extends WP_UnitTestCase {
 			$this->assertEquals( $schema['properties']['description']['type'], gettype( $segment['description'] ) );
 			$this->assertArrayHasKey( 'route', $segment );
 			$this->assertEquals( $schema['properties']['route']['type'], gettype( $segment['route'] ) );
+		}
+	}
+
+	public function testGetConnSegments() {
+		$segments = get_conn_segments();
+		$schema = get_conn_segments_schema();
+		$allowed_values = ['conn-speed', 'conn-type'];
+
+		$this->assertEquals( $schema['type'], gettype( $segments ) );
+		$this->assertNotEmpty( $segments );
+		$this->assertEquals( 2, count( $segments ) );
+
+		foreach ( $segments as $segment ) {
+			$this->assertEquals( 'object', gettype( $segment ) );
+			$this->assertTrue( in_array( $segment->name, $allowed_values, true ) );
+			// Both connection segments are disabled by default.
+			$this->assertFalse( $segment->enabled );
 		}
 	}
 
@@ -98,7 +115,8 @@ class apiTests extends WP_UnitTestCase {
 
 		$this->assertEquals( $schema['type'], gettype( $segments ) );
 		$this->assertNotEmpty( $segments );
-		$this->assertEquals( count( $allowed_values ), count( $segments ) );
+		// Subtract 2 from the allowed values to account for the removal of conn-speed and conn-type.
+		$this->assertEquals( count( $allowed_values ) - 2, count( $segments ) );
 
 		foreach ( $segments as $segment ) {
 			$this->assertEquals( 'object', gettype( $segment ) );
