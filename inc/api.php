@@ -38,6 +38,15 @@ function register_endpoints() {
 		'schema' => __NAMESPACE__ . '\\get_segments_schema',
 	] );
 
+	register_rest_route( API_NAMESPACE, 'segments/connection', [
+		[
+			'method' => WP_REST_Server::READABLE,
+			'callback' => __NAMESPACE__ . '\\get_conn_segments',
+			'permission_callback' => '__return_true',
+		],
+		'schema' => __NAMESPACE__ . '\\get_conn_segments_schema',
+	] );
+
 	register_rest_route( API_NAMESPACE, 'segments/geo', [
 		[
 			'method' => WP_REST_Server::READABLE,
@@ -257,6 +266,55 @@ function get_segment_descriptions( string $segment = '' ) : array {
 }
 
 /**
+ * Return an array of the connection segments available and which ones are enabled (if any).
+ *
+ * @return array An array of connection segments with values of true or false depending on which ones are varied on.
+ */
+function get_conn_segments() : array {
+	$segments = [ 'conn-speed', 'conn-type' ];
+	$allowed_headers = array_map(
+		function( $header ) {
+			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
+		}, WP\get_supported_vary_headers()
+	);
+	$connection = [];
+
+	foreach ( $segments as $segment ) {
+		$element = new stdClass();
+		$element->name = $segment;
+		$element->enabled = in_array( $segment, $allowed_headers, true );
+		$connection[] = $element;
+	}
+
+	return $connection;
+}
+
+/**
+ * Define the connection segments schema.
+ *
+ * @return array The connection segments schema.
+ */
+function get_conn_segments_schema() : array {
+	return [
+		'$schema' => 'http://json-schema.org/schema#',
+		'title' => 'connection segments',
+		'type' => 'array',
+		'properties' => [
+			'name' => [
+				'description' => esc_html__( 'The type of connection segment.', 'pantheon-wordpress-edge-integrations' ),
+				'type' => 'string',
+				'readonly' => true,
+			],
+			'enabled' => [
+				'description' => esc_html__( 'Whether the connection segment is being varied upon.' ),
+				'type' => 'boolean',
+				'readonly' => true,
+			],
+		],
+	];
+}
+
+/**
  * Return an array of the geo segments available and which ones are enabled.
  *
  * @return array An array of geo segments with values of true or false depending on which ones are varied on.
@@ -271,6 +329,11 @@ function get_geo_segments() : array {
 	$geo = [];
 
 	foreach ( $segments as $segment ) {
+		// Don't include connection speed or connection type in the geo segments.
+		if ( in_array( $segment, [ 'conn-speed', 'conn-type' ], true ) ) {
+			continue;
+		}
+
 		$element = new stdClass();
 		$element->name = $segment;
 		if ( in_array( $segment, $allowed_headers, true ) ) {
