@@ -211,6 +211,12 @@ function get_segments_schema() : array {
  * @return array An array of segment descriptions or an array containing the name and description of the requested segment.
  */
 function get_segment_descriptions( string $segment = '' ) : array {
+	$connection_description = [
+		'name' => 'connection',
+		'description' => 'User segments derived from connection information.',
+		'route' => get_rest_url( null, API_NAMESPACE . '/segments/connection' ),
+	];
+
 	$geo_description = [
 		'name' => 'geo',
 		'description' => 'User segments derived from geolocation information.',
@@ -223,15 +229,20 @@ function get_segment_descriptions( string $segment = '' ) : array {
 		'route' => get_rest_url( null, API_NAMESPACE . '/segments/interests' ),
 	];
 
-	if ( ! in_array( $segment, [ '', 'geo', 'interest' ], true ) ) {
+	if ( ! in_array( $segment, [ '', 'connection', 'geo', 'interest' ], true ) ) {
 		return [];
 	}
 
 	if ( '' === $segment ) {
 		$description = [
+			'connection' => $connection_description,
 			'geo' => $geo_description,
 			'interest' => $interest_description,
 		];
+	}
+
+	if ( 'connection' === $segment ) {
+		$description = $connection_description;
 	}
 
 	if ( 'geo' === $segment ) {
