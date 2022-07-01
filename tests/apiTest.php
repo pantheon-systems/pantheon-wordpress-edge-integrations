@@ -191,7 +191,7 @@ class apiTests extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test the interest cookie expiration endpoing.
+	 * Test the interest cookie expiration endpoint.
 	 *
 	 * @covers Pantheon\EI\WP\API\get_interest_cookie_expiration_schema
 	 * @group wp-api
