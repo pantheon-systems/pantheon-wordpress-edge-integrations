@@ -32,112 +32,53 @@ class geoTests extends TestCase {
 	 */
 	public function testGetGeo( array $audience_data ) {
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
-		// Get the actual data in a format that's easier to read.
-		$parsed_data = EI\HeaderData::parse( 'Audience-Set', $audience_data );
-		// Get the geo country.
-		$country = Geo\get_geo( 'country', $audience_data );
-		$parsed_country = $parsed_data['country'];
 
-		// Test the country.
-		$this->assertIsString( $country );
-		$this->assertNotEmpty(
-			$country,
-			'Country data is empty'
-		);
-		$this->assertEquals(
-			$country,
-			$parsed_country,
-			'Country data does not match'
-		);
+		foreach ( $audience_data as $header => $value ) {
+			$data = [
+				'HTTP_' . strtoupper( str_replace( '-', '_', $header ) ) => $value,
+			];
+			$region = $audience_data['P13n-Geo-Country-Code'];
+			$data_type = str_replace( 'p13n-geo-', '', strtolower( $header ) );
+			// Get the geo data.
+			$value_to_test = Geo\get_geo( $data_type, $data );
+			// Make sure the data matches.
+			$this->assertIsString( $value_to_test );
 
-		// Get the geo region.
-		$region = Geo\get_geo( 'region', $audience_data );
-		$parsed_region = $parsed_data['region'];
+			// We left the UK conn-type empty, so check for empty.
+			if ( $region === 'UK' && $data_type === 'conn-type' ) {
+				$this->assertEquals(
+					'',
+					$value_to_test,
+					'UK conn-type should be empty'
+				);
+			} else {
+				$this->assertNotEmpty(
+					$value_to_test,
+					"Data is empty for $region $data_type"
+				);
+			}
 
-		// Test the region.
-		$this->assertIsString( $region );
-		$this->assertNotEmpty(
-			$region,
-			'Region data is empty'
-		);
-		$this->assertEquals(
-			$region,
-			$parsed_region,
-			'Region data does not match'
-		);
+			$this->assertEquals(
+				$value_to_test,
+				$value,
+				"Data does not match for $region $data_type"
+			);
 
-		// Get the geo city.
-		$city = Geo\get_geo( 'city', $audience_data );
-		$parsed_city = $parsed_data['city'];
-
-		// Test the city.
-		$this->assertIsString( $city );
-		$this->assertNotEmpty(
-			$city,
-			'City data is empty'
-		);
-		$this->assertEquals(
-			$city,
-			$parsed_city,
-			'City data does not match'
-		);
-
-		// Get the geo continent.
-		$continent = Geo\get_geo( 'continent', $audience_data );
-		$parsed_continent = $parsed_data['continent'];
-
-		// Test the continent.
-		$this->assertIsString( $continent );
-		$this->assertNotEmpty(
-			$continent,
-			'Continent data is empty'
-		);
-		$this->assertEquals(
-			$continent,
-			$parsed_continent,
-			'Continent data does not match'
-		);
-
-		// Get the connection type.
-		$conn_type = Geo\get_geo( 'conn-type', $audience_data );
-		$parsed_conn_type = $parsed_data['conn-type'];
-
-		// Test the connection type.
-		$this->assertIsString( $conn_type );
-		$this->assertNotEmpty(
-			$conn_type,
-			'Connection type data is empty'
-		);
-		$this->assertEquals(
-			$conn_type,
-			$parsed_conn_type,
-			'Connection type data does not match'
-		);
-
-		// Get the connection speed.
-		$conn_speed = Geo\get_geo( 'conn-speed', $audience_data );
-		$parsed_conn_speed = $parsed_data['conn-speed'];
-
-		// Test the connection speed.
-		$this->assertIsString( $conn_speed );
-		$this->assertNotEmpty(
-			$conn_speed,
-			'Connection speed data is empty'
-		);
-		$this->assertEquals(
-			$conn_speed,
-			$parsed_conn_speed,
-			'Connection speed data does not match'
-		);
+			// Build the parsed data for testing later.
+			$parsed_data[ $data_type ] = $value;
+		}
 
 		// Test that some other string returns empty.
 		$this->assertEmpty(
-			Geo\get_geo( 'some-other-string', $audience_data ),
+			Geo\get_geo( 'some-other-string' ),
 			'Disallowed strings should return empty'
 		);
 
+		// Massage the data so we get actual results.
+		$all_geo_data = $this->format_mock_header_data( $audience_data );
+
 		// Test the get_geo function with no data type passed.
-		$empty_geo = Geo\get_geo( '', $audience_data );
+		$empty_geo = Geo\get_geo( '', $all_geo_data );
 		$this->assertNotEmpty(
 			$empty_geo,
 			'Empty data type should not return empty'
@@ -152,6 +93,29 @@ class geoTests extends TestCase {
 			$parsed_data,
 			'Empty data type should return parsed data'
 		);
+
+		// Ensure the json-encoded string matches what's expected.
+		$this->assertEquals(
+			$empty_geo,
+			json_encode( $parsed_data ),
+		);
+	}
+
+	/**
+	 * Format mock data to emulate actual headers.
+	 * Used to pass into returnPersonalizationObject which expects actual header data.
+	 *
+	 * @see EI\HeaderData::personalizationObject
+	 * @param array $data The data to format.
+	 *
+	 * @return array The formatted data.
+	 */
+	private function format_mock_header_data( array $data ) : array {
+		$new_data = [];
+		foreach ( $data as $header => $value ) {
+			$new_data[ strtoupper( str_replace( '-', '_', 'HTTP_' . $header ) ) ] = $value;
+		}
+		return $new_data;
 	}
 
 	/**
@@ -161,20 +125,40 @@ class geoTests extends TestCase {
 	 */
 	public function mockAudienceData() : array {
 		return [
-			[
-				'US' => [ 'HTTP_AUDIENCE_SET' => 'country:US|city:Salt Lake City|region:UT|continent:NA|conn-speed:broadband|conn-type:wired' ]
-			],
-			[
-				'CA' => [ 'HTTP_AUDIENCE_SET' => 'country:CA|city:Vancouver|region:BC|continent:NA|conn-speed:cable|conn-type:wifi' ]
-			],
-			[
-				'UK' => [ 'HTTP_AUDIENCE_SET' => 'country:UK|city:London|region:LND|continent:EU|conn-speed:xdsl|conn-type:?' ]
-			],
+			'us' => [ [
+				'P13n-Geo-Country-Code' => 'US',
+				'P13n-Geo-Country-Name' => 'united states',
+				'P13n-Geo-City' => 'salt lake city',
+				'P13n-Geo-Region' => 'UT',
+				'P13n-Geo-Continent-Code' => 'NA',
+				'P13n-Geo-Conn-Speed' => 'broadband',
+				'P13n-Geo-Conn-Type' => 'wired',
+			] ],
+			'ca' => [ [
+				'P13n-Geo-Country-Code' => 'CA',
+				'P13n-Geo-Country-Name' => 'canada',
+				'P13n-Geo-City' => 'vancouver',
+				'P13n-Geo-Region' => 'BC',
+				'P13n-Geo-Continent-Code' => 'NA',
+				'P13n-Geo-Conn-Speed' => 'cable',
+				'P13n-Geo-Conn-Type' => 'wifi',
+			] ],
+			'uk' => [ [
+				'P13n-Geo-Country-Code' => 'UK',
+				'P13n-Geo-Country-Name' => 'united kingdom',
+				'P13n-Geo-City' => 'london',
+				'P13n-Geo-Region' => 'LND',
+				'P13n-Geo-Continent-Code' => 'EU',
+				'P13n-Geo-Conn-Speed' => 'xdsl',
+				'P13n-Geo-Conn-Type' => '',
+			] ],
 		];
 	}
 
 	/**
 	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 *
+	 * @group wp-geo
 	 */
 	public function testGeoAllowedValues() {
 		$allowed_values = Geo\get_geo_allowed_values();
@@ -184,15 +168,13 @@ class geoTests extends TestCase {
 			$allowed_values,
 			[
 				'',
-				'country',
-				'region',
+				'country-code',
+				'country-name',
 				'city',
-				'continent',
+				'region',
+				'continent-code',
 				'conn-speed',
 				'conn-type',
-				'lat',
-				'lon',
-				'latlon',
 			],
 			'Allowed values do not match'
 		);
@@ -205,14 +187,76 @@ class geoTests extends TestCase {
 
 		// Validate that the new value is in the allowed values.
 		$this->assertContains( 'some-other-value', Geo\get_geo_allowed_values() );
+
+		// Reset the data back to the original.
+		add_filter( 'pantheon.ei.geo_allowed_values', function() {
+			return [
+				'',
+				'country-code',
+				'country-name',
+				'city',
+				'region',
+				'continent-code',
+				'conn-speed',
+				'conn-type',
+			];
+		}, 10, 1 );
+	}
+
+	/**
+	 * Test the pantheon.ei.geo_allowed_values filter and get_geo_allowed_values function.
+	 *
+	 * @group wp-geo
+	 */
+	public function testGeoAllowedHeaders() {
+		$allowed_headers = Geo\get_geo_allowed_headers();
+		$this->assertIsArray( $allowed_headers );
+		$this->assertNotEmpty( $allowed_headers );
+		$this->assertEquals(
+			$allowed_headers,
+			[
+				'P13n-Geo-Country-Code',
+				'P13n-Geo-Country-Name',
+				'P13n-Geo-City',
+				'P13n-Geo-Region',
+				'P13n-Geo-Continent-Code',
+				'P13n-Geo-Conn-Speed',
+				'P13n-Geo-Conn-Type',
+			],
+			'Allowed headers do not match'
+		);
+
+		// Add a new header value to the allowed headers.
+		add_filter( 'pantheon.ei.geo_allowed_headers', function( $values ) {
+			$values[] = 'some-other-header';
+			return $values;
+		}, 10, 1 );
+
+		// Validate that the new header value is in the allowed headers.
+		$this->assertContains( 'some-other-header', Geo\get_geo_allowed_headers() );
+
+		// Reset the data back to the original.
+		add_filter( 'pantheon.ei.geo_allowed_headers', function() {
+			return [
+				'P13n-Geo-Country-Code',
+				'P13n-Geo-Country-Name',
+				'P13n-Geo-City',
+				'P13n-Geo-Region',
+				'P13n-Geo-Continent-Code',
+				'P13n-Geo-Conn-Speed',
+				'P13n-Geo-Conn-Type',
+			];
+		}, 10, 1 );
 	}
 
 	/**
 	 * Test the pantheon.ei.parsed_geo_data filter.
+	 *
+	 * @group wp-geo
 	 */
 	public function testParsedGeoData() {
 		// Filter the parsed geo data.
-		add_filter( 'pantheon.ei.parsed_geo_data', function( $geo_data ) {
+		add_filter( 'pantheon.ei.get_all_geo', function( $geo_data ) {
 			return [
 				'name' => 'Chris Reynolds',
 				'role' => 'Software Engineer',
@@ -234,32 +278,21 @@ class geoTests extends TestCase {
 			] ),
 			'Parsed data does not match'
 		);
-
-		// Reset the geo data to something resembling real data. This is a hack because data is retained across tests.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
-			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
-		}, 10 );
-	}
-
-	/**
-	 * Test that the pantheon.ei.get_geo action hook fires.
-	 */
-	public function testGetGeoAction() {
-		Geo\get_geo();
-		$this->assertGreaterThan( 0, did_action( 'pantheon.ei.before_get_geo' ) );
 	}
 
 	/**
 	 * Test the pantheon.ei.get_geo filter.
+	 *
+	 * @group wp-geo
 	 */
 	public function testGetGeoFilter() {
 		// Filter the geo data.
-		add_filter( 'pantheon.ei.get_geo', function( $value ) {
+		add_filter( 'pantheon.ei.get_geo_country-name', function( $value ) {
 			return 'Antarctica';
 		}, 10, 1 );
 
 		$this->assertEquals(
-			Geo\get_geo( 'country' ),
+			Geo\get_geo( 'country-name' ),
 			'Antarctica',
 			'Filtered geo data does not match'
 		);
@@ -267,18 +300,15 @@ class geoTests extends TestCase {
 
 	/**
 	 * Test that we dn't get an undefined array key error when calling a geo value that doesn't exist.
+	 *
+	 * @group wp-geo
 	 */
 	public function testUndefinedArrayKey() {
 		// Reset the geo data to nothing.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
+		add_filter( 'pantheon.ei.get_all_geo', function() {
 			return [];
 		}, 10 );
 
-		$this->assertEmpty( Geo\get_geo( 'country' ) );
-
-		// Reset the geo back to something resembling real data.
-		add_filter( 'pantheon.ei.parsed_geo_data', function() {
-			return EI\HeaderData::parse( 'Audience-Set', $this->mockAudienceData()[0]['US'] );
-		}, 10 );
+		$this->assertEmpty( Geo\get_geo( 'conn-speed' ) );
 	}
 }

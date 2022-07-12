@@ -17,6 +17,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Make sure unit tests are running.
+	 * @group wp
 	 */
 	public function testPHPUnitIsWorking() {
 		$this->assertTrue( function_exists( '\\Pantheon\\EI\\WP\\bootstrap' ) );
@@ -24,6 +25,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Ensure the Globals are defined.
+	 * @group wp
 	 */
 	public function testGlobalsAreDefined() {
 		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_VERSION' ) );
@@ -33,9 +35,10 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the supported vary headers.
+	 * @group wp
 	 */
 	public function testSupportedVaryHeaders() {
-		$this->assertEquals( [ 'Audience-Set', 'Interest' ],
+		$this->assertEquals( [ 'P13n-Geo-Country-Code', 'P13n-Interest' ],
 		get_supported_vary_headers(),
 		'The vary headers supported do not match.'
 		);
@@ -43,6 +46,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the add_header_data function.
+	 * @group wp
 	 */
 	public function testAddHeaderData() {
 		$input = [
@@ -68,8 +72,11 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the edge_integrations_enabled function.
+	 * @group wp
 	 */
 	public function testEIEnabled() {
+		$_SERVER['HTTP_P13N_INTEREST'] = 'foo';
+		$_SERVER['HTTP_P13N_GEO_COUNTRY_CODE'] = 'bar';
 		remove_all_filters( 'pantheon.ei.parsed_geo_data' );
 		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
 		$headers = get_supported_vary_headers();
@@ -103,9 +110,10 @@ class testsBase extends TestCase {
 		$dummy_data = [
 			'city' => 'City',
 			'region' => 'State',
-			'country' => 'US',
+			'country-code' => 'US',
 		];
 		add_filter( 'pantheon.ei.parsed_geo_data', function( $data ) use ( $dummy_data ) {
+			$data = empty( $data ) ? [] : $data;
 			$data['city'] = $dummy_data['city'];
 			$data['region'] = $dummy_data['region'];
 			$data['country'] = $dummy_data['country'];
