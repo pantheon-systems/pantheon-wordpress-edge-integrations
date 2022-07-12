@@ -33,6 +33,7 @@ jobs:
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
+        npm -v && npm install --legacy-peer-deps
         npm run release
         git status
         git commit -m "Built assets"
