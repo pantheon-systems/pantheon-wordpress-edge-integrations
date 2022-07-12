@@ -54,7 +54,7 @@
         "test:api": "vendor/bin/phpunit -c phpunit.xml --group wp-api",
         "test:geo": "vendor/bin/phpunit -c phpunit.xml --group wp-geo",
         "test:interest": "vendor/bin/phpunit -c phpunit.xml --group wp-interest",
-        "test": "composer test:unit"
+        "test": "bash scripts/test"
     },
     "config": {
         "allow-plugins": {
