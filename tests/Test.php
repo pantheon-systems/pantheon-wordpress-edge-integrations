@@ -17,6 +17,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Make sure unit tests are running.
+	 * @group wp
 	 */
 	public function testPHPUnitIsWorking() {
 		$this->assertTrue( function_exists( '\\Pantheon\\EI\\WP\\bootstrap' ) );
@@ -24,6 +25,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Ensure the Globals are defined.
+	 * @group wp
 	 */
 	public function testGlobalsAreDefined() {
 		$this->assertTrue( defined( 'PANTHEON_EDGE_INTEGRATIONS_VERSION' ) );
@@ -33,6 +35,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the supported vary headers.
+	 * @group wp
 	 */
 	public function testSupportedVaryHeaders() {
 		$this->assertEquals( [ 'P13n-Geo-Country-Code', 'P13n-Interest' ],
@@ -43,6 +46,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the add_header_data function.
+	 * @group wp
 	 */
 	public function testAddHeaderData() {
 		$input = [
@@ -68,6 +72,7 @@ class testsBase extends TestCase {
 
 	/**
 	 * Test the edge_integrations_enabled function.
+	 * @group wp
 	 */
 	public function testEIEnabled() {
 		$_SERVER['HTTP_P13N_INTEREST'] = 'foo';

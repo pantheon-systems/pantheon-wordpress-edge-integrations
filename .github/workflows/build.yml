@@ -8,7 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Lint and Test
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
+    - uses: shogo82148/actions-setup-mysql@v1
+      with:
+        mysql-version: 'mariadb-10.9'
+        root-password: ''
+    - name: Start MariaDB
+      run: mysql -uroot -h127.0.0.1 -e 'SELECT version()'
     - name: Install dependencies
       run: composer install
     - name: Run lint
@@ -27,6 +33,7 @@ jobs:
       run: |
         git config --local user.email "bot@getpantheon.com"
         git config --local user.name "Pantheon Automation"
+        npm -v && npm install --legacy-peer-deps
         npm run release
         git status
         git commit -m "Built assets"

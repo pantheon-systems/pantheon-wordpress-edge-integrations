@@ -1,0 +1,10 @@
+#!/bin/bash
+# Check if the WordPress test suite is installed.
+if [ ! -d "$TMPDIR/wordpress-tests-lib" ]; then
+	echo "WordPress test library not installed. Installing..."
+	composer test:install-wp-unit
+fi
+
+# Run the tests.
+echo "Running WordPress Unit tests..."
+composer test:unit
