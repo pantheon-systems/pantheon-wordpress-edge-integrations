@@ -59,7 +59,7 @@
     "react-app": "^1.1.2",
     "replace-in-file": "^5",
     "semver": "^7",
-    "terser": "^4.4.3",
+    "terser": "^4.8.1",
     "version-bump-prompt": "^6.1.0",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
