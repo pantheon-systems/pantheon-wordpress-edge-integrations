@@ -6,10 +6,13 @@
 	<!-- Exclude tests from linting. -->
 	<exclude-pattern>tests/*</exclude-pattern>
 
+	<rule ref="PHPCompatibilityWP" />
+
 	<!-- Use Pantheon WP Coding Standards -->
 	<rule ref="Pantheon-WP">
 		<!-- Exclude rules here using the following syntax: -->
 		<!-- <exclude name="HM.Debug.ForceShortArray" /> -->
 		<exclude name="HM.Files.NamespaceDirectoryName.NoIncDirectory" />
+		<exclude name="WordPressVIPMinimum.Variables.RestrictedVariables.cache_constraints___COOKIE" />
 	</rule>
 </ruleset>

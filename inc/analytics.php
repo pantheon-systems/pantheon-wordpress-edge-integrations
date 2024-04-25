@@ -14,7 +14,7 @@ use Pantheon\EI\WP;
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
-	$n = function( $callback ) {
+	$n = function ( $callback ) {
 		return __NAMESPACE__ . "\\$callback";
 	};
 
@@ -88,7 +88,7 @@ function get_gtm_code() {
 	$gtm_code = apply_filters( 'pantheon.ei.gtm_code', false );
 
 	// Return false if we don't have a valid GTM code.
-	if ( ! $gtm_code || is_string( $gtm_code ) && false === stripos( $gtm_code, 'GTM' ) ) {
+	if ( ! $gtm_code || ( is_string( $gtm_code ) && false === stripos( $gtm_code, 'GTM' ) ) ) {
 		return false;
 	}
 
