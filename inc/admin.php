@@ -17,7 +17,7 @@ use Pantheon\EI\WP\Analytics;
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
-	$n = function( $callback ) {
+	$n = function ( $callback ) {
 		return __NAMESPACE__ . "\\$callback";
 	};
 
@@ -150,7 +150,7 @@ function render_ei_status_field( array $args ) {
  *
  * @return string The sanitized GTM code.
  */
-function sanitize_gtm_code( string $gtm_code ) : string {
+function sanitize_gtm_code( string $gtm_code ): string {
 	// Bail early if we don't have a GTM code.
 	if ( ! $gtm_code ) {
 		return '';

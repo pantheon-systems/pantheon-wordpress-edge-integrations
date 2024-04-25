@@ -14,7 +14,7 @@ use Pantheon\EI;
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
-	$n = function( $callback ) {
+	$n = function ( $callback ) {
 		return __NAMESPACE__ . "\\$callback";
 	};
 
@@ -79,7 +79,7 @@ function set_interest_header() {
  *
  * @return array The new interest data.
  */
-function set_interest( array $data = null ) : array {
+function set_interest( array $data = null ): array {
 	/**
 	 * Get the interest data from the HeaderData class and allow it to be filtered.
 	 *
@@ -96,7 +96,7 @@ function set_interest( array $data = null ) : array {
  *
  * @return array The requested interest data.
  */
-function get_interest() : array {
+function get_interest(): array {
 	/**
 	 * Get the interest data from the HeaderData class and allow it to be filtered.
 	 *
@@ -112,7 +112,7 @@ function get_interest() : array {
  *
  * @return array
  */
-function get_interest_allowed_post_types() : array {
+function get_interest_allowed_post_types(): array {
 	/**
 	 * Allow engineers to modify post type support.
 	 *
@@ -127,7 +127,7 @@ function get_interest_allowed_post_types() : array {
  *
  * @return array
  */
-function get_interest_taxonomy() : array {
+function get_interest_taxonomy(): array {
 	/**
 	 * Allow engineers to modify the targeted taxonomy.
 	 *
@@ -142,7 +142,7 @@ function get_interest_taxonomy() : array {
  *
  * @return int
  */
-function get_interest_threshold() : int {
+function get_interest_threshold(): int {
 	/**
 	 * Allow engineers to modify the interest threshold.
 	 *
@@ -157,7 +157,7 @@ function get_interest_threshold() : int {
  *
  * @return int
  */
-function get_cookie_expiration() : int {
+function get_cookie_expiration(): int {
 	/**
 	 * Allow engineers to modify the cookie expiration.
 	 *

@@ -25,8 +25,7 @@
     },
     "require-dev": {
         "consolidation/robo": "^3.0",
-        "humanmade/coding-standards": "^1.1",
-        "wp-coding-standards/wpcs": "2.3.0 as 2.2.1",
+        "pantheon-systems/pantheon-wp-coding-standards": "^2.0",
         "phpunit/phpunit": "^9.5",
         "wordpress/wordpress": "dev-master"
     },
