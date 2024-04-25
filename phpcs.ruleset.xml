@@ -6,8 +6,8 @@
 	<!-- Exclude tests from linting. -->
 	<exclude-pattern>tests/*</exclude-pattern>
 
-	<!-- Use HM Coding Standards -->
-	<rule ref="vendor/humanmade/coding-standards">
+	<!-- Use Pantheon WP Coding Standards -->
+	<rule ref="Pantheon-WP">
 		<!-- Exclude rules here using the following syntax: -->
 		<!-- <exclude name="HM.Debug.ForceShortArray" /> -->
 		<exclude name="HM.Files.NamespaceDirectoryName.NoIncDirectory" />
