@@ -3,7 +3,7 @@
         'name' => 'pantheon-systems/pantheon-wordpress-edge-integrations',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'ed75f13774d3deb52a1b754fdc8c5ee2d0b60b75',
+        'reference' => '34daa3cac42f6b56f678f67bd730d92488bee6b5',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,7 +22,7 @@
         'pantheon-systems/pantheon-wordpress-edge-integrations' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'ed75f13774d3deb52a1b754fdc8c5ee2d0b60b75',
+            'reference' => '34daa3cac42f6b56f678f67bd730d92488bee6b5',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

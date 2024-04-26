@@ -159,18 +159,18 @@ function register_endpoints() {
  *
  * @return array
  */
-function get_available_segments() : array {
+function get_available_segments(): array {
 	$supported_vary_headers = WP\get_supported_vary_headers();
 	$available_segments = [];
 
 	foreach ( $supported_vary_headers as $vary_header ) {
 		if ( false !== stripos( $vary_header, 'Interest' ) ) {
 			$available_segments[] = 'interest';
-		};
+		}
 
 		if ( false !== stripos( $vary_header, 'Geo' ) ) {
 			$available_segments[] = 'geo';
-		};
+		}
 	}
 
 	if ( count( $available_segments ) > 1 ) {
@@ -187,7 +187,7 @@ function get_available_segments() : array {
  *
  * @return array The segments endpoint schema.
  */
-function get_segments_schema() : array {
+function get_segments_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'segments',
@@ -219,7 +219,7 @@ function get_segments_schema() : array {
  *
  * @return array An array of segment descriptions or an array containing the name and description of the requested segment.
  */
-function get_segment_descriptions( string $segment = '' ) : array {
+function get_segment_descriptions( string $segment = '' ): array {
 	$connection_description = [
 		'name' => 'connection',
 		'description' => 'User segments derived from connection information.',
@@ -270,10 +270,10 @@ function get_segment_descriptions( string $segment = '' ) : array {
  *
  * @return array An array of connection segments with values of true or false depending on which ones are varied on.
  */
-function get_conn_segments() : array {
+function get_conn_segments(): array {
 	$segments = [ 'conn-speed', 'conn-type' ];
 	$allowed_headers = array_map(
-		function( $header ) {
+		function ( $header ) {
 			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
 		}, WP\get_supported_vary_headers()
 	);
@@ -294,7 +294,7 @@ function get_conn_segments() : array {
  *
  * @return array The connection segments schema.
  */
-function get_conn_segments_schema() : array {
+function get_conn_segments_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'connection segments',
@@ -319,10 +319,10 @@ function get_conn_segments_schema() : array {
  *
  * @return array An array of geo segments with values of true or false depending on which ones are varied on.
  */
-function get_geo_segments() : array {
+function get_geo_segments(): array {
 	$segments = array_filter( Geo\get_geo_allowed_values() );
 	$allowed_headers = array_map(
-		function( $header ) {
+		function ( $header ) {
 			return strtolower( str_replace( 'P13n-Geo-', '', $header ) );
 		}, WP\get_supported_vary_headers()
 	);
@@ -353,7 +353,7 @@ function get_geo_segments() : array {
  *
  * @return array The geo segments schema.
  */
-function get_geo_segments_schema() : array {
+function get_geo_segments_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'geo segments',
@@ -380,7 +380,7 @@ function get_geo_segments_schema() : array {
  *
  * @return array An array of terms from the assigned interest taxonomy(ies).
  */
-function get_interests_segments() : array {
+function get_interests_segments(): array {
 	$interest_taxonomy = Interest\get_interest_taxonomy();
 	$terms = get_terms( [
 		'taxonomy' => $interest_taxonomy,
@@ -394,7 +394,7 @@ function get_interests_segments() : array {
 		$segments[ $i ]->name = $term->name;
 		$segments[ $i ]->type = $term->taxonomy;
 		$segments[ $i ]->id = $term->term_id;
-		$i++;
+		++$i;
 	}
 
 	return $segments;
@@ -405,7 +405,7 @@ function get_interests_segments() : array {
  *
  * @return array The interest segments schema.
  */
-function get_interests_segments_schema() : array {
+function get_interests_segments_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest segments',
@@ -436,7 +436,7 @@ function get_interests_segments_schema() : array {
  *
  * @return object The current configuration of the plugin.
  */
-function get_config() : object {
+function get_config(): object {
 	// The list of endpoints under /config.
 	$endpoints = [
 		'geo/allowed',
@@ -478,7 +478,7 @@ function get_config() : object {
  *
  * @return array The config endpoint schema.
  */
-function get_config_schema() : array {
+function get_config_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'edge integrations config',
@@ -531,7 +531,7 @@ function get_config_schema() : array {
  *
  * @return array The geo allowed config schema.
  */
-function get_geo_allowed_config_schema() : array {
+function get_geo_allowed_config_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'geo allowed config',
@@ -544,7 +544,7 @@ function get_geo_allowed_config_schema() : array {
  *
  * @return array
  */
-function get_interest_cookie_expiration_schema() : array {
+function get_interest_cookie_expiration_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest cookie expiration',
@@ -557,7 +557,7 @@ function get_interest_cookie_expiration_schema() : array {
  *
  * @return array
  */
-function get_interest_allowed_post_types_schema() : array {
+function get_interest_allowed_post_types_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest allowed post types',
@@ -573,7 +573,7 @@ function get_interest_allowed_post_types_schema() : array {
  *
  * @return array
  */
-function get_interest_allowed_taxonomies_schema() : array {
+function get_interest_allowed_taxonomies_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest allowed taxonomies',
@@ -589,7 +589,7 @@ function get_interest_allowed_taxonomies_schema() : array {
  *
  * @return array
  */
-function get_interest_threshold_schema() : array {
+function get_interest_threshold_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'interest threshold',
@@ -604,7 +604,7 @@ function get_interest_threshold_schema() : array {
  *
  * @return object The current user's personalization data.
  */
-function get_all_user_data( WP_REST_Request $request = null ) : object {
+function get_all_user_data( WP_REST_Request $request = null ): object {
 	if ( $request ) {
 		$geo = [];
 
@@ -634,7 +634,7 @@ function get_all_user_data( WP_REST_Request $request = null ) : object {
 
 		// If an interest was passed to the API endpoint, use the filter to reflect that.
 		if ( $passed_interest ) {
-			add_filter( 'pantheon.ei.parsed_interest_data', function() use ( $passed_interest ) : array {
+			add_filter( 'pantheon.ei.parsed_interest_data', function () use ( $passed_interest ): array {
 				return [ $passed_interest ];
 			} );
 		}
@@ -652,7 +652,7 @@ function get_all_user_data( WP_REST_Request $request = null ) : object {
  *
  * @return array
  */
-function get_all_user_data_schema() : array {
+function get_all_user_data_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'all user data',
@@ -716,7 +716,7 @@ function get_all_user_data_schema() : array {
  *
  * @return string
  */
-function get_user_data_city( WP_REST_Request $request = null ) : string {
+function get_user_data_city( WP_REST_Request $request = null ): string {
 	return get_all_user_data( $request )->geo->city;
 }
 
@@ -725,7 +725,7 @@ function get_user_data_city( WP_REST_Request $request = null ) : string {
  *
  * @return array
  */
-function get_user_data_city_schema() : array {
+function get_user_data_city_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data city',
@@ -741,7 +741,7 @@ function get_user_data_city_schema() : array {
  *
  * @return string
  */
-function get_user_data_conn_speed( WP_REST_Request $request = null ) : string {
+function get_user_data_conn_speed( WP_REST_Request $request = null ): string {
 	$conn_speed = 'conn-speed';
 	return get_all_user_data( $request )->geo->$conn_speed;
 }
@@ -751,7 +751,7 @@ function get_user_data_conn_speed( WP_REST_Request $request = null ) : string {
  *
  * @return array
  */
-function get_user_data_conn_speed_schema() : array {
+function get_user_data_conn_speed_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data conn speed',
@@ -767,7 +767,7 @@ function get_user_data_conn_speed_schema() : array {
  *
  * @return string
  */
-function get_user_data_conn_type( WP_REST_Request $request = null ) : string {
+function get_user_data_conn_type( WP_REST_Request $request = null ): string {
 	$conn_type = 'conn-type';
 	return get_all_user_data( $request )->geo->$conn_type;
 }
@@ -777,7 +777,7 @@ function get_user_data_conn_type( WP_REST_Request $request = null ) : string {
  *
  * @return array
  */
-function get_user_data_conn_type_schema() : array {
+function get_user_data_conn_type_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data conn type',
@@ -793,7 +793,7 @@ function get_user_data_conn_type_schema() : array {
  *
  * @return string
  */
-function get_user_data_continent_code( WP_REST_Request $request = null ) : string {
+function get_user_data_continent_code( WP_REST_Request $request = null ): string {
 	$continent_code = 'continent-code';
 	return get_all_user_data( $request )->geo->$continent_code;
 }
@@ -803,7 +803,7 @@ function get_user_data_continent_code( WP_REST_Request $request = null ) : strin
  *
  * @return array
  */
-function get_user_data_continent_code_schema() : array {
+function get_user_data_continent_code_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data continent code',
@@ -819,7 +819,7 @@ function get_user_data_continent_code_schema() : array {
  *
  * @return string
  */
-function get_user_data_country_code( WP_REST_Request $request = null ) : string {
+function get_user_data_country_code( WP_REST_Request $request = null ): string {
 	$country_code = 'country-code';
 	return get_all_user_data( $request )->geo->$country_code;
 }
@@ -829,7 +829,7 @@ function get_user_data_country_code( WP_REST_Request $request = null ) : string 
  *
  * @return array
  */
-function get_user_data_country_code_schema() : array {
+function get_user_data_country_code_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data country code',
@@ -845,7 +845,7 @@ function get_user_data_country_code_schema() : array {
  *
  * @return string
  */
-function get_user_data_country_name( WP_REST_Request $request = null ) : string {
+function get_user_data_country_name( WP_REST_Request $request = null ): string {
 	$country_name = 'country-name';
 	return get_all_user_data( $request )->geo->$country_name;
 }
@@ -855,7 +855,7 @@ function get_user_data_country_name( WP_REST_Request $request = null ) : string 
  *
  * @return array
  */
-function get_user_data_country_name_schema() : array {
+function get_user_data_country_name_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data country name',
@@ -871,7 +871,7 @@ function get_user_data_country_name_schema() : array {
  *
  * @return string
  */
-function get_user_data_region( WP_REST_Request $request = null ) : string {
+function get_user_data_region( WP_REST_Request $request = null ): string {
 	return get_all_user_data( $request )->geo->region;
 }
 
@@ -880,7 +880,7 @@ function get_user_data_region( WP_REST_Request $request = null ) : string {
  *
  * @return array
  */
-function get_user_data_region_schema() : array {
+function get_user_data_region_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data region',
@@ -896,7 +896,7 @@ function get_user_data_region_schema() : array {
  *
  * @return string
  */
-function get_user_data_interest( WP_REST_Request $request = null ) : string {
+function get_user_data_interest( WP_REST_Request $request = null ): string {
 	return get_all_user_data( $request )->interest;
 }
 
@@ -905,7 +905,7 @@ function get_user_data_interest( WP_REST_Request $request = null ) : string {
  *
  * @return array
  */
-function get_user_data_interest_schema() : array {
+function get_user_data_interest_schema(): array {
 	return [
 		'$schema' => 'http://json-schema.org/schema#',
 		'title' => 'user data interest',

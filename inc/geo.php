@@ -17,10 +17,11 @@ use Pantheon\EI;
  * If an empty string is passed, get_geo() will return all Audience data encoded in JSON format.
  *
  * @param mixed $data Data to pass to the HeaderData class. By default, this is pulled from $_SERVER data.
+ * @param string $header The header to use when fetching the data. Defaults to 'Audience-Set'.
  *
  * @return string The requested geo data.
  */
-function get_geo( string $data_type = '', $data = null ) : string {
+function get_geo( string $data_type = '', $data = null, string $header = 'Audience-Set' ): string {
 	// Backwards compatibility for old data types.
 	$data_type = $data_type === 'country' ? 'country-code' : $data_type;
 	$data_type = $data_type === 'continent' ? 'continent-code' : $data_type;
@@ -77,7 +78,7 @@ function get_geo( string $data_type = '', $data = null ) : string {
  *
  * @return array
  */
-function get_geo_allowed_values() : array {
+function get_geo_allowed_values(): array {
 	/**
 	 * Allow developers to modify the allowed geo data types.
 	 *
@@ -101,7 +102,7 @@ function get_geo_allowed_values() : array {
  *
  * @return array
  */
-function get_geo_allowed_headers() : array {
+function get_geo_allowed_headers(): array {
 	$values = get_geo_allowed_values();
 	$headers = [];
 
