@@ -16,6 +16,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Make sure unit tests are running.
+	 * @group wp-interest
 	 */
 	public function testNamespaceLoaded() {
 		$this->assertTrue(
@@ -25,7 +26,26 @@ class interestsTests extends TestCase {
 	}
 
 	/**
+	 * Test that we can get the expected Interest header key.
+	 * @group wp-interest
+	 */
+	public function testGetInterestHeaderKey() {
+		$this->assertEquals(
+			'P13n-Interest',
+			Interest\get_interest_header_key()
+		);
+
+		// This tests code in set_interest. This assertion ensures that the headers we set are correct.
+		$http_interest = strtoupper( 'HTTP_' . str_replace( '-', '_', Interest\get_interest_header_key() ) );
+		$this->assertEquals(
+			'HTTP_P13N_INTEREST',
+			$http_interest
+		);
+	}
+
+	/**
 	 * Test Interest post types.
+	 * @group wp-interest
 	 */
 	public function testRegisterScript() {
 		$this->assertTrue(
@@ -36,6 +56,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Interest taxonomy.
+	 * @group wp-interest
 	 */
 	public function testInterestTaxomony() {
 		$this->assertTrue(
@@ -46,6 +67,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Interest threshold.
+	 * @group wp-interest
 	 */
 	public function testInterestThreshold() {
 		$this->assertTrue(
@@ -56,6 +78,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test Cookie expiration.
+	 * @group wp-interest
 	 */
 	public function testCookieExpiration() {
 		$this->assertTrue(
@@ -66,6 +89,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.post_types filter.
+	 * @group wp-interest
 	 */
 	public function testInterestPostTypesFilter() {
 		// Filter the interest threshold.
@@ -82,6 +106,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.taxonomy filter.
+	 * @group wp-interest
 	 */
 	public function testInterestTaxonomyFilter() {
 		// Filter the interest taxonomy.
@@ -98,6 +123,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.interest_threshold filter.
+	 * @group wp-interest
 	 */
 	public function testInterestThresholdFilter() {
 		// Filter the interest threshold.
@@ -114,6 +140,7 @@ class interestsTests extends TestCase {
 
 	/**
 	 * Test the pantheon.ei.cookie_expiration filter.
+	 * @group wp-interest
 	 */
 	public function testCookieExpirationFilter() {
 		// Filter the interest threshold.
@@ -158,7 +185,7 @@ class interestsTests extends TestCase {
 	 */
 	public function testSetInterest( array $interest_data ) {
 		// Get the actual data in a format that's easier to read.
-		$parsed_data = EI\HeaderData::parse( 'Interest', $interest_data );
+		$parsed_data = EI\HeaderData::parse( Interest\get_interest_header_key(), $interest_data );
 
 		$interest = Interest\set_interest( $interest_data );
 		$this->assertIsArray( $interest );
@@ -180,10 +207,10 @@ class interestsTests extends TestCase {
 	 */
 	public function testParsedInterestData() {
 		remove_all_filters( 'pantheon.ei.parsed_interest_data' );
-		$input = [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+		$input = [ 'HTTP_P13N_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
 		// Filter the parsed interest data.
 		add_filter( 'pantheon.ei.parsed_interest_data', function( $interest_data ) {
-			return [ 'HTTP_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
+			return [ 'HTTP_P13N_INTEREST' =>'Carl Sagan|Richard Feynman|Albert Einstein' ];
 		}, 10, 1 );
 
 		$data = Interest\get_interest( $input );
@@ -202,7 +229,7 @@ class interestsTests extends TestCase {
 	public function mockGetInterestData() : array {
 		return [
 			[
-				'mockInterestData' => [ 'HTTP_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
+				'mockInterestData' => [ 'HTTP_P13N_INTEREST' => 'Carl Sagan|Richard Feynman|Neil deGrasse Tyson' ]
 			]
 		];
 	}
