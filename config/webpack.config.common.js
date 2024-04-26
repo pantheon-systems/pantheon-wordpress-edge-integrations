@@ -31,10 +31,6 @@ module.exports = {
 		filename: settings.filename.js,
 	},
 
-	// Console stats output.
-	// @link https://webpack.js.org/configuration/stats/#stats
-	stats: settings.stats,
-
 	// External objects.
 	externals: {
 		jquery: 'jQuery',

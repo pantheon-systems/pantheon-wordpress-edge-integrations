@@ -16,7 +16,7 @@ use Pantheon\EI;
  */
 function bootstrap() {
 	// Helper variable function that simplifies callbacks.
-	$n = function( $callback ) {
+	$n = function ( $callback ) {
 		return __NAMESPACE__ . "\\$callback";
 	};
 
@@ -110,7 +110,7 @@ function enqueue_admin_scripts() {
  *
  * @return array Array of supported vary header keys.
  */
-function get_supported_vary_headers() : array {
+function get_supported_vary_headers(): array {
 	/**
 	 * Allow developers to modify the vary headers supported by the plugin.
 	 *
@@ -162,7 +162,7 @@ function set_vary_headers() {
  *
  * @return array The header data.
  */
-function update_vary_headers( array $key = null, array $data = null ) : array {
+function update_vary_headers( array $key = null, array $data = null ): array {
 	/**
 	 * Get the data from the HeaderData class and allow it to be filtered.
 	 *
@@ -181,7 +181,7 @@ function update_vary_headers( array $key = null, array $data = null ) : array {
  *
  * @return bool Whether Edge Integrations have been configured and the CDN is returning data.
  */
-function edge_integrations_enabled() : bool {
+function edge_integrations_enabled(): bool {
 	$edge_enabled = false;
 	$geo = Geo\get_geo();
 	$interest = Interest\get_interest();
