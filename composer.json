@@ -21,10 +21,10 @@
         }
     ],
     "require": {
-        "pantheon-systems/pantheon-edge-integrations": "^v1.1.0-alpha1"
+        "pantheon-systems/pantheon-edge-integrations": "^v1.0"
     },
     "require-dev": {
-        "consolidation/robo": "^3.0",
+        "consolidation/robo": "^4.0",
         "pantheon-systems/pantheon-wp-coding-standards": "^2.0",
         "phpunit/phpunit": "^9.5",
         "yoast/phpunit-polyfills": "^1.0",
