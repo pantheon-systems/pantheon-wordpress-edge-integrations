@@ -16,7 +16,7 @@ jobs:
     - name: Start MariaDB
       run: mysql -uroot -h127.0.0.1 -e 'SELECT version()'
     - name: Install dependencies
-      run: composer install
+      run: composer update
     - name: Run lint
       run: composer lint
     - name: Run unit tests
