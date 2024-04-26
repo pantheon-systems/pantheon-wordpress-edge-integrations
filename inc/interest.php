@@ -27,7 +27,7 @@ function bootstrap() {
  *
  * @return string The Interest header key.
  */
-function get_interest_header_key() : string {
+function get_interest_header_key(): string {
 	/**
 	 * Allow the Interest header key to be customized.
 	 *
