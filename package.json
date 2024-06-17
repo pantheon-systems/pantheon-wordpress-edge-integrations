@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/pantheon-systems/pantheon-wordpress-edge-integrations#readme",
   "dependencies": {
-    "testcafe": "^3.6.0",
+    "testcafe": "^3.6.1",
     "testcafe-browser-tools": "^2.0.26"
   },
   "devDependencies": {
