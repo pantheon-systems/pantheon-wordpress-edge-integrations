@@ -47,7 +47,7 @@
     "glob-parent": ">=6.0.2",
     "js-cookie": "^3.0.5",
     "react-app": "^1.1.2",
-    "replace-in-file": "^7",
+    "replace-in-file": "^8",
     "semver": "^7",
     "terser": "^5.30.4",
     "version-bump-prompt": "^6.1.0",
